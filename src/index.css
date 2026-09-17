@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Commissioner:wght@100..900&family=Geist+Mono:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Commissioner:wght@100..900&family=Geist+Mono:wght@100..900&family=Karla:ital,wght@0,200..800;1,200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-primary: "Montserrat", sans-serif;
+  --font-secondary: "Montserrat", sans-serif;
+  --font-display: "Barlow Condensed", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.page-enter {
+  animation: page-enter 420ms ease-out both;
+}
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 600ms ease,
+    transform 600ms ease;
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .page-enter,
+  .scroll-reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
