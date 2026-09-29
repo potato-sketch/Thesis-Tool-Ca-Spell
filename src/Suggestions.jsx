@@ -8,7 +8,12 @@ const suggestions = [
   { error: "occured", suggestion: "occurred", confidence: "94%" },
 ];
 
-export default function Suggestions({ nonEnglishWords = [] }) {
+export default function Suggestions({
+  nonEnglishWords = [],
+  tokens = [],
+  analysisStatus = "idle",
+  analysisError = "",
+}) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -47,6 +52,36 @@ export default function Suggestions({ nonEnglishWords = [] }) {
             </svg>
           </button>
         </div>
+
+        <section className="mb-4 rounded-md border border-violet-100 bg-violet-50 p-3">
+          <h4 className="font-semibold text-violet-950">CalamanCy analysis</h4>
+          {analysisStatus === "idle" && (
+            <p className="mt-1 text-sm text-slate-600">Enter text to analyze its Tagalog tokens.</p>
+          )}
+          {analysisStatus === "loading" && (
+            <p className="mt-1 text-sm text-slate-600">Analyzing…</p>
+          )}
+          {analysisStatus === "error" && (
+            <p className="mt-1 text-sm text-red-700">
+              Could not reach the backend. Make sure it is running. ({analysisError})
+            </p>
+          )}
+          {analysisStatus === "ready" && (
+            tokens.length ? (
+              <ul className="mt-2 max-h-40 space-y-1 overflow-y-auto text-sm">
+                {tokens.map((token, index) => (
+                  <li key={`${token.start}-${index}`} className="flex flex-wrap gap-x-2">
+                    <span className="font-medium text-slate-900">{token.text}</span>
+                    <span className="text-violet-800">{token.pos}</span>
+                    <span className="text-slate-500">{token.dependency}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="mt-1 text-sm text-slate-600">No tokens returned.</p>
+            )
+          )}
+        </section>
 
         {nonEnglishWords.map((word) => (
           <div

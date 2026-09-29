@@ -13,6 +13,42 @@ function App() {
   const wordCount = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
   const [isOpen, setIsOpen] = useState(false);
   const [activePage, setActivePage] = useState("home");
+  const [analysis, setAnalysis] = useState({ tokens: [], status: "idle", error: "" });
+
+  useEffect(() => {
+    const input = text.trim();
+    if (!input) {
+      setAnalysis({ tokens: [], status: "idle", error: "" });
+      return;
+    }
+
+    const controller = new AbortController();
+    const timer = setTimeout(async () => {
+      setAnalysis((current) => ({ ...current, status: "loading", error: "" }));
+      try {
+        const response = await fetch("http://127.0.0.1:8000/api/check", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text: input }),
+          signal: controller.signal,
+        });
+        if (!response.ok) {
+          throw new Error(`Backend returned ${response.status}`);
+        }
+        const result = await response.json();
+        setAnalysis({ tokens: result.tokens ?? [], status: "ready", error: "" });
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          setAnalysis({ tokens: [], status: "error", error: error.message });
+        }
+      }
+    }, 700);
+
+    return () => {
+      clearTimeout(timer);
+      controller.abort();
+    };
+  }, [text]);
 
   const textParts =
     text.match(/\s+|[\p{L}\p{M}]+(?:['’][\p{L}\p{M}]+)*|[^\s\p{L}\p{M}]+/gu) ??
@@ -272,7 +308,12 @@ function App() {
               </div>
               <div className="">
                 <div className="col-span-1 p-4 rounded">
-                  <Suggestions nonEnglishWords={nonEnglishWords} />
+                  <Suggestions
+                    nonEnglishWords={nonEnglishWords}
+                    tokens={analysis.tokens}
+                    analysisStatus={analysis.status}
+                    analysisError={analysis.error}
+                  />
                 </div>
               </div>
             </div>
