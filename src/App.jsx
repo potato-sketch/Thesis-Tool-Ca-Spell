@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Suggestions from "./Suggestions";
 import TextType from "./TextType";
 import DecryptedText from "./DecryptedText";
+import { findNonEnglishWords, isNonEnglishWord } from "./nonEnglishWords";
 import Delete from "./assets/delete.png";
 import Copy from "./assets/copy.png";
 
@@ -13,7 +14,10 @@ function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [activePage, setActivePage] = useState("home");
 
-  const textParts = text.match(/\s+|\S+/g) ?? [];
+  const textParts =
+    text.match(/\s+|[\p{L}\p{M}]+(?:['’][\p{L}\p{M}]+)*|[^\s\p{L}\p{M}]+/gu) ??
+    [];
+  const nonEnglishWords = findNonEnglishWords(text);
   let renderedWordCount = 0;
 
   useEffect(() => {
@@ -37,7 +41,10 @@ function App() {
 
   useEffect(() => {
     function handleOutsideClick(event) {
-      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target)
+      ) {
         setIsOpen(false);
       }
     }
@@ -209,18 +216,19 @@ function App() {
                   style={{ lineHeight: "2.5rem" }}
                 >
                   {textParts.map((part, index) => {
-                    const isWord = /\S/.test(part);
+                    const isWord = /[\p{L}\p{M}]/u.test(part);
                     const wordIndex = renderedWordCount;
                     if (isWord) renderedWordCount += 1;
+                    const isNonEnglish = isWord && isNonEnglishWord(part);
 
                     return (
                       <span
                         key={`${index}-${part}`}
-                        className={
+                        className={`${
                           isWord && wordCount > 100 && wordIndex >= 100
-                            ? "text-gray-400 leading-10"
-                            : "text-black leading-10"
-                        }
+                            ? "text-gray-400"
+                            : "text-black"
+                        } leading-10 ${isNonEnglish ? "non-english-word" : ""}`}
                       >
                         {part}
                       </span>
@@ -264,7 +272,7 @@ function App() {
               </div>
               <div className="">
                 <div className="col-span-1 p-4 rounded">
-                  <Suggestions />
+                  <Suggestions nonEnglishWords={nonEnglishWords} />
                 </div>
               </div>
             </div>

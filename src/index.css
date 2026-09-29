@@ -3,6 +3,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&display=swap");
 @import "tailwindcss";
 
+.non-english-word {
+  text-decoration-line: underline;
+  text-decoration-color: #dc2626;
+  text-decoration-style: solid;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
 @theme {
   --font-primary: "Montserrat", sans-serif;
   --font-secondary: "Montserrat", sans-serif;

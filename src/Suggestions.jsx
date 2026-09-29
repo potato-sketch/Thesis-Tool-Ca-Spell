@@ -8,7 +8,7 @@ const suggestions = [
   { error: "occured", suggestion: "occurred", confidence: "94%" },
 ];
 
-export default function Suggestions() {
+export default function Suggestions({ nonEnglishWords = [] }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -47,6 +47,31 @@ export default function Suggestions() {
             </svg>
           </button>
         </div>
+
+        {nonEnglishWords.map((word) => (
+          <div
+            key={word.toLocaleLowerCase("en")}
+            className="mb-2 flex items-center justify-between gap-2 rounded-md border border-slate-200 bg-slate-50 p-3 text-sm"
+          >
+            <span className="min-w-0 break-words font-medium text-red-700">
+              {word}
+            </span>
+            <svg
+              className="h-6 w-8 shrink-0 text-slate-400"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14" />
+              <path d="m13 6 6 6-6 6" />
+            </svg>
+            <span className="shrink-0 text-slate-500">No suggestion</span>
+          </div>
+        ))}
 
         <button
           type="button"
