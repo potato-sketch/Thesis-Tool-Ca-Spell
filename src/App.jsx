@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import Suggestions from "./Suggestions";
 import TextType from "./TextType";
 import DecryptedText from "./DecryptedText";
-import { findNonEnglishWords, isNonEnglishWord } from "./nonEnglishWords";
 import Delete from "./assets/delete.png";
 import Copy from "./assets/copy.png";
 
@@ -13,12 +12,17 @@ function App() {
   const wordCount = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
   const [isOpen, setIsOpen] = useState(false);
   const [activePage, setActivePage] = useState("home");
-  const [analysis, setAnalysis] = useState({ tokens: [], status: "idle", error: "" });
+  const [analysis, setAnalysis] = useState({
+    tokens: [],
+    errors: [],
+    status: "idle",
+    error: "",
+  });
 
   useEffect(() => {
     const input = text.trim();
     if (!input) {
-      setAnalysis({ tokens: [], status: "idle", error: "" });
+      setAnalysis({ tokens: [], errors: [], status: "idle", error: "" });
       return;
     }
 
@@ -36,10 +40,22 @@ function App() {
           throw new Error(`Backend returned ${response.status}`);
         }
         const result = await response.json();
-        setAnalysis({ tokens: result.tokens ?? [], status: "ready", error: "" });
+        // The backend reports offsets into the trimmed text; shift them back
+        // onto the original text so they line up with the overlay.
+        const offset = text.length - text.trimStart().length;
+        setAnalysis({
+          tokens: result.tokens ?? [],
+          errors: (result.errors ?? []).map((error) => ({
+            ...error,
+            start: error.start + offset,
+            end: error.end + offset,
+          })),
+          status: "ready",
+          error: "",
+        });
       } catch (error) {
         if (error.name !== "AbortError") {
-          setAnalysis({ tokens: [], status: "error", error: error.message });
+          setAnalysis({ tokens: [], errors: [], status: "error", error: error.message });
         }
       }
     }, 700);
@@ -53,8 +69,29 @@ function App() {
   const textParts =
     text.match(/\s+|[\p{L}\p{M}]+(?:['’][\p{L}\p{M}]+)*|[^\s\p{L}\p{M}]+/gu) ??
     [];
-  const nonEnglishWords = findNonEnglishWords(text);
-  let renderedWordCount = 0;
+  // Only keep errors whose word is still at the same position, so stale
+  // results from before the latest edit don't underline the wrong text.
+  const errorWords = analysis.errors.filter(
+    (error) => text.slice(error.start, error.end) === error.text,
+  );
+  const overlayParts = [];
+  let wordIndex = 0;
+  let partStart = 0;
+  for (const part of textParts) {
+    const isWord = /[\p{L}\p{M}]/u.test(part);
+    const partEnd = partStart + part.length;
+    overlayParts.push({
+      part,
+      isWord,
+      wordIndex: isWord ? wordIndex++ : -1,
+      isError:
+        isWord &&
+        errorWords.some(
+          (error) => error.start < partEnd && error.end > partStart,
+        ),
+    });
+    partStart = partEnd;
+  }
 
   useEffect(() => {
     const revealItems = document.querySelectorAll(".scroll-reveal");
@@ -251,12 +288,7 @@ function App() {
                   className="pointer-events-none absolute inset-0 z-20 overflow-hidden whitespace-pre-wrap wrap-break-word rounded-b border border-transparent p-4 text-left text-transparent leading-10 lg:text-2xl"
                   style={{ lineHeight: "2.5rem" }}
                 >
-                  {textParts.map((part, index) => {
-                    const isWord = /[\p{L}\p{M}]/u.test(part);
-                    const wordIndex = renderedWordCount;
-                    if (isWord) renderedWordCount += 1;
-                    const isNonEnglish = isWord && isNonEnglishWord(part);
-
+                  {overlayParts.map(({ part, isWord, wordIndex, isError }, index) => {
                     return (
                       <span
                         key={`${index}-${part}`}
@@ -264,7 +296,7 @@ function App() {
                           isWord && wordCount > 100 && wordIndex >= 100
                             ? "text-gray-400"
                             : "text-black"
-                        } leading-10 ${isNonEnglish ? "non-english-word" : ""}`}
+                        } leading-10 ${isError ? "error-word" : ""}`}
                       >
                         {part}
                       </span>
@@ -283,6 +315,9 @@ function App() {
                     }
                   }}
                   aria-label="Enter your text"
+                  spellCheck={false}
+                  autoCorrect="off"
+                  autoCapitalize="off"
                   className="relative z-10 h-full w-full top-0 resize-none rounded-b border border-gray-300 p-4 text-left align-top text-transparent leading-10 caret-[#800000] selection:bg-gray-200 lg:text-2xl focus:border-[#800000] focus:outline-none focus:ring-0 transition duration-300"
                   style={{ lineHeight: "2.5rem" }}
                 />
@@ -309,7 +344,7 @@ function App() {
               <div className="">
                 <div className="col-span-1 p-4 rounded">
                   <Suggestions
-                    nonEnglishWords={nonEnglishWords}
+                    errors={errorWords}
                     tokens={analysis.tokens}
                     analysisStatus={analysis.status}
                     analysisError={analysis.error}

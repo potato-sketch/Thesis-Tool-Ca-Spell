@@ -9,7 +9,7 @@ const suggestions = [
 ];
 
 export default function Suggestions({
-  nonEnglishWords = [],
+  errors = [],
   tokens = [],
   analysisStatus = "idle",
   analysisError = "",
@@ -83,9 +83,9 @@ export default function Suggestions({
           )}
         </section>
 
-        {nonEnglishWords.map((word) => (
+        {[...new Set(errors.map((error) => error.text))].map((word) => (
           <div
-            key={word.toLocaleLowerCase("en")}
+            key={word}
             className="mb-2 flex items-center justify-between gap-2 rounded-md border border-slate-200 bg-slate-50 p-3 text-sm"
           >
             <span className="min-w-0 break-words font-medium text-red-700">
