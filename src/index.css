@@ -3,7 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&display=swap");
 @import "tailwindcss";
 
-.error-word {
+.non-english-word {
   text-decoration-line: underline;
   text-decoration-color: #dc2626;
   text-decoration-style: solid;
