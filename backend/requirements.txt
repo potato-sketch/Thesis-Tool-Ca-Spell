@@ -1,3 +1,0 @@
-calamancy==0.2.3
-fastapi
-uvicorn[standard]
