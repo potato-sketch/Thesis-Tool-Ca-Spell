@@ -8,7 +8,7 @@ const suggestions = [
   { error: "occured", suggestion: "occurred", confidence: "94%" },
 ];
 
-export default function Suggestions({ errors = [] }) {
+export default function Suggestions({ nonEnglishWords = [] }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -48,12 +48,12 @@ export default function Suggestions({ errors = [] }) {
           </button>
         </div>
 
-        {[...new Set(errors.map((error) => error.text))].map((word) => (
+        {nonEnglishWords.map((word) => (
           <div
-            key={word}
+            key={word.toLocaleLowerCase("en")}
             className="mb-2 flex items-center justify-between gap-2 rounded-md border border-slate-200 bg-slate-50 p-3 text-sm"
           >
-            <span className="min-w-0 wrap-break-word font-medium text-red-700">
+            <span className="min-w-0 break-words font-medium text-red-700">
               {word}
             </span>
             <svg
@@ -122,12 +122,12 @@ export default function Suggestions({ errors = [] }) {
 
       {isModalOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-slate-950/50 px-4 pb-4 pt-4 sm:pt-8"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/50 p-4"
           role="presentation"
           onClick={() => setIsModalOpen(false)}
         >
           <div
-            className="max-h-[calc(100vh-2rem)] w-full max-w-lg overflow-y-auto rounded-xl bg-white p-5 shadow-2xl sm:max-h-[calc(100vh-4rem)]"
+            className="w-full max-w-lg rounded-xl bg-white p-5 shadow-2xl"
             role="dialog"
             aria-modal="true"
             aria-labelledby="suggestions-title"
