@@ -8,12 +8,7 @@ const suggestions = [
   { error: "occured", suggestion: "occurred", confidence: "94%" },
 ];
 
-export default function Suggestions({
-  errors = [],
-  tokens = [],
-  analysisStatus = "idle",
-  analysisError = "",
-}) {
+export default function Suggestions({ errors = [] }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -53,42 +48,12 @@ export default function Suggestions({
           </button>
         </div>
 
-        <section className="mb-4 rounded-md border border-violet-100 bg-violet-50 p-3">
-          <h4 className="font-semibold text-violet-950">CalamanCy analysis</h4>
-          {analysisStatus === "idle" && (
-            <p className="mt-1 text-sm text-slate-600">Enter text to analyze its Tagalog tokens.</p>
-          )}
-          {analysisStatus === "loading" && (
-            <p className="mt-1 text-sm text-slate-600">Analyzing…</p>
-          )}
-          {analysisStatus === "error" && (
-            <p className="mt-1 text-sm text-red-700">
-              Could not reach the backend. Make sure it is running. ({analysisError})
-            </p>
-          )}
-          {analysisStatus === "ready" && (
-            tokens.length ? (
-              <ul className="mt-2 max-h-40 space-y-1 overflow-y-auto text-sm">
-                {tokens.map((token, index) => (
-                  <li key={`${token.start}-${index}`} className="flex flex-wrap gap-x-2">
-                    <span className="font-medium text-slate-900">{token.text}</span>
-                    <span className="text-violet-800">{token.pos}</span>
-                    <span className="text-slate-500">{token.dependency}</span>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="mt-1 text-sm text-slate-600">No tokens returned.</p>
-            )
-          )}
-        </section>
-
         {[...new Set(errors.map((error) => error.text))].map((word) => (
           <div
             key={word}
             className="mb-2 flex items-center justify-between gap-2 rounded-md border border-slate-200 bg-slate-50 p-3 text-sm"
           >
-            <span className="min-w-0 break-words font-medium text-red-700">
+            <span className="min-w-0 wrap-break-word font-medium text-red-700">
               {word}
             </span>
             <svg
@@ -157,12 +122,12 @@ export default function Suggestions({
 
       {isModalOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/50 p-4"
+          className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-slate-950/50 px-4 pb-4 pt-4 sm:pt-8"
           role="presentation"
           onClick={() => setIsModalOpen(false)}
         >
           <div
-            className="w-full max-w-lg rounded-xl bg-white p-5 shadow-2xl"
+            className="max-h-[calc(100vh-2rem)] w-full max-w-lg overflow-y-auto rounded-xl bg-white p-5 shadow-2xl sm:max-h-[calc(100vh-4rem)]"
             role="dialog"
             aria-modal="true"
             aria-labelledby="suggestions-title"
