@@ -920,7 +920,7 @@ function RegistrationField({ id, name, label, type, autoComplete, minLength }) {
         autoComplete={autoComplete}
         minLength={minLength}
         required
-        className="h-14 w-full rounded-md border border-slate-300 bg-white px-3.5 font-primary text-sm font-normal text-slate-800 outline-none transition-colors placeholder:text-slate-400 focus:border-[#74191d] focus:ring-2 focus:ring-[#74191d]/15"
+        className="h-10 w-full rounded-md border border-slate-300 bg-white px-3.5 font-primary text-sm font-normal text-slate-800 outline-none transition-colors placeholder:text-slate-400 focus:border-[#74191d] focus:ring-2 focus:ring-[#74191d]/15"
       />
     </div>
   );
