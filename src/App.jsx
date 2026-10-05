@@ -4,6 +4,7 @@ import TextType from "./TextType";
 import DecryptedText from "./DecryptedText";
 import Delete from "./assets/delete.png";
 import Copy from "./assets/copy.png";
+import Logo from "./assets/logo-no-bg.png";
 
 function App() {
   const [text, setText] = useState("");
@@ -225,20 +226,19 @@ function App() {
 
   return (
     <div>
-      <nav className="bg-linear-to-r from-[#f6f0ed] via-[#eadfe3] to-[#dfe0eb] px-4 py-4 shadow-sm lg:py-3">
-        <div className="flex items-center justify-between">
-          <div className="font-display text-4xl font-extrabold uppercase leading-none tracking-[-0.04em] lg:text-6xl ">
-            <span className="text-[#38245f]">
-              <DecryptedText text="CA-" speed={75} maxIterations={20} />
-            </span>
-            <span className="text-[#8c1d35]">
-              <DecryptedText text="SPELL" speed={75} maxIterations={20} />
-            </span>
+      <nav className="bg-linear-to-r from-[#f6f0ed] via-[#eadfe3] to-[#dfe0eb] px-3 py-2 shadow-sm lg:px-5 lg:py-2">
+        <div className="flex items-center justify-between ">
+          <div className="flex min-w-0 items-center">
+            <img
+              src={Logo}
+              alt="CA Spell logo"
+              className="h-12 w-auto max-w-[170px] object-contain drop-shadow-[0_2px_6px_rgba(56,36,95,0.08)] sm:h-11 lg:h-12 lg:max-w-[220px]"
+            />
           </div>
           <button
             type="button"
             onClick={() => setFlowPage("landing")}
-            className="border-b border-[#74191d] px-1 py-1 font-primary text-sm font-medium text-[#54151a] transition-colors hover:text-[#8c1d35] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#74191d]"
+            className="border-b border-[#74191d] px-1 py-1 font-primary text-m font-medium text-[#54151a] transition-colors hover:text-[#8c1d35] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#74191d]"
           >
             Home
           </button>
@@ -572,17 +572,22 @@ function CalamancyAnalysis({ tokens, status, error }) {
 
 function Brand({ light = false }) {
   return (
-    <span className="font-display text-4xl font-extrabold uppercase leading-none">
-      <span className={light ? "text-white" : "text-[#38245f]"}>CA-</span>
-      <span className={light ? "text-white" : "text-[#8c1d35]"}>SPELL</span>
-    </span>
+    <img
+      src={Logo}
+      alt="CA Spell logo"
+      className={
+        light
+          ? "h-12 w-auto max-w-[220px] object-contain sm:h-14"
+          : "h-12 w-auto max-w-[220px] object-contain drop-shadow-[0_2px_6px_rgba(56,36,95,0.08)] sm:h-14"
+      }
+    />
   );
 }
 
 function LandingPage({ onLogin }) {
   return (
     <main className="min-h-screen overflow-hidden bg-[linear-gradient(125deg,#f8f3ef_0%,#eee4e4_56%,#e2e3ed_100%)] text-[#241e28]">
-      <header className="mx-auto flex max-w-7xl items-center justify-between px-5 py-6 lg:px-10">
+      <header className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 lg:px-10">
         <Brand />
 
         <button
@@ -725,12 +730,12 @@ function LoginPage({ onContinue, onBack, onCreateAccount }) {
       <button
         type="button"
         onClick={onBack}
-        className="page-enter mb-1"
+        className="page-enter mb-2 flex flex-col items-center text-center"
         aria-label="Back to landing page"
       >
-        <div>
+        <div className="flex flex-col items-center">
           <Brand />
-          <h2 className="font-primary text-base font-medium italic text-[#4b4145] sm:text-lg">
+          <h2 className="mt-2 font-primary text-base font-medium italic text-[#4b4145] sm:text-lg">
             For Every Taglish Error, May Koreksyon
           </h2>
         </div>
@@ -828,12 +833,12 @@ function CreateAccountPage({ onBack, onBackToLogin }) {
       <button
         type="button"
         onClick={onBack}
-        className="page-enter mb-5"
+        className="page-enter mb-5 flex flex-col items-center text-center"
         aria-label="Back to login"
       >
-        <div>
+        <div className="flex flex-col items-center">
           <Brand />
-          <h2 className="font-primary text-base font-medium italic text-[#4b4145] sm:text-lg">
+          <h2 className="mt-2 font-primary text-base font-medium italic text-[#4b4145] sm:text-lg">
             For Every Taglish Error, May Koreksyon
           </h2>
         </div>
