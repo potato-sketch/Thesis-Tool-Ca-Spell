@@ -226,7 +226,7 @@ function App() {
 
   return (
     <div>
-      <nav className="bg-linear-to-r from-[#f6f0ed] via-[#eadfe3] to-[#dfe0eb] px-3 py-2 shadow-sm lg:px-5 lg:py-2">
+      <nav className="relative z-0 bg-linear-to-r from-[#f6f0ed] via-[#eadfe3] to-[#dfe0eb] px-3 py-2 shadow-sm lg:px-5 lg:py-2">
         <div className="flex items-center justify-between ">
           <div className="flex min-w-0 items-center">
             <img
@@ -660,55 +660,212 @@ function LandingPage({ onLogin }) {
 
       <section
         id="about-ca-spell"
-        className="scroll-mt-8 border-t border-[#d8c9cb] bg-[#fbfaf8]/75 px-5 py-14 lg:px-10 lg:py-20"
+        className="scroll-mt-8 border-t border-[#d8c9cb] bg-[#fbfaf8]/80 px-5 py-14 lg:px-10 lg:py-20"
       >
         <div className="mx-auto max-w-7xl">
-          <div className="grid gap-5 border-b border-[#d8c9cb] pb-8 md:grid-cols-[0.8fr_1.8fr] md:gap-12">
-            <div>
-              <p className="font-primary text-sm font-bold uppercase tracking-[0.16em] text-[#74191d]">
-                About Ca-Spell
-              </p>
-              <h2 className="mt-3 font-display text-4xl font-bold uppercase leading-tight text-[#3b2446] sm:text-5xl">
-                Clearer writing for Taglish thinkers.
-              </h2>
-            </div>
-            <p className="max-w-3xl font-primary text-base leading-8 text-[#4e474d] md:pt-7 lg:text-lg">
-              Ca-Spell is an automated spelling checker designed for
-              code-switched Tagalog-English text. It helps writers spot spelling
-              errors while keeping their natural voice intact.
+          <div className="mb-10 border-b border-[#d8c9cb] pb-8">
+            <p className="font-primary text-sm font-bold uppercase tracking-[0.18em] text-[#74191d]">
+              About CA-SPELL
             </p>
+            <h2 className="mt-3 max-w-4xl font-display text-4xl font-extrabold uppercase leading-tight text-[#3b2446] sm:text-5xl lg:text-6xl">
+              Smarter spelling support for modern Taglish.
+            </h2>
           </div>
 
-          <div className="grid gap-10 py-9 md:grid-cols-[1.4fr_1fr] md:gap-16">
-            <div>
-              <p className="font-primary text-sm font-bold uppercase tracking-[0.12em] text-[#74191d]">
-                Why we built it
-              </p>
-              <h3 className="mt-2 max-w-2xl font-primary text-2xl font-bold leading-snug text-[#2e2930] sm:text-3xl">
-                Language should not get in the way of your ideas.
-              </h3>
-              <p className="mt-4 max-w-2xl font-primary leading-relaxed text-[#5a5359]">
-                Taglish is part of everyday communication, but many writing
-                tools are built around English-only rules. Ca-Spell is shaped
-                around the way Taglish is actually written, making proofreading
-                more useful, approachable, and relevant.
+          <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
+            <div className="rounded-3xl border border-[#d9c9cd] bg-white/70 p-6 shadow-[0_18px_40px_rgba(69,34,52,0.06)] backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-[#b9a1aa] hover:shadow-[0_24px_50px_rgba(69,34,52,0.12)] sm:p-8">
+              <p className="font-primary text-base leading-8 text-[#4f494e] lg:text-lg">
+                CA-SPELL is a web-based, context-aware spell checker designed to
+                automatically detect and correct spelling errors in
+                code-switched Tagalog-English texts, commonly known as Taglish.
+                As Taglish becomes increasingly prevalent in modern Filipino
+                digital communication, standard monolingual spell checkers
+                struggle to process its hybrid vocabulary and structural
+                complexity.
+                <span className="mt-4 block font-semibold text-[#3b2446]">
+                  CA-SPELL bridges this gap by ensuring clear, consistent, and
+                  linguistically informed writing.
+                </span>
               </p>
             </div>
-            <div>
-              <p className="font-primary text-sm font-bold uppercase tracking-[0.12em] text-[#74191d]">
-                Built around
+
+            <div className="rounded-3xl border border-[#d9c9cd] bg-[linear-gradient(135deg,#f8f3ef_0%,#efe7ea_100%)] p-6 shadow-[0_18px_40px_rgba(69,34,52,0.06)] transition-all duration-300 ease-out hover:-translate-y-1 hover:border-[#b9a1aa] hover:shadow-[0_24px_50px_rgba(69,34,52,0.12)]">
+              <p className="font-primary text-sm font-bold uppercase tracking-[0.14em] text-[#74191d]">
+                Why it matters
               </p>
-              <ul className="mt-4 space-y-3 font-primary text-[#4e474d]">
-                <li className="border-l-4 border-[#8c1d35] py-1 pl-4">
-                  Taglish writing
+              <ul className="mt-5 space-y-4 font-primary text-[#4e474d]">
+                <li className="flex items-start gap-3">
+                  <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#8c1d35]" />
+                  <span>Built for real-world Taglish communication</span>
                 </li>
-                <li className="border-l-4 border-[#bd8d46] py-1 pl-4">
-                  Readable feedback
+                <li className="flex items-start gap-3">
+                  <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#bd8d46]" />
+                  <span>Goes beyond isolated word checks</span>
                 </li>
-                <li className="border-l-4 border-[#668558] py-1 pl-4">
-                  Focused editing
+                <li className="flex items-start gap-3">
+                  <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#668558]" />
+                  <span>
+                    Improves clarity while preserving natural expression
+                  </span>
                 </li>
               </ul>
+            </div>
+          </div>
+
+          <div className="mt-10 grid gap-6 lg:grid-cols-3">
+            <div className="rounded-2xl border border-[#d9c9cd] bg-[#fffdfd] p-6 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-[#b9a1aa] hover:shadow-[0_18px_36px_rgba(69,34,52,0.1)]">
+              <p className="font-primary text-xs font-bold uppercase tracking-[0.16em] text-[#74191d]">
+                01 — Advanced Error Detection
+              </p>
+              <p className="mt-4 font-primary text-base leading-7 text-[#4f494e]">
+                Unlike conventional spell checkers that only evaluate words in
+                isolation, CA-SPELL assesses whether a word is grammatically and
+                syntactically appropriate within its surrounding context.
+              </p>
+              <ul className="mt-5 space-y-3 font-primary text-sm leading-6 text-[#4e474d]">
+                <li className="flex items-start gap-3">
+                  <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#8c1d35]" />
+                  <span>
+                    Dictionary Lookup validates tokens against comprehensive
+                    English and Tagalog lexical resources.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#b88a63]" />
+                  <span>
+                    Code-Switching and Compound Word Checking analyzes
+                    hyphen-based splitting and affix boundaries for complex
+                    Taglish forms.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#668558]" />
+                  <span>
+                    Context Compatibility Analysis detects real-word errors by
+                    checking whether a word’s linguistic annotations match the
+                    sentence’s grammatical requirements.
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="rounded-2xl border border-[#d9c9cd] bg-[#fffdfd] p-6 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-[#b9a1aa] hover:shadow-[0_18px_36px_rgba(69,34,52,0.1)]">
+              <p className="font-primary text-xs font-bold uppercase tracking-[0.16em] text-[#74191d]">
+                02 — Smart, Context-Based Error Correction
+              </p>
+              <p className="mt-4 font-primary text-base leading-7 text-[#4f494e]">
+                When a misspelled word is detected, CA-SPELL goes beyond simply
+                suggesting similar-looking alternatives.
+              </p>
+              <ul className="mt-5 space-y-3 font-primary text-sm leading-6 text-[#4e474d]">
+                <li className="flex items-start gap-3">
+                  <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#8c1d35]" />
+                  <span>
+                    Edit Distance Candidate Generation finds structurally
+                    similar candidates from both English and Tagalog word lists.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#b88a63]" />
+                  <span>
+                    Context-Based Candidate Ranking temporarily tests each
+                    candidate in the sentence and ranks it by how well it fits
+                    the overall sentence structure.
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="rounded-2xl border border-[#d9c9cd] bg-[#fffdfd] p-6 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-[#b9a1aa] hover:shadow-[0_18px_36px_rgba(69,34,52,0.1)]">
+              <p className="font-primary text-xs font-bold uppercase tracking-[0.16em] text-[#74191d]">
+                03 — TA-WDCA
+              </p>
+              <p className="mt-4 font-primary text-base leading-7 text-[#4f494e]">
+                The engine powering CA-SPELL is the Taglish-Aware Weighted
+                Dependency Compatibility Algorithm (TA-WDCA), which combines
+                language-aware syntax analysis with contextual correction.
+              </p>
+              <ol className="mt-5 space-y-3 font-primary text-sm leading-6 text-[#4e474d]">
+                <li className="flex items-start gap-3">
+                  <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#8c1d35]" />
+                  <span>
+                    Part-of-Speech (POS) Tagging identifies the expected
+                    grammatical role of a word in a sentence.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#b88a63]" />
+                  <span>
+                    Universal Dependencies (UD) examines syntactic relationships
+                    to determine whether a candidate fits the sentence
+                    structure.
+                  </span>
+                </li>
+              </ol>
+            </div>
+          </div>
+
+          <div className="mt-10 rounded-3xl border border-[#d9c9cd] bg-[linear-gradient(135deg,#f8f3ef_0%,#efe7ea_100%)] p-6 shadow-[0_18px_40px_rgba(69,34,52,0.06)] transition-all duration-300 ease-out hover:-translate-y-1 hover:border-[#b9a1aa] hover:shadow-[0_24px_50px_rgba(69,34,52,0.12)] sm:p-8">
+            <p className="font-primary text-sm font-bold uppercase tracking-[0.16em] text-[#74191d]">
+              3. Our Core Treatment
+            </p>
+            <h3 className="mt-3 font-display text-3xl font-extrabold uppercase leading-tight text-[#3b2446] sm:text-4xl">
+              Taglish-Aware Weighted Dependency Compatibility Algorithm
+              (TA-WDCA)
+            </h3>
+            <p className="mt-4 max-w-4xl font-primary text-base leading-8 text-[#4f494e] lg:text-lg">
+              Our novel algorithm is the brain of the system:
+              <strong className="font-semibold text-[#3b2446]">
+                {" "}
+                TA-WDCA (Taglish-Aware Weighted Dependency Compatibility
+                Algorithm){" "}
+              </strong>
+              . It uses{" "}
+              <strong className="font-semibold text-[#3b2446]">
+                Part-of-Speech (POS) Tagging
+              </strong>{" "}
+              and{" "}
+              <strong className="font-semibold text-[#3b2446]">
+                Universal Dependencies (UD)
+              </strong>{" "}
+              to analyze the syntactic relationships between words and their
+              surrounding sentence structure.
+            </p>
+
+            <div className="mt-8 grid gap-5 lg:grid-cols-3">
+              <div className="rounded-2xl border border-[#d9c9cd] bg-white/70 p-5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-[#b9a1aa] hover:bg-white hover:shadow-[0_16px_30px_rgba(69,34,52,0.1)]">
+                <p className="font-primary text-base font-bold text-[#3b2446]">
+                  Dependency Neighborhood Analysis (DNA)
+                </p>
+                <p className="mt-3 font-primary text-sm leading-6 text-[#4f494e]">
+                  Checks whether the suggested word maintains the correct
+                  syntactic role—head, relation, and neighbors—within its local
+                  sentence structure.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-[#d9c9cd] bg-white/70 p-5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-[#b9a1aa] hover:bg-white hover:shadow-[0_16px_30px_rgba(69,34,52,0.1)]">
+                <p className="font-primary text-base font-bold text-[#3b2446]">
+                  Cross-Language Dependency Compatibility (CLDC)
+                </p>
+                <p className="mt-3 font-primary text-sm leading-6 text-[#4f494e]">
+                  Validates head-dependent relationships across different
+                  languages. For example, it recognizes that an English noun can
+                  correctly function as the object of a Tagalog verb.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-[#d9c9cd] bg-white/70 p-5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-[#b9a1aa] hover:bg-white hover:shadow-[0_16px_30px_rgba(69,34,52,0.1)]">
+                <p className="font-primary text-base font-bold text-[#3b2446]">
+                  Dependency Compatibility Score (DCS)
+                </p>
+                <p className="mt-3 font-primary text-sm leading-6 text-[#4f494e]">
+                  The final mathematical score that combines DNA and CLDC
+                  evaluations to guarantee that the highest-ranked correction
+                  logically and grammatically fits the Taglish sentence
+                  structure.
+                </p>
+              </div>
             </div>
           </div>
         </div>
