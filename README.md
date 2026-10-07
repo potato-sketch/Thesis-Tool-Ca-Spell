@@ -45,6 +45,19 @@ which file implements which part of the diagram. The Table 3 and Table 4 rules
 are the dictionaries at the top of `annotation.py` and `compatibility.py`, and
 the affix inventory and hyphenation rules are in `morphology.py`.
 
+## Error correction module (`backend/error_correction/`) and TA-WDCA (`backend/ta_wdca/`)
+
+Each spelling or hyphenation error from the detection module gets up to five
+ranked `suggestions` in the `/api/check` response. A Levenshtein automaton is
+traversed with the word-list automata to find words within two edits
+(one edit for words of three letters or fewer). Each candidate is placed in the
+sentence and re-parsed, then scored by `ta_wdca/` (Dependency Neighborhood
+Analysis, Cross-Language Dependency Compatibility, Dependency Compatibility
+Score) and combined with the edit distance score into the final candidate
+score. See `backend/error_correction/__init__.py` for the file-to-diagram map.
+The weights and the permitted Taglish pairs in `ta_wdca/rules.py` are
+placeholders until the Correct Taglish Corpus frequency profiles are available.
+
 Run the backend tests with
 `.\.venv\Scripts\python.exe -m unittest discover -s tests`.
 

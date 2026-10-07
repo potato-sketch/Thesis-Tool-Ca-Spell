@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Suggestions from "./Suggestions";
+import LanguageAnalysis from "./LanguageAnalysis";
 import TextType from "./TextType";
 import DecryptedText from "./DecryptedText";
 import Delete from "./assets/delete.png";
@@ -16,6 +17,7 @@ function App() {
   const wordCount = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
   const [isOpen, setIsOpen] = useState(false);
   const [flowPage, setFlowPage] = useState("landing");
+  const [isAnalysisOpen, setIsAnalysisOpen] = useState(false);
   const [analysis, setAnalysis] = useState({
     tokens: [],
     errors: [],
@@ -56,6 +58,7 @@ function App() {
           })),
           status: "ready",
           error: "",
+          weights: result.weights,
         });
       } catch (error) {
         if (error.name !== "AbortError") {
@@ -464,23 +467,40 @@ function App() {
               </div>
               <div className="">
                 <div className="col-span-1 p-4 rounded">
-                  <Suggestions errors={errorWords} />
+                  <Suggestions
+                    text={text}
+                    errors={errorWords}
+                    onApply={(error, word) =>
+                      updateText(
+                        text.slice(0, error.start) + word + text.slice(error.end),
+                      )
+                    }
+                  />
                 </div>
               </div>
             </div>
           </div>
-          <div
-            className={`mt-1 text-base ${
-              wordCount > 100 ? "text-red-600" : "text-slate-700"
-            }`}
-          >
-            Words: <span className="font-semibold">{wordCount}/100</span>
+          <div className="mt-1 flex flex-wrap items-center justify-between gap-3">
+            <div
+              className={`text-base ${
+                wordCount > 100 ? "text-red-600" : "text-slate-700"
+              }`}
+            >
+              Words: <span className="font-semibold">{wordCount}/100</span>
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsAnalysisOpen(true)}
+              className="rounded-md bg-[#800000] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[#6a0000] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#800000]"
+            >
+              View sentence analysis
+            </button>
           </div>
         </section>
 
         <section className="scroll-reveal flex min-h-[calc(100dvh-5rem)] flex-col py-4">
-          <div className="grid flex-1 grid-cols-1 gap-4 lg:min-h-0 lg:grid-cols-4">
-            <section className="col-span-1 flex min-h-128 flex-col border border-[#d8cfd1] bg-white shadow-sm transition-shadow hover:shadow-md lg:col-span-3 lg:min-h-0">
+          <div className="grid flex-1 grid-cols-1 gap-4 lg:min-h-0">
+            <section className="flex min-h-128 flex-col border border-[#d8cfd1] bg-white shadow-sm transition-shadow hover:shadow-md lg:min-h-0">
               <div className="flex items-center justify-between border-b border-[#e5dcdd] px-4 py-3">
                 <h2 className="font-primary text-base font-bold text-[#3c3034] sm:text-lg">
                   Input Preview
@@ -500,73 +520,20 @@ function App() {
                 )}
               </pre>
             </section>
-            <CalamancyAnalysis
-              tokens={analysis.tokens}
-              status={analysis.status}
-              error={analysis.error}
-            />
           </div>
         </section>
       </main>
+      {isAnalysisOpen && (
+        <LanguageAnalysis
+          tokens={analysis.tokens}
+          errors={analysis.errors}
+          weights={analysis.weights}
+          status={analysis.status}
+          error={analysis.error}
+          onClose={() => setIsAnalysisOpen(false)}
+        />
+      )}
     </div>
-  );
-}
-
-function CalamancyAnalysis({ tokens, status, error }) {
-  return (
-    <section className="col-span-1 flex min-h-128 flex-col border border-[#d8cfd1] bg-white shadow-sm transition-shadow hover:shadow-md lg:min-h-0">
-      <div className="border-b border-[#e5dcdd] px-4 py-3">
-        <h2 className="font-primary text-base font-bold text-[#3c3034] sm:text-lg">
-          CalamanCy Analysis
-        </h2>
-      </div>
-      <div className="min-h-0 flex-1 overflow-auto bg-white">
-        <table className="w-full table-fixed border-collapse text-left text-xs sm:text-sm">
-          <thead className="sticky top-0 bg-[#f6f2f2] text-[#3c3034]">
-            <tr>
-              <th className="w-[30%] border-b border-r border-[#ded5d6] p-2 sm:p-3">
-                Word
-              </th>
-              <th className="w-[35%] border-b border-r border-[#ded5d6] p-2 sm:p-3">
-                Part of Speech
-              </th>
-              <th className="w-[35%] border-b border-[#ded5d6] p-2 sm:p-3">
-                Dependency
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {status === "ready" && tokens.length > 0 ? (
-              tokens.map((token, index) => (
-                <tr key={`${token.start}-${index}`}>
-                  <td className="wrap-break-word border-b border-r border-[#eee8e8] p-2 sm:p-3">
-                    {token.text}
-                  </td>
-                  <td className="wrap-break-word border-b border-r border-[#eee8e8] p-2 sm:p-3">
-                    {token.pos}
-                  </td>
-                  <td className="wrap-break-word border-b border-[#eee8e8] p-2 sm:p-3">
-                    {token.dependency}
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={3} className="p-4 text-slate-500">
-                  {status === "loading"
-                    ? "Analyzing text..."
-                    : status === "error"
-                      ? `Could not reach the backend. (${error})`
-                      : status === "ready"
-                        ? "No tokens returned."
-                        : "Token details will appear here."}
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-    </section>
   );
 }
 

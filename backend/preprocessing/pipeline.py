@@ -43,6 +43,11 @@ def preprocess(text):
     return nlp(text)
 
 
+def preprocess_many(texts):
+    """Same as preprocess() for several texts, batched."""
+    return list(nlp.pipe(texts))
+
+
 def token_features(token):
     return {
         "index": token.i,
