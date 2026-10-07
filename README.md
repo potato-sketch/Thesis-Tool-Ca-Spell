@@ -1,5 +1,53 @@
 # React + Vite
 
+## Run the API
+
+In a terminal, from the project root:
+
+```powershell
+cd backend
+py -3.12 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m uvicorn main:app --reload
+```
+
+The first API start downloads the `tl_calamancy_md` model from Hugging Face.
+Keep the backend running, then start the frontend in another terminal with
+`npm run dev` from the project root.
+
+## Preprocessing module (`backend/preprocessing/`)
+
+CalamanCy tokenization, POS tagging and UD parsing run in
+`backend/preprocessing/pipeline.py`.
+
+The English and Tagalog word lists live in `backend/data/wordlists/` (one word
+per line, `#` for comments). On startup the API encodes each list as a minimal
+acyclic DFA (`backend/preprocessing/automaton.py`) and caches it in `backend/data/automata/`;
+the cache is rebuilt automatically whenever a word list changes.
+
+- `english.txt` is generated from [Open English WordNet](https://github.com/globalwordnet/english-wordnet)
+  2025 (CC BY 4.0). To regenerate it:
+  `.\.venv\Scripts\python.exe scripts\build_english_wordlist.py`
+- `tagalog.txt` is generated from Wiktionary's Tagalog entries via
+  [kaikki.org](https://kaikki.org/dictionary/Tagalog/) (CC BY-SA 4.0), a stand-in
+  until the KWF Diksiyonaryo list is available. To regenerate it:
+  `.\.venv\Scripts\python.exe scripts\build_tagalog_wordlist.py`
+
+## Error detection module (`backend/error_detection/`)
+
+`POST /api/check` runs each token through dictionary look-up, then (for tokens
+not in a word list) code-switching and compound word checking, and runs
+context-aware annotation and compatibility analysis on the whole sentence.
+Each token in the response carries `check`, `annotation` and
+`context_conflicts`; the top-level `errors` list holds the error candidates
+for the Error Correction Module. See `backend/error_detection/__init__.py` for
+which file implements which part of the diagram. The Table 3 and Table 4 rules
+are the dictionaries at the top of `annotation.py` and `compatibility.py`, and
+the affix inventory and hyphenation rules are in `morphology.py`.
+
+Run the backend tests with
+`.\.venv\Scripts\python.exe -m unittest discover -s tests`.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
