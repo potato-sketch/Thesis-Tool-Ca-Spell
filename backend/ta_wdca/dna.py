@@ -74,8 +74,12 @@ def dependency_neighborhood(original, candidate, lexicon):
         "role": {
             "pos": candidate.pos_,
             "relation": candidate.dep_,
-            "head": _head_text(candidate),
-            "original_head": _head_text(original),
+            "head": None if root else candidate.head.text,
+            "head_pos": None if root else candidate.head.pos_,
+            "original_head": None if _is_root(original) else original.head.text,
+            "dependents": [
+                {"text": child.text, "relation": child.dep_, "pos": child.pos_} for child in candidate.children
+            ],
         },
         "score": sum(components.values()) / len(components),
     }

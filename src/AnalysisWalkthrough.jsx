@@ -9,6 +9,7 @@ import {
 } from "./analysisLabels";
 
 const correctionStepKeys = new Set([
+  "overview",
   "similar",
   "place",
   "neighborhood",
@@ -17,7 +18,7 @@ const correctionStepKeys = new Set([
   "rank",
 ]);
 
-function buildSteps(hasCorrections) {
+function buildSteps(hasCorrections, applied) {
   const steps = [
     {
       key: "read",
@@ -57,53 +58,56 @@ function buildSteps(hasCorrections) {
   if (hasCorrections) {
     steps.push(
       {
+        key: "overview",
+        title: "How a candidate is scored",
+        seconds: 9,
+        description:
+          "Every candidate earns a final score from the parts below. Next, watch each part being worked out.",
+      },
+      {
         key: "similar",
         title: "Find similar words",
-        seconds: 8,
-        description:
-          "For each flagged word, Ca-Spell collects real words that are spelled almost the same, and scores how close each one is.",
+        seconds: 10,
+        description: "Part 1: how close is each real word's spelling to what you typed?",
       },
       {
         key: "place",
         title: "Try each word in your sentence",
         seconds: 6,
         description:
-          "Spelling alone cannot tell which candidate is right, so each one is placed in your sentence and the sentence is analyzed again.",
+          "Spelling alone can't pick the right word, so each one is tested inside your sentence.",
       },
       {
         key: "neighborhood",
         title: "Check how each word fits its neighbors",
-        seconds: 10,
-        description:
-          "Part one of the Taglish-Aware Weighted Dependency Compatibility Algorithm: does the candidate play a sensible role among the words around it?",
+        seconds: 12,
+        description: "Part 2: does the candidate play a sensible role among the words around it?",
       },
       {
         key: "mixing",
         title: "Check English and Tagalog mixing",
-        seconds: 8,
-        description:
-          "Part two: when the candidate is connected to a word in the other language, is that pairing one that works in Taglish?",
+        seconds: 9,
+        description: "Part 3: do the English and Tagalog words around it work together?",
       },
       {
         key: "fit",
         title: "Combine into the sentence fit score",
-        seconds: 7,
-        description:
-          "Part three: the two results are weighted and added together into one score for how well the candidate fits the sentence.",
+        seconds: 9,
+        description: "Parts 2 and 3 are weighted and added into one sentence fit score.",
       },
       {
         key: "rank",
         title: "Combine with spelling and rank",
-        seconds: 8,
-        description:
-          "Spelling similarity and sentence fit are weighted and added into the final score. The candidates are sorted from highest to lowest.",
+        seconds: 12,
+        description: "Part 1 and the sentence fit are weighted into the final score, then ranked.",
       },
       {
         key: "apply",
-        title: "Use the best correction",
+        title: applied ? "The corrected sentence" : "Use the best correction",
         seconds: 6,
-        description:
-          "The best-scoring word replaces the flagged word. Choose Apply in the Suggested corrections panel to make this change in your text.",
+        description: applied
+          ? "The corrections you applied replaced the flagged words. Struck-through words are what you first typed, and the highlighted words are what replaced them."
+          : "The best-scoring word replaces the flagged word. Choose Apply in the Suggested corrections panel to make this change in your text.",
       },
     );
   }
@@ -121,7 +125,7 @@ function Chip({ children, className = "", delay = 0 }) {
   );
 }
 
-function Stage({ step, tokens, errors }) {
+function Stage({ step, tokens, errors, applied }) {
   const errorByIndex = new Map(errors.map((error) => [error.index, error]));
 
   if (step.key === "read") {
@@ -229,10 +233,23 @@ function Stage({ step, tokens, errors }) {
     );
   }
 
+  const replacementFor = (token) =>
+    applied
+      ? applied[token.index]
+      : errorByIndex.get(token.index)?.suggestions?.[0]?.word;
+  const result = tokens
+    .map(
+      (token, position) =>
+        (hasGapBefore(tokens, position) ? " " : "") +
+        (replacementFor(token) ?? token.text),
+    )
+    .join("");
+
   return (
+    <div>
     <p className="text-xl leading-relaxed text-slate-900">
       {tokens.map((token, position) => {
-        const best = errorByIndex.get(token.index)?.suggestions?.[0]?.word;
+        const best = replacementFor(token);
         const flagged = errorByIndex.has(token.index);
         return (
           <span key={token.index}>
@@ -261,21 +278,29 @@ function Stage({ step, tokens, errors }) {
         );
       })}
     </p>
+    <p
+      className="walk-rise mt-4 rounded-md border border-emerald-200 bg-emerald-50 p-3 text-base text-emerald-900"
+      style={{ animationDelay: "1600ms" }}
+    >
+      <span className="font-semibold">Corrected sentence:</span> {result}
+    </p>
+    </div>
   );
 }
 
-export default function AnalysisWalkthrough({ tokens, errors, weights }) {
+export default function AnalysisWalkthrough({ tokens, errors, weights, applied }) {
   const correctable = useMemo(
     () => errors.filter((error) => error.suggestions?.length > 0),
     [errors],
   );
   const steps = useMemo(
-    () => buildSteps(correctable.length > 0 && Boolean(weights)),
-    [correctable.length, weights],
+    () => buildSteps(correctable.length > 0 && Boolean(weights), applied),
+    [correctable.length, weights, applied],
   );
   const [stepIndex, setStepIndex] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [focus, setFocus] = useState(0);
+  const [candidateFocus, setCandidateFocus] = useState(0);
   const current = steps[Math.min(stepIndex, steps.length - 1)];
   const isLast = stepIndex >= steps.length - 1;
   const isPlaying = playing && !isLast;
@@ -355,7 +380,10 @@ export default function AnalysisWalkthrough({ tokens, errors, weights }) {
             <button
               key={error.index}
               type="button"
-              onClick={() => setFocus(index)}
+              onClick={() => {
+                setFocus(index);
+                setCandidateFocus(0);
+              }}
               className={`rounded-full border px-3 py-0.5 font-medium ${
                 index === focus
                   ? "border-[#800000] bg-[#800000] text-white"
@@ -371,14 +399,22 @@ export default function AnalysisWalkthrough({ tokens, errors, weights }) {
       <div className="max-h-[28rem] min-h-32 overflow-y-auto rounded-md border border-[#e5dcdd] bg-[#faf8f8] p-4">
         {isCorrectionStep && focused ? (
           <CorrectionStage
-            key={`${current.key}-${focused.index}`}
+            key={`${current.key}-${focused.index}-${candidateFocus}`}
             stepKey={current.key}
             focused={{ error: focused, suggestions: focused.suggestions }}
             tokens={tokens}
             weights={weights}
+            candidateFocus={candidateFocus}
+            onCandidateFocus={setCandidateFocus}
           />
         ) : (
-          <Stage key={current.key} step={current} tokens={tokens} errors={errors} />
+          <Stage
+            key={current.key}
+            step={current}
+            tokens={tokens}
+            errors={errors}
+            applied={applied}
+          />
         )}
       </div>
 

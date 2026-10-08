@@ -18,6 +18,8 @@ function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [flowPage, setFlowPage] = useState("landing");
   const [isAnalysisOpen, setIsAnalysisOpen] = useState(false);
+  // The analysis from before the user applied corrections, so it can be replayed from wrong to right.
+  const [correction, setCorrection] = useState(null);
   const [analysis, setAnalysis] = useState({
     tokens: [],
     errors: [],
@@ -86,6 +88,8 @@ function App() {
   const errorWords = analysis.errors.filter(
     (error) => text.slice(error.start, error.end) === error.text,
   );
+  const replay =
+    correction && correction.correctedText === text ? correction : null;
   const overlayParts = [];
   let wordIndex = 0;
   let partStart = 0;
@@ -147,6 +151,23 @@ function App() {
     undoStackRef.current.push(text);
     redoStackRef.current = [];
     setText(nextText);
+  }
+
+  function handleApply(error, word) {
+    const nextText = text.slice(0, error.start) + word + text.slice(error.end);
+    const continuing =
+      replay &&
+      replay.errors.some(
+        (earlier) => earlier.index === error.index && earlier.text === error.text,
+      );
+    setCorrection({
+      tokens: continuing ? replay.tokens : analysis.tokens,
+      errors: continuing ? replay.errors : analysis.errors,
+      weights: continuing ? replay.weights : analysis.weights,
+      applied: { ...(continuing ? replay.applied : {}), [error.index]: word },
+      correctedText: nextText,
+    });
+    updateText(nextText);
   }
 
   function handleUndo() {
@@ -470,11 +491,7 @@ function App() {
                   <Suggestions
                     text={text}
                     errors={errorWords}
-                    onApply={(error, word) =>
-                      updateText(
-                        text.slice(0, error.start) + word + text.slice(error.end),
-                      )
-                    }
+                    onApply={handleApply}
                   />
                 </div>
               </div>
@@ -488,13 +505,6 @@ function App() {
             >
               Words: <span className="font-semibold">{wordCount}/100</span>
             </div>
-            <button
-              type="button"
-              onClick={() => setIsAnalysisOpen(true)}
-              className="rounded-md bg-[#800000] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[#6a0000] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#800000]"
-            >
-              View sentence analysis
-            </button>
           </div>
         </section>
 
@@ -505,9 +515,18 @@ function App() {
                 <h2 className="font-primary text-base font-bold text-[#3c3034] sm:text-lg">
                   Input Preview
                 </h2>
-                <span className="text-xs font-medium uppercase tracking-wider text-slate-500">
-                  Unprocessed
-                </span>
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="text-xs font-medium uppercase tracking-wider text-slate-500">
+                    Unprocessed
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setIsAnalysisOpen(true)}
+                    className="rounded-md bg-[#800000] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[#6a0000] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#800000]"
+                  >
+                    View sentence analysis
+                  </button>
+                </div>
               </div>
               <pre
                 aria-label="Unprocessed copy of input text"
@@ -525,10 +544,11 @@ function App() {
       </main>
       {isAnalysisOpen && (
         <LanguageAnalysis
-          tokens={analysis.tokens}
-          errors={analysis.errors}
-          weights={analysis.weights}
-          status={analysis.status}
+          tokens={replay ? replay.tokens : analysis.tokens}
+          errors={replay ? replay.errors : analysis.errors}
+          weights={replay ? replay.weights : analysis.weights}
+          applied={replay ? replay.applied : null}
+          status={replay ? "ready" : analysis.status}
           error={analysis.error}
           onClose={() => setIsAnalysisOpen(false)}
         />

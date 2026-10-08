@@ -19,6 +19,7 @@ export default function LanguageAnalysis({
   tokens,
   errors = [],
   weights,
+  applied,
   status,
   error,
   onClose,
@@ -58,6 +59,12 @@ export default function LanguageAnalysis({
     body = (
       <>
         <Section title="What this analysis shows">
+          {applied && (
+            <p className="mb-2 rounded-md bg-[#f7f1c5] px-3 py-2 text-sm text-slate-800">
+              You applied corrections, so this shows how Ca-Spell analyzed your
+              original text and arrived at them, from wrong to right.
+            </p>
+          )}
           <p className="text-sm leading-relaxed text-slate-700">
             Ca-Spell reads your text the way a language teacher would. It
             splits the text into individual words, decides what kind of word
@@ -73,6 +80,7 @@ export default function LanguageAnalysis({
           tokens={visibleTokens}
           errors={errors}
           weights={weights}
+          applied={applied}
         />
 
         <div className="mb-5">
