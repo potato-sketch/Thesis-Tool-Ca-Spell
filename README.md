@@ -53,10 +53,17 @@ traversed with the word-list automata to find words within two edits
 (one edit for words of three letters or fewer). Each candidate is placed in the
 sentence and re-parsed, then scored by `ta_wdca/` (Dependency Neighborhood
 Analysis, Cross-Language Dependency Compatibility, Dependency Compatibility
-Score) and combined with the edit distance score into the final candidate
-score. See `backend/error_correction/__init__.py` for the file-to-diagram map.
-The weights and the permitted Taglish pairs in `ta_wdca/rules.py` are
-placeholders until the Correct Taglish Corpus frequency profiles are available.
+Score) and by the Context Score from the Correct Taglish Corpus (POS Annotation
+Score and Universal Dependency Score). These combine with the Edit Distance Score
+into the Final Candidate Score, `FCS = w1*EDS + w2*DCS + w3*CS`. See
+`backend/error_correction/__init__.py` for the file-to-diagram map. The weights
+and the permitted Taglish pairs in `ta_wdca/rules.py` are placeholders.
+
+The Context Score needs the frequency profile of the Correct Taglish Corpus. Put one
+correct Taglish sentence per line in `backend/data/corpus/correct_taglish.txt`, then run
+`.\.venv\Scripts\python.exe scripts\build_corpus_profile.py` from `backend`, and restart
+the API. Without a profile the Context Score is left out and the other two weights are
+scaled to add up to 1.
 
 Run the backend tests with
 `.\.venv\Scripts\python.exe -m unittest discover -s tests`.

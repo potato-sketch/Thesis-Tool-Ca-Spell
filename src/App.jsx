@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Suggestions from "./Suggestions";
 import LanguageAnalysis from "./LanguageAnalysis";
+import CorrectedPreview from "./CorrectedPreview";
 import TextType from "./TextType";
 import DecryptedText from "./DecryptedText";
 import Delete from "./assets/delete.png";
@@ -160,11 +161,31 @@ function App() {
       replay.errors.some(
         (earlier) => earlier.index === error.index && earlier.text === error.text,
       );
+    const tokens = continuing ? replay.tokens : analysis.tokens;
+    const delta = word.length - (error.end - error.start);
+    // Earlier corrections to the right of this one move by the change in length.
+    const earlierEdits = (continuing ? replay.edits : []).map((edit) =>
+      edit.start > error.start
+        ? { ...edit, start: edit.start + delta, end: edit.end + delta }
+        : edit,
+    );
     setCorrection({
-      tokens: continuing ? replay.tokens : analysis.tokens,
+      tokens,
       errors: continuing ? replay.errors : analysis.errors,
       weights: continuing ? replay.weights : analysis.weights,
       applied: { ...(continuing ? replay.applied : {}), [error.index]: word },
+      edits: [
+        ...earlierEdits,
+        {
+          index: error.index,
+          original: error.text,
+          word,
+          start: error.start,
+          end: error.start + word.length,
+          reasons: error.reasons,
+          token: tokens.find((token) => token.index === error.index),
+        },
+      ],
       correctedText: nextText,
     });
     updateText(nextText);
@@ -517,7 +538,7 @@ function App() {
                 </h2>
                 <div className="flex flex-wrap items-center gap-3">
                   <span className="text-xs font-medium uppercase tracking-wider text-slate-500">
-                    Unprocessed
+                    {replay ? "Corrected" : "Unprocessed"}
                   </span>
                   <button
                     type="button"
@@ -528,11 +549,23 @@ function App() {
                   </button>
                 </div>
               </div>
+              {replay && (
+                <p className="border-b border-[#e5dcdd] bg-emerald-50 px-4 py-2 text-xs text-emerald-900">
+                  Corrected words are underlined in green. Hover over one to see the rule and reference used to
+                  verify it.
+                </p>
+              )}
               <pre
-                aria-label="Unprocessed copy of input text"
+                aria-label={replay ? "Input text with corrected words underlined" : "Unprocessed copy of input text"}
                 className="m-0 flex-1 overflow-auto whitespace-pre-wrap wrap-break-word bg-white p-4 font-primary text-sm leading-7 text-slate-800 sm:p-5 sm:text-base"
               >
-                {text || (
+                {text ? (
+                  replay ? (
+                    <CorrectedPreview text={text} edits={replay.edits} />
+                  ) : (
+                    text
+                  )
+                ) : (
                   <span className="font-sans text-slate-400">
                     Your text will appear here.
                   </span>

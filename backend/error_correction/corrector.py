@@ -2,7 +2,9 @@
 
     Edit distance computation   (error_correction/edit_distance.py)
       -> Candidate generation   (error_correction/candidate_generation.py)
-      -> Context-based candidate ranking, using TA-WDCA   (context_ranking.py, ta_wdca/)
+      -> Context-based candidate ranking   (context_ranking.py)
+           TA-WDCA: DNA, CLDC, DCS   (ta_wdca/)
+           POS Context Scoring (PAS) and UD Context Scoring (UDS), from the corpus frequency profile
       -> Final candidate scoring   (final_scoring.py)
       -> Suggested words (ranked list)
 
@@ -122,7 +124,7 @@ def _sentence_bounds(doc, token):
     return 0, len(doc.text)
 
 
-def correct_errors(doc, detections, errors, lexicon, parse_many, limit=MAX_SUGGESTIONS):
+def correct_errors(doc, detections, errors, lexicon, parse_many, limit=MAX_SUGGESTIONS, profile=None):
     """Returns {token index: [suggestion, ...]} for the errors in `errors` that can be corrected.
 
     `detections` and `errors` are the output of error_detection.detector.detect_errors.
@@ -148,7 +150,7 @@ def correct_errors(doc, detections, errors, lexicon, parse_many, limit=MAX_SUGGE
         unique = _unique(candidates)
         ranked = rank_candidates(
             doc.text[sentence_start:sentence_end], start, start + len(token.text),
-            unique, lexicon, parse_many,
+            unique, lexicon, parse_many, profile,
         )
         rejected = []
         if has_context_error:

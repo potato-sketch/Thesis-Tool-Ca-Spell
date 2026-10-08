@@ -1,12 +1,20 @@
 import { useEffect, useMemo, useState } from "react";
 import CorrectionStage from "./CorrectionStages";
+import DetectionStage from "./DetectionStages";
 import SentenceTree from "./SentenceTree";
 import {
   describePartOfSpeech,
   hasGapBefore,
   partOfSpeechColor,
-  reasonLabels,
 } from "./analysisLabels";
+
+const detectionStepKeys = new Set([
+  "dictionary",
+  "codeswitch",
+  "annotation",
+  "compatibility",
+  "candidates",
+]);
 
 const correctionStepKeys = new Set([
   "overview",
@@ -15,10 +23,11 @@ const correctionStepKeys = new Set([
   "neighborhood",
   "mixing",
   "fit",
+  "context",
   "rank",
 ]);
 
-function buildSteps(hasCorrections, applied) {
+function buildSteps(hasCorrections, applied, corpusLoaded) {
   const steps = [
     {
       key: "read",
@@ -48,27 +57,55 @@ function buildSteps(hasCorrections, applied) {
         "Next, Ca-Spell works out how the words depend on each other. The main word is at the top, and every other word hangs from the word it relates to.",
     },
     {
-      key: "check",
-      title: "Check every word",
-      seconds: 5.5,
+      key: "dictionary",
+      title: "Dictionary lookup",
+      seconds: 7,
       description:
-        "Each word is checked twice: is it spelled correctly in English or Tagalog, and does it make sense with the words around it, such as a past-tense verb used with a future time word?",
+        "Error Detection, step 1: each word is looked up in the English and Tagalog word lists.",
+    },
+    {
+      key: "codeswitch",
+      title: "Code-switching and compound word checking",
+      seconds: 9,
+      description:
+        "Error Detection, step 2: words missing from the lists are split into affixes and a root.",
+    },
+    {
+      key: "annotation",
+      title: "Context-Aware Linguistic Annotation (Table 3)",
+      seconds: 9,
+      description:
+        "Error Detection, step 3: verbs get an aspect label and time words get a time label.",
+    },
+    {
+      key: "compatibility",
+      title: "Context Compatibility Analysis (Table 4)",
+      seconds: 9,
+      description:
+        "Error Detection, step 4: does each verb's aspect agree with its time word?",
+    },
+    {
+      key: "candidates",
+      title: "Error candidates",
+      seconds: 7,
+      description:
+        "Words that failed a check are forwarded to the Error Correction Module.",
     },
   ];
   if (hasCorrections) {
     steps.push(
       {
         key: "overview",
-        title: "How a candidate is scored",
-        seconds: 9,
+        title: "How a candidate is scored (TA-WDCA)",
+        seconds: 10,
         description:
-          "Every candidate earns a final score from the parts below. Next, watch each part being worked out.",
+          "Every candidate earns a Final Candidate Score. DNA, CLDC and DCS form the Taglish-Aware Weighted Dependency Compatibility Algorithm (TA-WDCA).",
       },
       {
         key: "similar",
-        title: "Find similar words",
-        seconds: 10,
-        description: "Part 1: how close is each real word's spelling to what you typed?",
+        title: "Edit distance and Edit Distance Score (EDS)",
+        seconds: 11,
+        description: "Candidate words come from the word lists within 2 edits of what you typed.",
       },
       {
         key: "place",
@@ -79,27 +116,40 @@ function buildSteps(hasCorrections, applied) {
       },
       {
         key: "neighborhood",
-        title: "Check how each word fits its neighbors",
+        title: "Dependency Neighborhood Analysis (DNA)",
         seconds: 12,
-        description: "Part 2: does the candidate play a sensible role among the words around it?",
+        description: "TA-WDCA part 1: does the candidate play a sensible role among the words around it?",
       },
       {
         key: "mixing",
-        title: "Check English and Tagalog mixing",
+        title: "Cross-Language Dependency Compatibility (CLDC)",
         seconds: 9,
-        description: "Part 3: do the English and Tagalog words around it work together?",
+        description: "TA-WDCA part 2: do the English and Tagalog words around it work together?",
       },
       {
         key: "fit",
-        title: "Combine into the sentence fit score",
+        title: "Dependency Compatibility Score (DCS)",
         seconds: 9,
-        description: "Parts 2 and 3 are weighted and added into one sentence fit score.",
+        description: "TA-WDCA part 3: DNA and CLDC are weighted and added into one score.",
       },
+      ...(corpusLoaded
+        ? [
+            {
+              key: "context",
+              title: "Context Score (CS): PAS and UDS",
+              seconds: 15,
+              description:
+                "The candidate sentence's patterns are looked up in the Correct Taglish Corpus frequency profile.",
+            },
+          ]
+        : []),
       {
         key: "rank",
-        title: "Combine with spelling and rank",
+        title: "Final Candidate Score (FCS) and ranking",
         seconds: 12,
-        description: "Part 1 and the sentence fit are weighted into the final score, then ranked.",
+        description: corpusLoaded
+          ? "EDS, DCS and CS are weighted into the FCS, then the candidates are ranked."
+          : "EDS and DCS are weighted into the FCS, then the candidates are ranked.",
       },
       {
         key: "apply",
@@ -187,52 +237,6 @@ function Stage({ step, tokens, errors, applied }) {
     return <SentenceTree tokens={tokens} animate />;
   }
 
-  if (step.key === "check") {
-    return (
-      <div className="flex flex-wrap gap-x-3 gap-y-4">
-        {tokens.map((token, position) => {
-          const error = errorByIndex.get(token.index);
-          const delay = position * 160;
-          if (token.pos === "PUNCT") {
-            return (
-              <Chip
-                key={token.index}
-                delay={delay}
-                className="border-slate-300 bg-white text-slate-900"
-              >
-                {token.text}
-              </Chip>
-            );
-          }
-          return (
-            <div key={token.index} className="flex max-w-40 flex-col items-center gap-1">
-              <span
-                className={`${error ? "walk-shake" : "walk-pop"} inline-block rounded-lg border px-3 py-1.5 text-base font-semibold ${
-                  error
-                    ? "border-red-400 bg-red-50 text-red-700"
-                    : "border-emerald-300 bg-emerald-50 text-emerald-800"
-                }`}
-                style={{ animationDelay: `${delay}ms` }}
-              >
-                {error ? "✕" : "✓"} {token.text}
-              </span>
-              {error && (
-                <span
-                  className="walk-rise text-center text-xs text-red-700"
-                  style={{ animationDelay: `${delay + 300}ms` }}
-                >
-                  {(error.reasons ?? [])
-                    .map((reason) => reasonLabels[reason] ?? reason)
-                    .join(" and ") || "Needs attention"}
-                </span>
-              )}
-            </div>
-          );
-        })}
-      </div>
-    );
-  }
-
   const replacementFor = (token) =>
     applied
       ? applied[token.index]
@@ -294,7 +298,7 @@ export default function AnalysisWalkthrough({ tokens, errors, weights, applied }
     [errors],
   );
   const steps = useMemo(
-    () => buildSteps(correctable.length > 0 && Boolean(weights), applied),
+    () => buildSteps(correctable.length > 0 && Boolean(weights), applied, Boolean(weights?.corpus_loaded)),
     [correctable.length, weights, applied],
   );
   const [stepIndex, setStepIndex] = useState(0);
@@ -397,7 +401,14 @@ export default function AnalysisWalkthrough({ tokens, errors, weights, applied }
       )}
 
       <div className="max-h-[28rem] min-h-32 overflow-y-auto rounded-md border border-[#e5dcdd] bg-[#faf8f8] p-4">
-        {isCorrectionStep && focused ? (
+        {detectionStepKeys.has(current.key) ? (
+          <DetectionStage
+            key={current.key}
+            stepKey={current.key}
+            tokens={tokens}
+            errors={errors}
+          />
+        ) : isCorrectionStep && focused ? (
           <CorrectionStage
             key={`${current.key}-${focused.index}-${candidateFocus}`}
             stepKey={current.key}

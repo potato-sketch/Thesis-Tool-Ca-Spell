@@ -1,4 +1,5 @@
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -10,7 +11,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from error_correction.candidate_generation import generate_candidates  # noqa: E402
 from error_correction.corrector import correct_errors  # noqa: E402
 from error_correction.edit_distance import edit_distance, search  # noqa: E402
-from error_correction.final_scoring import edit_distance_score, final_candidate_score  # noqa: E402
+from error_correction.final_scoring import edit_distance_score, effective_weights, final_candidate_score  # noqa: E402
+from error_correction.frequency_profile import FrequencyProfile, annotated_tags, pos_windows  # noqa: E402
+from error_correction.context_scoring import context_score  # noqa: E402
 from error_detection.detector import detect_errors  # noqa: E402
 from preprocessing.automaton import WordAutomaton  # noqa: E402
 from preprocessing.lexicon import normalize  # noqa: E402
@@ -85,9 +88,17 @@ class FinalScoringTest(unittest.TestCase):
         self.assertGreater(edit_distance_score(1), edit_distance_score(2))
         self.assertGreater(edit_distance_score(2), 0)
 
-    def test_final_candidate_score_is_weighted_sum(self):
-        self.assertAlmostEqual(final_candidate_score(1, 0, 0.4, 0.6), 0.4)
-        self.assertAlmostEqual(final_candidate_score(0, 1, 0.4, 0.6), 0.6)
+    def test_final_candidate_score_without_a_corpus_uses_scaled_weights(self):
+        self.assertAlmostEqual(sum(effective_weights(False)), 1.0)
+        self.assertAlmostEqual(final_candidate_score(1, 0), effective_weights(False)[0])
+        self.assertAlmostEqual(final_candidate_score(0, 1), effective_weights(False)[1])
+
+    def test_final_candidate_score_with_context_score_is_weighted_sum(self):
+        w1, w2, w3 = effective_weights(True)
+        self.assertAlmostEqual(w1 + w2 + w3, 1.0)
+        self.assertAlmostEqual(final_candidate_score(1, 0, 0), w1)
+        self.assertAlmostEqual(final_candidate_score(0, 1, 0), w2)
+        self.assertAlmostEqual(final_candidate_score(0, 0, 1), w3)
 
 
 SENTENCE = ["Nag-submit", "ako", "ng", "assignment", "bukas"]
@@ -146,6 +157,56 @@ class TAWDCATest(unittest.TestCase):
         token = parse(SENTENCE, POS, HEADS, DEPS)[3]
         result = dependency_compatibility(token, token, LEXICON, 0.5, 0.5)
         self.assertAlmostEqual(result["dcs"], 1.0)
+
+
+class FrequencyProfileTest(unittest.TestCase):
+    def test_annotated_tags_use_table_3(self):
+        doc = parse(SENTENCE, POS, HEADS, DEPS)
+        self.assertEqual(annotated_tags(doc, LEXICON), ["VERB-PAST", "PRON", "ADP", "NOUN", "ADV-FUTURE"])
+
+    def test_windows_covering_a_token(self):
+        tags = ["A", "B", "C", "D"]
+        self.assertEqual(len(pos_windows(tags)), 4)
+        self.assertEqual(pos_windows(tags, 0), [["<s>", "A", "B"], ["A", "B", "C"]])
+        self.assertEqual(len(pos_windows(tags, 2)), 3)
+        self.assertEqual(pos_windows(tags, 3), [["B", "C", "D"], ["C", "D", "</s>"]])
+
+    def test_counts_and_round_trip(self):
+        profile = FrequencyProfile()
+        profile.add_sentence(parse(SENTENCE, POS, HEADS, DEPS), LEXICON)
+        profile.add_sentence(parse(SENTENCE, POS, HEADS, DEPS), LEXICON)
+        self.assertEqual(profile.sentences, 2)
+        self.assertEqual(profile.pos_patterns["ADP NOUN ADV-FUTURE"], 2)
+        self.assertEqual(profile.dependency_patterns["<root>|root|VERB-PAST"], 2)
+        self.assertEqual(profile.dependency_patterns["VERB-PAST|obj|NOUN"], 2)
+
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "profile.json"
+            profile.save(path)
+            loaded = FrequencyProfile.load(path)
+            self.assertEqual(loaded.pos_patterns, profile.pos_patterns)
+            self.assertEqual(loaded.dependency_patterns, profile.dependency_patterns)
+            self.assertIsNone(FrequencyProfile.load(Path(folder) / "missing.json"))
+
+
+class ContextScoreTest(unittest.TestCase):
+    def setUp(self):
+        self.profile = FrequencyProfile()
+        self.profile.add_sentence(parse(SENTENCE, POS, HEADS, DEPS), LEXICON)
+
+    def test_candidate_matching_the_corpus_scores_one(self):
+        token = parse(SENTENCE, POS, HEADS, DEPS)[3]
+        result = context_score(token, self.profile, LEXICON)
+        self.assertEqual((result["pas"], result["uds"], result["cs"]), (1.0, 1.0, 1.0))
+        self.assertEqual(len(result["pos_rules"]), 3)
+        self.assertEqual(len(result["dependency_rules"]), 2)
+
+    def test_unseen_patterns_lower_the_scores(self):
+        doc = parse(SENTENCE, ["VERB", "PRON", "ADP", "ADJ", "ADV"], HEADS, ["ROOT", "nsubj", "case", "amod", "advmod"])
+        result = context_score(doc[3], self.profile, LEXICON)
+        self.assertLess(result["pas"], 1.0)
+        self.assertEqual(result["uds"], 0.0)
+        self.assertAlmostEqual(result["cs"], 0.5 * result["pas"])
 
 
 class CorrectorTest(unittest.TestCase):
@@ -213,6 +274,25 @@ class CorrectorTest(unittest.TestCase):
         # "Nag-submit" fixes the typo but keeps the conflict, so only "Mag-submit" is offered.
         self.assertEqual([s["word"] for s in suggestions[0]], ["Mag-submit"])
         self.assertEqual(suggestions[0][0]["edit_distance"], 2)
+
+    def test_context_score_joins_the_ranking_when_a_corpus_profile_is_given(self):
+        profile = FrequencyProfile()
+        profile.add_sentence(parse(SENTENCE, POS, HEADS, DEPS), LEXICON)
+        doc = parse(["Nag-submit", "ako", "ng", "assignmnt", "bukas"], POS, HEADS, DEPS)
+        detections, errors = detect_errors(doc, LEXICON)
+        suggestions = correct_errors(doc, detections, errors, LEXICON, self.fake_parse_many, profile=profile)[3]
+
+        by_word = {s["word"]: s for s in suggestions}
+        self.assertEqual(suggestions[0]["word"], "assignment")
+        self.assertEqual(by_word["assignment"]["scores"]["context_score"], 1.0)
+        self.assertEqual(by_word["assignments"]["scores"]["context_score"], 1.0)
+        self.assertIn("context", by_word["assignment"]["details"])
+
+    def test_no_context_score_without_a_corpus_profile(self):
+        doc = parse(["Nag-submit", "ako", "ng", "assignmnt", "bukas"], POS, HEADS, DEPS)
+        detections, errors = detect_errors(doc, LEXICON)
+        suggestions = correct_errors(doc, detections, errors, LEXICON, self.fake_parse_many)[3]
+        self.assertNotIn("context_score", suggestions[0]["scores"])
 
     def test_correctly_spelled_words_get_no_suggestions(self):
         doc = parse(["Nag-submit", "ako", "kahapon"], ["VERB", "PRON", "ADV"], [0, 0, 0], ["ROOT", "nsubj", "advmod"])

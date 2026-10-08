@@ -215,7 +215,7 @@ function Blocks({ results, delays }) {
   );
 }
 
-function CheckRow({ ok, delay, children }) {
+function CheckRow({ ok, delay, tag, children }) {
   return (
     <div className="flex items-start gap-2 text-sm text-slate-800">
       <span
@@ -225,10 +225,26 @@ function CheckRow({ ok, delay, children }) {
         {ok ? "✓" : "✕"}
       </span>
       <span className="walk-rise" style={{ animationDelay: `${delay}ms` }}>
+        <span className="mr-1.5 rounded bg-slate-200 px-1.5 py-0.5 font-mono text-[10px] font-bold text-slate-700">{tag}</span>
         {children}
       </span>
     </div>
   );
+}
+
+function FormulaStrip({ children, delay = 200 }) {
+  return (
+    <p
+      className="walk-rise mb-3 rounded-md border border-slate-200 bg-slate-50 px-3 py-2 font-mono text-xs leading-relaxed text-slate-800"
+      style={{ animationDelay: `${delay}ms` }}
+    >
+      {children}
+    </p>
+  );
+}
+
+function Term({ children }) {
+  return <b className="text-[#800000]">{children}</b>;
 }
 
 function CandidatePicker({ suggestions, value, onChange }) {
@@ -253,9 +269,9 @@ function CandidatePicker({ suggestions, value, onChange }) {
   );
 }
 
-const mapOrder = ["spelling", "neighborhood", "mixing", "fit", "final"];
+const mapOrder = ["spelling", "neighborhood", "mixing", "fit", "pas", "uds", "context", "final"];
 
-function MapNode({ label, weight, state, delay }) {
+function MapNode({ acronym, label, weight, state, delay, ta }) {
   const styles = {
     active: "border-[#800000] bg-[#800000] text-white",
     done: "border-emerald-300 bg-emerald-50 text-emerald-800",
@@ -263,16 +279,19 @@ function MapNode({ label, weight, state, delay }) {
   };
   return (
     <span
-      className={`walk-pop inline-flex items-center gap-1.5 rounded-lg border px-2 py-1 text-xs font-semibold ${styles[state]}`}
+      className={`walk-pop inline-flex flex-col rounded-lg border px-2 py-1 text-left ${styles[state]} ${ta ? "ring-2 ring-[#800000]/30" : ""}`}
       style={{ animationDelay: `${delay}ms` }}
     >
-      {state === "done" ? "✓ " : ""}
-      {label}
-      {weight != null && (
-        <span className="rounded-full bg-black/10 px-1.5 text-[10px] font-medium">
-          {Math.round(weight * 100)}%
-        </span>
-      )}
+      <span className="flex items-center gap-1.5 text-xs font-bold">
+        {state === "done" ? "✓ " : ""}
+        {acronym}
+        {weight != null && (
+          <span className="rounded-full bg-black/10 px-1.5 text-[10px] font-medium">
+            {Math.round(weight * 100)}%
+          </span>
+        )}
+      </span>
+      <span className="text-[10px] font-medium leading-tight opacity-90">{label}</span>
     </span>
   );
 }
@@ -282,41 +301,115 @@ const branch =
 
 // The scoring recipe as a tree: the final score is built from the parts below it.
 function ScoreMap({ active, done, weights, animate }) {
-  const stateOf = (key) => (active === key ? "active" : done.includes(key) ? "done" : "pending");
+  const stateOf = (key) => (active.includes(key) ? "active" : done.includes(key) ? "done" : "pending");
   const delay = (key) => (animate ? 300 + mapOrder.indexOf(key) * 450 : 0);
   return (
-    <ul>
-      <li>
-        <MapNode label="Final score" state={stateOf("final")} delay={0} />
-        <ul className="ml-3 mt-1">
-          <li className={branch}>
-            <MapNode label="Spelling similarity" weight={weights.edit_distance} state={stateOf("spelling")} delay={delay("spelling")} />
-          </li>
-          <li className={branch}>
-            <MapNode label="Sentence fit" weight={weights.dependency_compatibility} state={stateOf("fit")} delay={delay("fit")} />
-            <ul className="ml-3 mt-1">
+    <div>
+      <ul>
+        <li>
+          <MapNode acronym="FCS" label="Final Candidate Score" state={stateOf("final")} delay={0} />
+          <ul className="ml-3 mt-1">
+            <li className={branch}>
+              <MapNode acronym="EDS" label="Edit Distance Score" weight={weights.edit_distance} state={stateOf("spelling")} delay={delay("spelling")} />
+            </li>
+            <li className={branch}>
+              <MapNode acronym="DCS" label="Dependency Compatibility Score" weight={weights.dependency_compatibility} state={stateOf("fit")} delay={delay("fit")} ta />
+              <ul className="ml-3 mt-1">
+                <li className={branch}>
+                  <MapNode acronym="DNA" label="Dependency Neighborhood Analysis" weight={weights.dependency_neighborhood} state={stateOf("neighborhood")} delay={delay("neighborhood")} ta />
+                </li>
+                <li className={branch}>
+                  <MapNode acronym="CLDC" label="Cross-Language Dependency Compatibility" weight={weights.cross_language} state={stateOf("mixing")} delay={delay("mixing")} ta />
+                </li>
+              </ul>
+            </li>
+            {weights.corpus_loaded && (
               <li className={branch}>
-                <MapNode label="Neighborhood" weight={weights.dependency_neighborhood} state={stateOf("neighborhood")} delay={delay("neighborhood")} />
+                <MapNode acronym="CS" label="Context Score (Correct Taglish Corpus)" weight={weights.context_score} state={stateOf("context")} delay={delay("context")} />
+                <ul className="ml-3 mt-1">
+                  <li className={branch}>
+                    <MapNode acronym="PAS" label="POS Annotation Score" weight={weights.pos_annotation} state={stateOf("pas")} delay={delay("pas")} />
+                  </li>
+                  <li className={branch}>
+                    <MapNode acronym="UDS" label="Universal Dependency Score" weight={weights.universal_dependency} state={stateOf("uds")} delay={delay("uds")} />
+                  </li>
+                </ul>
               </li>
-              <li className={branch}>
-                <MapNode label="Language mixing" weight={weights.cross_language} state={stateOf("mixing")} delay={delay("mixing")} />
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ul>
+            )}
+          </ul>
+        </li>
+      </ul>
+      <p className="mt-2 text-[10px] leading-snug text-slate-500">
+        <span className="rounded ring-2 ring-[#800000]/30">&nbsp;&nbsp;</span> DNA, CLDC and DCS together are the
+        Taglish-Aware Weighted Dependency Compatibility Algorithm (TA-WDCA).
+        {!weights.corpus_loaded && " No Correct Taglish Corpus is loaded, so CS is left out and the other weights are scaled to add up to 100%."}
+      </p>
+    </div>
   );
 }
 
 const mapState = {
-  similar: { active: "spelling", done: [] },
-  place: { active: null, done: ["spelling"] },
-  neighborhood: { active: "neighborhood", done: ["spelling"] },
-  mixing: { active: "mixing", done: ["spelling", "neighborhood"] },
-  fit: { active: "fit", done: ["spelling", "neighborhood", "mixing"] },
-  rank: { active: "final", done: ["spelling", "neighborhood", "mixing", "fit"] },
+  similar: { active: ["spelling"], done: [] },
+  place: { active: [], done: ["spelling"] },
+  neighborhood: { active: ["neighborhood"], done: ["spelling"] },
+  mixing: { active: ["mixing"], done: ["spelling", "neighborhood"] },
+  fit: { active: ["fit"], done: ["spelling", "neighborhood", "mixing"] },
+  context: { active: ["pas", "uds", "context"], done: ["spelling", "neighborhood", "mixing", "fit"] },
+  rank: { active: ["final"], done: ["spelling", "neighborhood", "mixing", "fit", "pas", "uds", "context"] },
 };
+
+const tagLabel = (tag) => (tag === "<s>" ? "start" : tag === "</s>" ? "end" : tag === "<root>" ? "root" : tag);
+
+function TagChip({ children }) {
+  return <span className="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs font-semibold text-slate-800">{tagLabel(children)}</span>;
+}
+
+function PatternChips({ pattern, kind }) {
+  if (kind === "pos") {
+    return (
+      <span className="inline-flex flex-wrap items-center gap-1">
+        {pattern.split(" ").map((tag, index) => (
+          <TagChip key={index}>{tag}</TagChip>
+        ))}
+      </span>
+    );
+  }
+  const [head, relation, dependent] = pattern.split("|");
+  return (
+    <span className="inline-flex flex-wrap items-center gap-1">
+      <TagChip>{head}</TagChip>
+      <span className="text-xs text-slate-500">— {describeRelationship(relation)[0].toLowerCase()} →</span>
+      <TagChip>{dependent}</TagChip>
+    </span>
+  );
+}
+
+function RuleList({ rules, kind, delay }) {
+  if (rules.length === 0) {
+    return <p className="text-sm text-slate-500">No rules apply to this word.</p>;
+  }
+  return (
+    <div className="space-y-1.5">
+      {rules.map((rule, index) => (
+        <div
+          key={rule.pattern}
+          className="walk-rise flex flex-wrap items-center gap-2 text-sm"
+          style={{ animationDelay: `${delay + index * 500}ms` }}
+        >
+          <span
+            className={`grid h-5 w-5 shrink-0 place-items-center rounded-full text-xs font-bold text-white ${rule.count > 0 ? "bg-emerald-500" : "bg-red-500"}`}
+          >
+            {rule.count > 0 ? "✓" : "✕"}
+          </span>
+          <PatternChips pattern={rule.pattern} kind={kind} />
+          <span className="text-xs text-slate-500">
+            {rule.count > 0 ? `seen ${rule.count}× in the corpus` : "never seen in the corpus"}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 function RoleDiagram({ word, role }) {
   const relation = describeRelationship(role.relation)[0];
@@ -374,24 +467,34 @@ export default function CorrectionStage({ stepKey, focused, tokens, weights, can
 
   if (stepKey === "overview") {
     const legend = [
-      ["Spelling similarity", "How close the spelling is to what you typed."],
-      ["Neighborhood", "Does the word play a sensible role among its neighbors?"],
-      ["Language mixing", "Do the English and Tagalog words around it work together?"],
-      ["Sentence fit", "Neighborhood and language mixing, added with their weights."],
-      ["Final score", "Spelling similarity and sentence fit, added with their weights. Highest wins."],
+      ["EDS", "Edit Distance Score", "How close the spelling is to what you typed, from the number of edits."],
+      ["DNA", "Dependency Neighborhood Analysis", "Does the word play a sensible role among its neighbors?"],
+      ["CLDC", "Cross-Language Dependency Compatibility", "Do the English and Tagalog words around it work together?"],
+      ["DCS", "Dependency Compatibility Score", "DNA and CLDC, each multiplied by a weight and added."],
+      ...(weights.corpus_loaded
+        ? [
+            ["PAS", "POS Annotation Score", "How many of the candidate's three-tag patterns appear in the Correct Taglish Corpus."],
+            ["UDS", "Universal Dependency Score", "How many of the candidate's dependency relations appear in the corpus."],
+            ["CS", "Context Score", "PAS and UDS, each multiplied by 0.5 and added."],
+          ]
+        : []),
+      ["FCS", "Final Candidate Score", weights.corpus_loaded ? "EDS, DCS and CS, each multiplied by a weight and added. The highest FCS wins." : "EDS and DCS, each multiplied by a weight and added. The highest FCS wins."],
     ];
     return (
       <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         <div>
-          <ScoreMap active={null} done={[]} weights={weights} animate />
+          <ScoreMap active={[]} done={[]} weights={weights} animate />
           <p className="walk-rise mt-3 text-xs text-slate-500" style={{ animationDelay: "2600ms" }}>
-            The percentage is how much each part counts toward its total.
+            The percentage is how much each part counts toward its total. c is the candidate word being scored.
           </p>
         </div>
         <ul className="space-y-2 text-sm text-slate-700">
-          {legend.map(([label, text], index) => (
-            <li key={label} className="walk-rise" style={{ animationDelay: `${700 + index * 450}ms` }}>
-              <strong className="text-slate-900">{label}:</strong> {text}
+          {legend.map(([acronym, label, text], index) => (
+            <li key={acronym} className="walk-rise" style={{ animationDelay: `${700 + index * 450}ms` }}>
+              <strong className="text-slate-900">
+                {acronym} <span className="font-semibold">({label}):</span>
+              </strong>{" "}
+              {text}
             </li>
           ))}
         </ul>
@@ -406,12 +509,15 @@ export default function CorrectionStage({ stepKey, focused, tokens, weights, can
     content = (
       <div>
         <Lead>
-          Which real words look like <span className="text-red-700">{error.text}</span>?
+          Edit distance: which real words are within {weights.max_edit_distance} letter edits of{" "}
+          <span className="text-red-700">{error.text}</span>?
           {summary.candidates_considered ? ` ${summary.candidates_considered} were tested; the best five are shown.` : ""}
         </Lead>
+        <FormulaStrip>
+          <Term>EDS</Term>(c) = 1 − edits ÷ ({weights.max_edit_distance} + 1) <span className="text-slate-500">(an edit adds, removes or replaces one letter)</span>
+        </FormulaStrip>
         <p className="walk-rise mb-3 rounded-md bg-slate-100 px-3 py-2 text-xs text-slate-700">
-          Spelling similarity drops with every edit:{" "}
-          {edits.map((count) => `${count} ${count === 1 ? "edit" : "edits"} = ${format(1 - count / (weights.max_edit_distance + 1))}`).join(" · ")}
+          {edits.map((count) => `${count} ${count === 1 ? "edit" : "edits"} = EDS ${format(1 - count / (weights.max_edit_distance + 1))}`).join(" · ")}
           <span className="ml-2">
             <span className="rounded bg-emerald-200 px-1">added</span>{" "}
             <span className="rounded bg-amber-200 px-1">replaced</span>{" "}
@@ -437,7 +543,7 @@ export default function CorrectionStage({ stepKey, focused, tokens, weights, can
                 </div>
               </div>
               <div className="mt-2 flex items-center gap-3">
-                <span className="w-28 shrink-0 text-xs text-slate-500">Spelling similarity</span>
+                <span className="w-28 shrink-0 text-xs text-slate-500">EDS</span>
                 <Bar value={candidate.scores.edit_distance} delay={position * 600 + 900} color="bg-[#800000]" />
                 <span className="w-10 text-right font-mono text-sm font-semibold text-slate-800">
                   {format(candidate.scores.edit_distance)}
@@ -474,11 +580,13 @@ export default function CorrectionStage({ stepKey, focused, tokens, weights, can
       ? [
           {
             key: "pos",
+            tag: "POS",
             ok: dna.pos,
             text: `Can a ${describePartOfSpeech(role.pos)[0].toLowerCase()} be the "${describeRelationship(role.relation)[0].toLowerCase()}"?`,
           },
           {
             key: "head",
+            tag: "HEAD",
             ok: dna.head,
             text: role.original_head
               ? `Does it attach to "${role.original_head}", like the typo did?`
@@ -486,11 +594,13 @@ export default function CorrectionStage({ stepKey, focused, tokens, weights, can
           },
           {
             key: "rel",
+            tag: "REL",
             ok: dna.rel,
             text: "Is its relationship valid: no second subject or object, and no clash between verb tense and time word?",
           },
           {
             key: "neighbor",
+            tag: "NEIGHBOR",
             ok: dna.neighbor,
             text: role.dependents.length
               ? "Do the words attached to it make sense?"
@@ -502,7 +612,11 @@ export default function CorrectionStage({ stepKey, focused, tokens, weights, can
     const passed = checks.filter((check) => check.ok).length;
     content = (
       <div>
-        <Lead>Does the candidate play a sensible role among its neighbors?</Lead>
+        <Lead>Dependency Neighborhood Analysis (DNA): does the candidate play a sensible role among its neighbors?</Lead>
+        <FormulaStrip>
+          <Term>DNA</Term>(c) = (<Term>POS</Term>(c) + <Term>HEAD</Term>(c) + <Term>REL</Term>(c) + <Term>NEIGHBOR</Term>(c)) ÷ 4{" "}
+          <span className="text-slate-500">(each check is 1 if passed, 0 if not)</span>
+        </FormulaStrip>
         <CandidatePicker suggestions={suggestions} value={candidateFocus} onChange={onCandidateFocus} />
         {dna && (
           <div key={item.word} className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)]">
@@ -511,7 +625,7 @@ export default function CorrectionStage({ stepKey, focused, tokens, weights, can
             </Card>
             <div className="space-y-2">
               {checks.map((check, index) => (
-                <CheckRow key={check.key} ok={check.ok} delay={checkDelay(index)}>
+                <CheckRow key={check.key} ok={check.ok} tag={check.tag} delay={checkDelay(index)}>
                   {check.text}
                 </CheckRow>
               ))}
@@ -521,7 +635,7 @@ export default function CorrectionStage({ stepKey, focused, tokens, weights, can
                   {passed} of 4 checks passed
                 </p>
                 <div className="mt-2">
-                  <ScoreBadge label="Neighborhood score" value={dna.score} delay={checkDelay(3) + 1100} />
+                  <ScoreBadge label="DNA(c)" value={dna.score} delay={checkDelay(3) + 1100} />
                 </div>
               </div>
             </div>
@@ -539,7 +653,11 @@ export default function CorrectionStage({ stepKey, focused, tokens, weights, can
     const cldc = item.details?.cldc;
     content = (
       <div>
-        <Lead>Do the English and Tagalog words around the candidate work together?</Lead>
+        <Lead>Cross-Language Dependency Compatibility (CLDC): do the English and Tagalog words around the candidate work together?</Lead>
+        <FormulaStrip>
+          <Term>CLDC</Term>(c) = valid cross-language relations ÷ total cross-language relations{" "}
+          <span className="text-slate-500">(no mixed relations = 1)</span>
+        </FormulaStrip>
         <CandidatePicker suggestions={suggestions} value={candidateFocus} onChange={onCandidateFocus} />
         {cldc && (
           <Card key={item.word}>
@@ -586,7 +704,7 @@ export default function CorrectionStage({ stepKey, focused, tokens, weights, can
               </div>
             )}
             <div className="mt-3">
-              <ScoreBadge label="Language mixing score" value={cldc.score} delay={cldc.relations.length * 700 + 1200} />
+              <ScoreBadge label="CLDC(c)" value={cldc.score} delay={cldc.relations.length * 700 + 1200} />
             </div>
           </Card>
         )}
@@ -596,12 +714,18 @@ export default function CorrectionStage({ stepKey, focused, tokens, weights, can
     const neighborhood = item.scores.dependency_neighborhood;
     const mixing = item.scores.cross_language;
     const parts = [
-      { label: "Neighborhood", weight: weights.dependency_neighborhood, score: neighborhood, color: "bg-sky-500" },
-      { label: "Language mixing", weight: weights.cross_language, score: mixing, color: "bg-violet-500" },
+      { label: "DNA", name: "Dependency Neighborhood Analysis", weight: weights.dependency_neighborhood, score: neighborhood, color: "bg-sky-500" },
+      { label: "CLDC", name: "Cross-Language Dependency Compatibility", weight: weights.cross_language, score: mixing, color: "bg-violet-500" },
     ];
     content = (
       <div>
-        <Lead>How well does the candidate fit the sentence overall?</Lead>
+        <Lead>Dependency Compatibility Score (DCS): how well does the candidate fit the sentence overall?</Lead>
+        <FormulaStrip>
+          <Term>DCS</Term>(c) = w1 × <Term>DNA</Term>(c) + w2 × <Term>CLDC</Term>(c){" "}
+          <span className="text-slate-500">
+            where w1 = {format(weights.dependency_neighborhood)}, w2 = {format(weights.cross_language)}
+          </span>
+        </FormulaStrip>
         <CandidatePicker suggestions={suggestions} value={candidateFocus} onChange={onCandidateFocus} />
         <Card key={item.word}>
           <div className="flex items-center gap-3">
@@ -619,38 +743,103 @@ export default function CorrectionStage({ stepKey, focused, tokens, weights, can
                 style={{ animationDelay: `${600 + index * 700}ms` }}
               >
                 <span className={`mr-2 inline-block h-3 w-3 rounded ${part.color}`} />
-                <strong>{part.label}</strong>
+                <strong>{part.label}</strong>{" "}
+                <span className="text-xs text-slate-500">{part.name}</span>
                 <p className="mt-1 font-mono text-xs text-slate-700">
-                  score {format(part.score)} × counts {Math.round(part.weight * 100)}% ={" "}
+                  {part.label}(c) {format(part.score)} × w {format(part.weight)} ={" "}
                   <span className="font-bold">{format(part.weight * part.score)}</span>
                 </p>
               </div>
             ))}
           </div>
           <div className="mt-3">
-            <ScoreBadge label="Sentence fit" value={item.scores.dependency_compatibility} delay={2400} />
+            <ScoreBadge label="DCS(c)" value={item.scores.dependency_compatibility} delay={2400} />
           </div>
         </Card>
       </div>
     );
-  } else {
-    const parts = (candidate) => [
-      { label: "Spelling similarity", value: weights.edit_distance * candidate.scores.edit_distance, color: "bg-[#800000]" },
-      { label: "Sentence fit", value: weights.dependency_compatibility * candidate.scores.dependency_compatibility, color: "bg-sky-500" },
-    ];
+  } else if (stepKey === "context") {
+    const context = item.details?.context;
+    const rulesDelay = 400;
+    const posEnd = context ? rulesDelay + context.pos_rules.length * 500 + 1200 : 0;
+    const depEnd = context ? posEnd + context.dependency_rules.length * 500 + 1200 : 0;
     content = (
       <div>
-        <Lead>Which candidate wins?</Lead>
+        <Lead>Context Score (CS): do this candidate's patterns appear in the Correct Taglish Corpus?</Lead>
+        <FormulaStrip>
+          <Term>PAS</Term>(c) = satisfied POS annotation rules ÷ total POS annotation rules<br />
+          <Term>UDS</Term>(c) = satisfied dependency relations ÷ total dependency relations<br />
+          <Term>CS</Term>(c) = {format(weights.pos_annotation)} × <Term>PAS</Term>(c) + {format(weights.universal_dependency)} × <Term>UDS</Term>(c)
+        </FormulaStrip>
+        <CandidatePicker suggestions={suggestions} value={candidateFocus} onChange={onCandidateFocus} />
+        {context && (
+          <Card key={item.word}>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
+              POS annotation rules (three tags in a row around the candidate)
+            </p>
+            <RuleList rules={context.pos_rules} kind="pos" delay={rulesDelay} />
+            <div className="mt-2">
+              <Blocks
+                results={context.pos_rules.map((rule) => rule.count > 0)}
+                delays={context.pos_rules.map((_, index) => rulesDelay + index * 500 + 300)}
+              />
+              <div className="mt-2">
+                <ScoreBadge label="PAS(c)" value={context.pas} delay={posEnd - 300} />
+              </div>
+            </div>
+            <p className="mb-2 mt-4 text-xs font-semibold uppercase tracking-wider text-slate-500">
+              Dependency relations (the candidate and its head or dependents)
+            </p>
+            <RuleList rules={context.dependency_rules} kind="dep" delay={posEnd} />
+            <div className="mt-2">
+              <Blocks
+                results={context.dependency_rules.map((rule) => rule.count > 0)}
+                delays={context.dependency_rules.map((_, index) => posEnd + index * 500 + 300)}
+              />
+              <div className="mt-2">
+                <ScoreBadge label="UDS(c)" value={context.uds} delay={depEnd - 300} />
+              </div>
+            </div>
+            <div className="mt-4 border-t border-slate-200 pt-3">
+              <ScoreBadge label="CS(c)" value={context.cs} delay={depEnd + 800} />
+            </div>
+          </Card>
+        )}
+      </div>
+    );
+  } else {
+    const corpus = weights.corpus_loaded;
+    const parts = (candidate) => [
+      { label: "EDS", weight: weights.edit_distance, value: weights.edit_distance * candidate.scores.edit_distance, color: "bg-[#800000]" },
+      { label: "DCS", weight: weights.dependency_compatibility, value: weights.dependency_compatibility * candidate.scores.dependency_compatibility, color: "bg-sky-500" },
+      ...(corpus
+        ? [{ label: "CS", weight: weights.context_score, value: weights.context_score * (candidate.scores.context_score ?? 0), color: "bg-amber-500" }]
+        : []),
+    ];
+    const legendParts = parts(suggestions[0]);
+    content = (
+      <div>
+        <Lead>Final Candidate Score (FCS): which candidate wins?</Lead>
+        <FormulaStrip>
+          <Term>FCS</Term>(c) = w1 × <Term>EDS</Term>(c) + w2 × <Term>DCS</Term>(c){corpus && <> + w3 × <Term>CS</Term>(c)</>}{" "}
+          <span className="text-slate-500">
+            where {legendParts.map((part, index) => `w${index + 1} = ${format(part.weight)}`).join(", ")}
+            {!corpus && " (no Correct Taglish Corpus is loaded, so CS is left out and the weights are scaled to add up to 1)"}
+          </span>
+        </FormulaStrip>
         <p className="walk-rise mb-3 flex flex-wrap items-center gap-3 text-xs text-slate-700">
-          <span><span className="mr-1 inline-block h-3 w-3 rounded bg-[#800000]" />Spelling similarity ({Math.round(weights.edit_distance * 100)}%)</span>
-          <span><span className="mr-1 inline-block h-3 w-3 rounded bg-sky-500" />Sentence fit ({Math.round(weights.dependency_compatibility * 100)}%)</span>
-          <span>A longer bar means a higher final score.</span>
+          {legendParts.map((part, index) => (
+            <span key={part.label}>
+              <span className={`mr-1 inline-block h-3 w-3 rounded ${part.color}`} />w{index + 1} × {part.label}
+            </span>
+          ))}
+          <span>A longer bar means a higher FCS.</span>
         </p>
         <div className="space-y-2">
           {suggestions.map((candidate, position) => {
             const best = position === 0;
             const base = position * 800;
-            const [spelling, fit] = parts(candidate);
+            const rowParts = parts(candidate);
             return (
               <Card key={candidate.word} delay={base} className={best ? "border-[#e8d169] bg-[#f7f1c5]" : ""}>
                 <div className="flex items-center gap-3">
@@ -658,11 +847,11 @@ export default function CorrectionStage({ stepKey, focused, tokens, weights, can
                   <span className={`w-28 shrink-0 truncate font-semibold ${best ? "text-emerald-700" : "text-slate-700"}`}>
                     {candidate.word}
                   </span>
-                  <StackedBar delay={base + 300} segments={[spelling, fit]} />
+                  <StackedBar delay={base + 300} segments={rowParts} />
                   <span className="w-10 text-right font-mono text-sm font-bold text-slate-900">{format(candidate.score)}</span>
                 </div>
                 <p className="walk-rise mt-1 pl-8 font-mono text-xs text-slate-600" style={{ animationDelay: `${base + 1200}ms` }}>
-                  {format(spelling.value)} spelling + {format(fit.value)} fit = {format(candidate.score)}
+                  {rowParts.map((part, index) => `${format(part.value)} (w${index + 1} × ${part.label})`).join(" + ")} = FCS {format(candidate.score)}
                   {best && (
                     <span className="walk-pop ml-2 rounded-full bg-emerald-600 px-2 py-0.5 font-sans font-semibold text-white" style={{ animationDelay: `${base + 1500}ms` }}>
                       Best match
@@ -682,7 +871,7 @@ export default function CorrectionStage({ stepKey, focused, tokens, weights, can
 
   const state = mapState[stepKey];
   return (
-    <div className="grid gap-4 md:grid-cols-[13.5rem_minmax(0,1fr)]">
+    <div className="grid gap-4 md:grid-cols-[15.5rem_minmax(0,1fr)]">
       <div className="self-start rounded-md border border-slate-200 bg-white p-2">
         <p className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">Where we are</p>
         <ScoreMap active={state.active} done={state.done} weights={weights} />
