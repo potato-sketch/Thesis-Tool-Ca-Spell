@@ -8,7 +8,10 @@ misspelled word. Paths where the Levenshtein automaton has no live state are
 abandoned, so most of the word list is never visited.
 """
 
+import math
+
 MAX_EDIT_DISTANCE = 2
+BAND = MAX_EDIT_DISTANCE  # width of the band |i - j| <= BAND in edit_distance()
 
 
 def allowed_distance(word):
@@ -77,12 +80,31 @@ def search(automaton, word, max_distance=None):
     return found
 
 
-def edit_distance(a, b):
-    """Levenshtein distance between two words."""
-    previous = list(range(len(b) + 1))
-    for i, char_a in enumerate(a, 1):
-        current = [i]
-        for j, char_b in enumerate(b, 1):
-            current.append(min(previous[j] + 1, current[j - 1] + 1, previous[j - 1] + (char_a != char_b)))
+def edit_distance(a, b, band=BAND):
+    """Banded Levenshtein distance between two words.
+
+    Only cells with |i - j| <= band are computed; cells outside the band count as
+    infinity, so the result is math.inf when the words are not within the band.
+    D(i, j) = min(D(i-1, j) + 1,                    deletion
+                  D(i, j-1) + 1,                    insertion
+                  D(i-1, j-1) + (a[i] != b[j]))     substitution
+    Pass band=None for the full, unbanded distance.
+    """
+    m, n = len(a), len(b)
+    if band is None:
+        band = max(m, n)
+    if abs(m - n) > band:
+        return math.inf
+    previous = [j if j <= band else math.inf for j in range(n + 1)]
+    for i in range(1, m + 1):
+        current = [math.inf] * (n + 1)
+        if i <= band:
+            current[0] = i
+        for j in range(max(1, i - band), min(n, i + band) + 1):
+            current[j] = min(
+                previous[j] + 1,
+                current[j - 1] + 1,
+                previous[j - 1] + (a[i - 1] != b[j - 1]),
+            )
         previous = current
-    return previous[-1]
+    return previous[n]

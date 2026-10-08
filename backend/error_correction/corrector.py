@@ -57,7 +57,7 @@ def _match_case(original, word):
 
 def _candidates_for(text, check, lexicon):
     if check["error_type"] == "hyphenation" and check["expected"]:
-        return [Candidate(check["expected"], edit_distance(text, check["expected"]))]
+        return [Candidate(check["expected"], edit_distance(text, check["expected"], band=None))]
 
     start, end, kind = _correction_target(text, check)
     whole_word = [

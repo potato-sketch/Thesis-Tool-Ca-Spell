@@ -24,7 +24,7 @@ app.add_middleware(
 
 
 class CheckRequest(BaseModel):
-    text: str = Field(min_length=1, max_length=5000)
+    text: str = Field(min_length=1, max_length=10000)
 
 
 @app.get("/api/health")

@@ -8,6 +8,10 @@ import Delete from "./assets/delete.png";
 import Copy from "./assets/copy.png";
 import Logo from "./assets/logo-no-bg.png";
 
+const API_URL = import.meta.env.VITE_API_URL ?? "http://127.0.0.1:8000";
+const RETRY_MS = 5000;
+const MAX_WORDS = 500;
+
 function App() {
   const [text, setText] = useState("");
   const undoStackRef = useRef([]);
@@ -27,6 +31,7 @@ function App() {
     status: "idle",
     error: "",
   });
+  const [retry, setRetry] = useState(0);
 
   useEffect(() => {
     const input = text.trim();
@@ -36,10 +41,14 @@ function App() {
     }
 
     const controller = new AbortController();
+    let retryTimer;
     const timer = setTimeout(async () => {
-      setAnalysis((current) => ({ ...current, status: "loading", error: "" }));
+      // Stay in the error state while retrying so the banner doesn't flicker.
+      setAnalysis((current) =>
+        current.status === "error" ? current : { ...current, status: "loading", error: "" },
+      );
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/check", {
+        const response = await fetch(`${API_URL}/api/check`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ text: input }),
@@ -71,15 +80,17 @@ function App() {
             status: "error",
             error: error.message,
           });
+          retryTimer = setTimeout(() => setRetry((count) => count + 1), RETRY_MS);
         }
       }
     }, 700);
 
     return () => {
       clearTimeout(timer);
+      clearTimeout(retryTimer);
       controller.abort();
     };
-  }, [text]);
+  }, [text, retry]);
 
   const textParts =
     text.match(/\s+|[\p{L}\p{M}]+(?:['’][\p{L}\p{M}]+)*|[^\s\p{L}\p{M}]+/gu) ??
@@ -247,26 +258,7 @@ function App() {
   }
 
   if (flowPage === "landing") {
-    return <LandingPage onLogin={() => setFlowPage("login")} />;
-  }
-
-  if (flowPage === "login") {
-    return (
-      <LoginPage
-        onContinue={() => setFlowPage("app")}
-        onBack={() => setFlowPage("landing")}
-        onCreateAccount={() => setFlowPage("register")}
-      />
-    );
-  }
-
-  if (flowPage === "register") {
-    return (
-      <CreateAccountPage
-        onBack={() => setFlowPage("login")}
-        onBackToLogin={() => setFlowPage("login")}
-      />
-    );
+    return <LandingPage onGetStarted={() => setFlowPage("app")} />;
   }
 
   return (
@@ -386,6 +378,20 @@ function App() {
       </nav>
 
       <main className="page-enter px-4">
+        {analysis.status === "error" && (
+          <div
+            role="alert"
+            className="mt-4 rounded-md border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900"
+          >
+            <p className="font-semibold">Ca-Spell can't reach its backend at {API_URL}.</p>
+            <p>
+              Start it with <code className="rounded bg-amber-100 px-1">npm run backend</code> (or{" "}
+              <code className="rounded bg-amber-100 px-1">npm run dev:all</code> to start everything) and wait for
+              "Application startup complete"; the first start downloads a language model and takes a while. This
+              page keeps retrying. ({analysis.error})
+            </p>
+          </div>
+        )}
         <section className="scroll-reveal flex min-h-[calc(100dvh-5rem)] flex-col gap-4 py-4">
           <div className="grid flex-1 grid-cols-1 gap-4 lg:min-h-0 lg:grid-cols-4">
             <div className="col-span-1 flex min-h-[55vh] flex-col border-gray shadow-md transition duration-300 hover:shadow-xl focus:outline-none lg:col-span-3 lg:min-h-0">
@@ -457,7 +463,7 @@ function App() {
                         <span
                           key={`${index}-${part}`}
                           className={`${
-                            isWord && wordCount > 100 && wordIndex >= 100
+                            isWord && wordCount > MAX_WORDS && wordIndex >= MAX_WORDS
                               ? "text-gray-400"
                               : "text-black"
                           } leading-10 ${isError ? "error-word" : ""}`}
@@ -521,10 +527,10 @@ function App() {
           <div className="mt-1 flex flex-wrap items-center justify-between gap-3">
             <div
               className={`text-base ${
-                wordCount > 100 ? "text-red-600" : "text-slate-700"
+                wordCount > MAX_WORDS ? "text-red-600" : "text-slate-700"
               }`}
             >
-              Words: <span className="font-semibold">{wordCount}/100</span>
+              Words: <span className="font-semibold">{wordCount}/{MAX_WORDS}</span>
             </div>
           </div>
         </section>
@@ -604,19 +610,11 @@ function Brand({ light = false }) {
   );
 }
 
-function LandingPage({ onLogin }) {
+function LandingPage({ onGetStarted }) {
   return (
     <main className="min-h-screen overflow-hidden bg-[linear-gradient(125deg,#f8f3ef_0%,#eee4e4_56%,#e2e3ed_100%)] text-[#241e28]">
       <header className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 lg:px-10">
         <Brand />
-
-        <button
-          type="button"
-          onClick={onLogin}
-          className="border-b-2 border-[#8c1d35] px-1 py-2 font-semibold text-[#54151a] transition-colors hover:text-[#8c1d35]"
-        >
-          Log in <span aria-hidden="true">→</span>
-        </button>
       </header>
 
       <section className="mx-auto grid min-h-[calc(100vh-88px)] max-w-7xl items-center gap-12 px-5 pb-16 pt-8 lg:grid-cols-[1.05fr_0.95fr] lg:px-10 lg:pb-24">
@@ -637,7 +635,7 @@ function LandingPage({ onLogin }) {
           <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
             <button
               type="button"
-              onClick={onLogin}
+              onClick={onGetStarted}
               className="inline-flex min-h-14 items-center gap-5 bg-[#74191d] px-7 font-primary font-bold text-white shadow-lg transition duration-200 hover:-translate-y-0.5 hover:bg-[#5b1116] hover:shadow-xl"
             >
               Get started <span aria-hidden="true">→</span>
@@ -891,220 +889,6 @@ function LandingPage({ onLogin }) {
         </div>
       </section>
     </main>
-  );
-}
-
-function LoginPage({ onContinue, onBack, onCreateAccount }) {
-  const [notice, setNotice] = useState("");
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    onContinue();
-  }
-
-  return (
-    <main className="flex min-h-screen flex-col items-center bg-[linear-gradient(125deg,#f8f3ef_0%,#eee4e4_56%,#e2e3ed_100%)] px-4 py-12 text-[#171417] sm:py-16">
-      <button
-        type="button"
-        onClick={onBack}
-        className="page-enter mb-2 flex flex-col items-center text-center"
-        aria-label="Back to landing page"
-      >
-        <div className="flex flex-col items-center">
-          <Brand />
-          <h2 className="mt-2 font-primary text-base font-medium italic text-[#4b4145] sm:text-lg">
-            For Every Taglish Error, May Koreksyon
-          </h2>
-        </div>
-      </button>
-
-      <section className="page-enter w-full max-w-117 border border-[#bdb8c9] bg-[#fbfbfb] px-7 py-6 shadow-[0_14px_20px_rgba(38,28,35,0.22)] sm:px-12 sm:py-7">
-        <h1 className="mb-5 text-center font-primary text-xl font-bold sm:text-2xl">
-          Welcome to <span className="text-[#38245f]">Ca-</span>
-          <span className="text-[#8c1d35]">Spell!</span>
-        </h1>
-        <form onSubmit={handleSubmit}>
-          <label
-            htmlFor="login-email"
-            className="mb-1.5 block font-primary text-sm font-medium text-slate-700"
-          >
-            Email address
-          </label>
-          <input
-            id="login-email"
-            type="email"
-            autoComplete="email"
-            className="mb-3 h-14 w-full rounded-md border border-slate-300 bg-white px-3.5 font-primary text-sm font-normal text-slate-800 outline-none transition-colors placeholder:text-slate-400 focus:border-[#74191d] focus:ring-2 focus:ring-[#74191d]/15"
-          />
-          <label
-            htmlFor="login-password"
-            className="mb-1.5 block font-primary text-sm font-medium text-slate-700"
-          >
-            Password
-          </label>
-          <input
-            id="login-password"
-            type="password"
-            autoComplete="current-password"
-            className="mb-7 h-14 w-full rounded-md border border-slate-300 bg-white px-3.5 font-primary text-sm font-normal text-slate-800 outline-none transition-colors placeholder:text-slate-400 focus:border-[#74191d] focus:ring-2 focus:ring-[#74191d]/15"
-          />
-          <button
-            type="submit"
-            className="h-11 w-full bg-[#74191d] px-4 font-primary text-sm font-semibold text-white transition-colors hover:bg-[#5b1116] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#74191d]"
-          >
-            Log in
-          </button>
-        </form>
-        {/* <button
-          type="button"
-          onClick={() => setNotice("Password recovery is not available yet.")}
-          className="mx-auto mt-3 block px-2 py-1 text-center font-primary text-sm font-medium text-[#74191d] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#74191d]"
-        >
-          Forgot password?
-        </button> */}
-        {/* <div className="mx-3 my-3 border-t border-[#aaa5a5]" /> */}
-        <button
-          type="button"
-          onClick={onCreateAccount}
-          className="h-11 w-full border border-[#74191d] bg-transparent px-4 mt-2 font-primary text-sm font-semibold text-[#74191d] transition-colors hover:bg-[#f4e9e9] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#74191d]"
-        >
-          Create account
-        </button>
-        <button
-          type="button"
-          onClick={onContinue}
-          className="mt-2 h-10 w-full px-4 font-primary text-sm font-medium text-[#74191d] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#74191d]"
-        >
-          Continue as guest
-        </button>
-        {notice && (
-          <p
-            role="status"
-            className="mt-3 text-center font-primary text-sm text-[#74191d]"
-          >
-            {notice}
-          </p>
-        )}
-      </section>
-    </main>
-  );
-}
-
-function CreateAccountPage({ onBack, onBackToLogin }) {
-  const [notice, setNotice] = useState("");
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    if (formData.get("password") !== formData.get("confirm-password")) {
-      setNotice("The passwords do not match.");
-      return;
-    }
-    setNotice(
-      "Account registration is not connected yet. No account was saved.",
-    );
-  }
-
-  return (
-    <main className="flex min-h-screen flex-col items-center bg-[linear-gradient(125deg,#f8f3ef_0%,#eee4e4_56%,#e2e3ed_100%)] px-4 py-10 text-[#171417] sm:py-14">
-      <button
-        type="button"
-        onClick={onBack}
-        className="page-enter mb-5 flex flex-col items-center text-center"
-        aria-label="Back to login"
-      >
-        <div className="flex flex-col items-center">
-          <Brand />
-          <h2 className="mt-2 font-primary text-base font-medium italic text-[#4b4145] sm:text-lg">
-            For Every Taglish Error, May Koreksyon
-          </h2>
-        </div>
-      </button>
-
-      <section className="page-enter w-full max-w-117 border border-[#bdb8c9] bg-[#fbfbfb] px-7 py-6 shadow-[0_14px_20px_rgba(38,28,35,0.22)] sm:px-12 sm:py-8">
-        <h1 className="mb-6 text-center font-primary text-xl font-bold sm:text-2xl">
-          Create your Ca-Spell account
-        </h1>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <RegistrationField
-            id="register-name"
-            name="name"
-            label="Name"
-            type="text"
-            autoComplete="name"
-          />
-          <RegistrationField
-            id="register-email"
-            name="email"
-            label="Email address"
-            type="email"
-            autoComplete="email"
-          />
-          <RegistrationField
-            id="register-password"
-            name="password"
-            label="Password"
-            type="password"
-            autoComplete="new-password"
-            minLength={8}
-          />
-          <RegistrationField
-            id="register-confirm-password"
-            name="confirm-password"
-            label="Confirm password"
-            type="password"
-            autoComplete="new-password"
-            minLength={8}
-          />
-          <button
-            type="submit"
-            className="h-11 w-full bg-[#74191d] px-4 font-primary text-sm font-semibold text-white transition-colors hover:bg-[#5b1116] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#74191d]"
-          >
-            Create account
-          </button>
-        </form>
-        {notice && (
-          <p
-            role="status"
-            className="mt-4 text-center font-primary text-sm text-[#74191d]"
-          >
-            {notice}
-          </p>
-        )}
-        <p className="mt-5 text-center font-primary text-sm text-slate-600">
-          Already have an account?{" "}
-          <button
-            type="button"
-            onClick={onBackToLogin}
-            className="font-semibold text-[#74191d] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#74191d]"
-          >
-            Log in
-          </button>
-        </p>
-      </section>
-    </main>
-  );
-}
-
-function RegistrationField({ id, name, label, type, autoComplete, minLength }) {
-  return (
-    <div>
-      <label
-        htmlFor={id}
-        className="mb-1.5 block font-primary text-sm font-medium text-slate-700"
-      >
-        {label}
-      </label>
-      <input
-        id={id}
-        name={name}
-        type={type}
-        autoComplete={autoComplete}
-        minLength={minLength}
-        required
-        className="h-10 w-full rounded-md border border-slate-300 bg-white px-3.5 font-primary text-sm font-normal text-slate-800 outline-none transition-colors placeholder:text-slate-400 focus:border-[#74191d] focus:ring-2 focus:ring-[#74191d]/15"
-      />
-    </div>
   );
 }
 

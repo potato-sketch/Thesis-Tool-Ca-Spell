@@ -514,6 +514,21 @@ export default function CorrectionStage({ stepKey, focused, tokens, weights, can
           {summary.candidates_considered ? ` ${summary.candidates_considered} were tested; the best five are shown.` : ""}
         </Lead>
         <FormulaStrip>
+          For 1 ≤ i ≤ m and 1 ≤ j ≤ n within the band (|i − j| ≤ {weights.max_edit_distance}):
+          <br />
+          <Term>D</Term>(i, j) = min {"{"}
+          <br />
+          &nbsp;&nbsp;D(i − 1, j) + 1 <span className="text-slate-500">(deletion)</span>,
+          <br />
+          &nbsp;&nbsp;D(i, j − 1) + 1 <span className="text-slate-500">(insertion)</span>,
+          <br />
+          &nbsp;&nbsp;D(i − 1, j − 1) + δ(A[i], B[j]) <span className="text-slate-500">(substitution)</span>
+          <br />
+          {"}"}
+          <br />
+          δ(A[i], B[j]) = 0 if A[i] = B[j], otherwise 1
+        </FormulaStrip>
+        <FormulaStrip delay={400}>
           <Term>EDS</Term>(c) = 1 − edits ÷ ({weights.max_edit_distance} + 1) <span className="text-slate-500">(an edit adds, removes or replaces one letter)</span>
         </FormulaStrip>
         <p className="walk-rise mb-3 rounded-md bg-slate-100 px-3 py-2 text-xs text-slate-700">

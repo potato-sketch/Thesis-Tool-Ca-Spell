@@ -1,3 +1,4 @@
+import math
 import sys
 import tempfile
 import unittest
@@ -52,7 +53,28 @@ class EditDistanceTest(unittest.TestCase):
     def test_edit_distance(self):
         self.assertEqual(edit_distance("kitten", "sitting"), 3)
         self.assertEqual(edit_distance("assignmnt", "assignment"), 1)
-        self.assertEqual(edit_distance("", "abc"), 3)
+        self.assertEqual(edit_distance("", "abc", band=None), 3)
+
+    def test_banded_edit_distance(self):
+        self.assertEqual(edit_distance("kitten", "kitten"), 0)
+        self.assertEqual(edit_distance("bukas", "bukaz"), 1)
+        self.assertEqual(edit_distance("stress", "stres"), 1)
+        self.assertEqual(edit_distance("submit", "sbmt"), 2)
+        # Length gap wider than the band is infinity.
+        self.assertEqual(edit_distance("", "abc"), math.inf)
+        self.assertEqual(edit_distance("abcdef", "ab"), math.inf)
+        self.assertEqual(edit_distance("abc", "xyz"), 3)
+
+    def test_banded_matches_full_within_threshold(self):
+        words = ["submit", "sbmit", "assignment", "assignmnt", "bukas", "bukaz", "kain", "kan", "nag", "stress", "stres", "umbit"]
+        for a in words:
+            for b in words:
+                full = edit_distance(a, b, band=None)
+                banded = edit_distance(a, b)
+                if full <= 2:
+                    self.assertEqual(banded, full, (a, b))
+                else:
+                    self.assertGreater(banded, 2, (a, b))
 
     def test_automaton_search_matches_brute_force(self):
         words = ENGLISH | TAGALOG | {"submitt", "submi", "sbmit", "umbit"}
