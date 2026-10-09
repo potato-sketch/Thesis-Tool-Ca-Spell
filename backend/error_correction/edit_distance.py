@@ -11,7 +11,7 @@ abandoned, so most of the word list is never visited.
 import math
 
 MAX_EDIT_DISTANCE = 2
-BAND = MAX_EDIT_DISTANCE  # width of the band |i - j| <= BAND in edit_distance()
+BAND = MAX_EDIT_DISTANCE  # width of the band |i - j| <---- BAND in edit_distance()
 
 
 def allowed_distance(word):

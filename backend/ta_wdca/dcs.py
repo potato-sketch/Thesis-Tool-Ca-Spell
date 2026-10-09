@@ -9,10 +9,8 @@ and its language mix is a supported one.
 from ta_wdca.cldc import cross_language_compatibility
 from ta_wdca.dna import dependency_neighborhood
 
-# The weights are not fixed by the study; equal weights until they are tuned.
 DNA_WEIGHT = 0.5
 CLDC_WEIGHT = 0.5
-
 
 def dependency_compatibility(original, candidate, lexicon, dna_weight=DNA_WEIGHT, cldc_weight=CLDC_WEIGHT):
     """Scores the candidate token against the misspelled token it replaces.

@@ -11,9 +11,8 @@ from error_correction.context_scoring import PAS_WEIGHT, UDS_WEIGHT
 from error_correction.edit_distance import MAX_EDIT_DISTANCE
 from ta_wdca.dcs import CLDC_WEIGHT, DNA_WEIGHT
 
-# The weights are not fixed by the study; placeholders until they are tuned.
-EDS_WEIGHT = 0.4
-DCS_WEIGHT = 0.3
+EDS_WEIGHT = 0.3
+DCS_WEIGHT = 0.4
 CS_WEIGHT = 0.3
 
 
