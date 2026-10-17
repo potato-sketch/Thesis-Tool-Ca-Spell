@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Ca-Spell",
+  "version": "0.1.0",
+  "description": "Taglish spelling checker. Select text on any page and check it with Ca-Spell.",
+  "icons": { "16": "icon.png", "48": "icon.png", "128": "icon.png" },
+  "permissions": ["sidePanel", "contextMenus", "storage", "scripting", "activeTab"],
+  "host_permissions": ["http://127.0.0.1:8000/*", "http://localhost:8000/*"],
+  "background": { "service_worker": "background.js" },
+  "action": { "default_title": "Open Ca-Spell", "default_icon": "icon.png" },
+  "side_panel": { "default_path": "index.html" },
+  "commands": {
+    "check-selection": {
+      "suggested_key": { "default": "Alt+Shift+C" },
+      "description": "Check the selected text with Ca-Spell"
+    }
+  }
+}

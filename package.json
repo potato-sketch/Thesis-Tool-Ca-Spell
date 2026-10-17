@@ -7,8 +7,11 @@
     "dev": "vite",
     "dev:all": "node scripts/run.mjs dev",
     "setup:backend": "node scripts/run.mjs setup",
+    "setup:desktop": "node scripts/run.mjs desktop-setup",
+    "desktop": "node scripts/run.mjs desktop",
     "backend": "node scripts/run.mjs backend",
     "build": "vite build",
+    "build:extension": "vite build --mode extension",
     "lint": "eslint .",
     "preview": "vite preview"
   },

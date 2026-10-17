@@ -11,10 +11,12 @@ node_modules
 backend/.venv/
 backend/.venv312/
 backend/.venv314/
+desktop/.venv/
 backend/data/raw/
 backend/data/automata/
 __pycache__/
 dist
+dist-extension
 dist-ssr
 *.local
 

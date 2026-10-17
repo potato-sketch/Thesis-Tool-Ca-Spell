@@ -33,6 +33,36 @@ function App() {
   });
   const [retry, setRetry] = useState(0);
 
+  // Text sent from outside the page: the browser extension (selection / context menu)
+  // or the desktop hotkey helper, which opens the app with #text=<encoded text>.
+  useEffect(() => {
+    const load = (incoming) => {
+      if (!incoming) return;
+      setText(incoming);
+      setFlowPage("app");
+    };
+    const hashText = new URLSearchParams(window.location.hash.slice(1)).get("text");
+    if (hashText) {
+      load(hashText);
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+    const storage = globalThis.chrome?.storage;
+    if (!storage) return;
+    const take = async () => {
+      const { pendingText } = await storage.local.get("pendingText");
+      if (pendingText?.text) {
+        await storage.local.remove("pendingText");
+        load(pendingText.text);
+      }
+    };
+    take();
+    const onChange = (changes, area) => {
+      if (area === "local" && changes.pendingText?.newValue) take();
+    };
+    storage.onChanged.addListener(onChange);
+    return () => storage.onChanged.removeListener(onChange);
+  }, []);
+
   useEffect(() => {
     const input = text.trim();
     if (!input) {

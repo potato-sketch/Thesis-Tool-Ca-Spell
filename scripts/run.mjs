@@ -2,6 +2,8 @@
 //   node scripts/run.mjs setup    create backend/.venv and install the requirements
 //   node scripts/run.mjs backend  start the API on port 8000
 //   node scripts/run.mjs dev      start the API and the Vite dev server together
+//   node scripts/run.mjs desktop-setup  (Windows) set up the Notepad/Word live checker in desktop/.venv
+//   node scripts/run.mjs desktop        (Windows) run the live checker (the API must be running)
 import { spawn, spawnSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import path from "node:path";
@@ -51,6 +53,30 @@ function setup() {
   console.log("\nBackend ready. Start it with: npm run backend");
 }
 
+const desktop = path.join(root, "desktop");
+const desktopPython = path.join(desktop, ".venv", "Scripts", "python.exe");
+
+function desktopSetup() {
+  if (!windows) fail("The live checker for Notepad/Word only runs on Windows.");
+  if (spawnSync("py", ["-3.12", "--version"], { stdio: "ignore" }).status !== 0) {
+    fail("Python 3.12 was not found. Install it from https://www.python.org/downloads/ and run this again.");
+  }
+  if (!existsSync(desktopPython)) run("py", ["-3.12", "-m", "venv", path.join(desktop, ".venv")]);
+  run(desktopPython, ["-m", "pip", "install", "--upgrade", "pip"]);
+  run(desktopPython, ["-m", "pip", "install", "-r", path.join(desktop, "requirements.txt")]);
+  console.log("\nLive checker ready. Start the backend (npm run backend), then run: npm run desktop");
+}
+
+function startDesktop() {
+  if (!windows) fail("The live checker for Notepad/Word only runs on Windows.");
+  if (!existsSync(desktopPython)) fail("The live checker is not set up yet. Run: npm run setup:desktop");
+  const child = spawn(desktopPython, [path.join(desktop, "live_checker.py"), ...process.argv.slice(3)], {
+    cwd: desktop,
+    stdio: "inherit",
+  });
+  child.on("exit", (code) => process.exit(code ?? 0));
+}
+
 function startBackend() {
   const python = findPython();
   if (!python) {
@@ -72,6 +98,10 @@ const mode = process.argv[2];
 
 if (mode === "setup") {
   setup();
+} else if (mode === "desktop-setup") {
+  desktopSetup();
+} else if (mode === "desktop") {
+  startDesktop();
 } else if (mode === "backend") {
   startBackend().on("exit", (code) => process.exit(code ?? 0));
 } else if (mode === "dev") {
@@ -94,5 +124,5 @@ if (mode === "setup") {
     process.exit(code ?? 0);
   });
 } else {
-  fail("Usage: node scripts/run.mjs setup | backend | dev");
+  fail("Usage: node scripts/run.mjs setup | backend | dev | desktop-setup | desktop");
 }
