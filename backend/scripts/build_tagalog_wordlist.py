@@ -14,7 +14,7 @@ dialectal/obsolete/archaic/nonstandard/misspelled (e.g. "magaaral" for
 "mag-aaral"), and headwords that only exist as misspellings. Run from
 the backend folder:
 
-    .venv312\\Scripts\\python.exe scripts\\build_tagalog_wordlist.py
+    .venv\\Scripts\\python.exe scripts\\build_tagalog_wordlist.py
 
 Pass --refresh to download the latest extract instead of the cached copy.
 """

@@ -3,21 +3,28 @@
 Runs the pretrained CalamanCy NLP pipeline over the input text.
 """
 
+import warnings
+
 import calamancy
 from spacy.util import compile_infix_regex
 
 from preprocessing.lexicon import Lexicon
 
+# The model's meta.json asks for "spacy>=3.8.3" with no upper bound, which spaCy warns about (W094).
+# requirements.txt pins spaCy below 3.9, so the warning does not apply.
+warnings.filterwarnings("ignore", message=r"\[W094\]")
+
 # Pretrained CalamanCy NLP pipeline (tokenizer, POS tagger, UD dependency parser).
 # Loaded once at startup; the first run downloads the model from Hugging Face and
-# later runs use the local cache.
+# later runs use the local cache. The named-entity recognizer is not used by any
+# module, so it is not loaded (the extra keyword arguments go to spacy.load()).
 try:
-    nlp = calamancy.load("tl_calamancy_md")
+    nlp = calamancy.load("tl_calamancy_md", exclude=["ner"])
 except Exception as exc:
     raise RuntimeError(
         "Could not load the CalamanCy model 'tl_calamancy_md'. "
-        "Check that backend/requirements.txt is installed and that Hugging Face "
-        "is reachable on the first run."
+        "Check that backend/requirements.txt and backend/requirements-calamancy.txt are "
+        "installed and that Hugging Face is reachable on the first run."
     ) from exc
 
 # Tokenization: keep hyphenated words ("nag-submit", "mag-aaral", "isa-isa") as

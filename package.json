@@ -1,15 +1,19 @@
 {
-  "name": "my-projectcd",
+  "name": "ca-spell",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
   "scripts": {
+    "start": "node scripts/run.mjs start",
     "dev": "vite",
     "dev:all": "node scripts/run.mjs dev",
-    "setup:backend": "node scripts/run.mjs setup",
-    "setup:desktop": "node scripts/run.mjs desktop-setup",
+    "setup": "node scripts/run.mjs setup",
     "desktop": "node scripts/run.mjs desktop",
     "backend": "node scripts/run.mjs backend",
+    "test:backend": "node scripts/run.mjs test",
     "build": "vite build",
     "build:extension": "vite build --mode extension",
     "lint": "eslint .",
@@ -18,7 +22,7 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
     "gsap": "^3.15.0",
-    "motion": "^13.4.0",
+    "motion": "^14.14.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "tailwindcss": "^4.3.3"

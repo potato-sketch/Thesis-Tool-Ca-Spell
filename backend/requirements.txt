@@ -1,3 +1,15 @@
-calamancy==0.2.3
-fastapi
-uvicorn[standard]
+# Installed automatically by `npm start` / `npm run dev:all` (scripts/run.mjs) into backend/.venv.
+# Works on Python 3.11 - 3.14; every package below ships prebuilt wheels, so no compiler is needed.
+
+# NLP: CalamanCy itself is in requirements-calamancy.txt (installed with --no-deps, see that file).
+# These are the packages it uses; its tl_calamancy_md model was trained with spaCy 3.8.
+spacy>=3.8.7,<3.9
+huggingface_hub>=0.30
+wasabi>=0.9.1
+
+# API
+fastapi>=0.115
+uvicorn[standard]>=0.34
+
+# Desktop live checker for Notepad / Word (desktop/live_checker.py), Windows only
+uiautomation>=2.0.29; sys_platform == "win32"

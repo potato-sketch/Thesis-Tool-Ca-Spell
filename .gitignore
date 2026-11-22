@@ -8,10 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-backend/.venv/
-backend/.venv312/
-backend/.venv314/
-desktop/.venv/
+.venv*/
 backend/data/raw/
 backend/data/automata/
 __pycache__/

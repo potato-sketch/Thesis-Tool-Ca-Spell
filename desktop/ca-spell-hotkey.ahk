@@ -1,6 +1,6 @@
 ; Ca-Spell hotkey for desktop apps (MS Word, Notepad, anything with selectable text).
-; Requires AutoHotkey v2 (https://www.autohotkey.com/) and the Ca-Spell backend running (npm run backend),
-; with the web app built (npm run build) so http://127.0.0.1:8000/ serves it.
+; Requires AutoHotkey v2 (https://www.autohotkey.com/) and Ca-Spell running (`npm start`),
+; which serves the web app at http://127.0.0.1:8000/.
 ;
 ; Select text, press Ctrl+Shift+K: the text opens in Ca-Spell. Use its Copy button, then
 ; Ctrl+V back in Word/Notepad to replace your selection with the corrected text.

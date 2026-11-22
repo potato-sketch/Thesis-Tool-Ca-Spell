@@ -9,24 +9,23 @@ that uses CalamanCy for tokenization, POS tagging and dependency parsing.
 |---|---|---|---|
 | Git | any recent | https://git-scm.com/downloads | cloning the repository |
 | Node.js (includes npm) | 20.19+ or 22.12+ (LTS recommended) | https://nodejs.org/ | front-end (Vite, React) |
-| Python | **3.12** (3.13/3.14 are not supported by the dependencies) | https://www.python.org/downloads/ | back-end API |
+| Python | any of **3.11, 3.12, 3.13, 3.14** (newest is fine) | https://www.python.org/downloads/ | back-end API |
 | A code editor (optional) | VS Code | https://code.visualstudio.com/ | browsing and editing the code |
 
 Also needed:
 
-- **Internet connection** for the first setup. `npm install`, `pip install` and the first API start
-  (which downloads the `tl_calamancy_md` model from Hugging Face) all fetch files.
-- **Free disk space**: a few GB for the Python packages and the language model.
-- **Port 8000 (API) and port 5173 (front-end)** free on your machine.
-- When installing Python on Windows, tick **"Add python.exe to PATH"** and keep the **py launcher** enabled.
+- **Internet connection** for the first run, which downloads the Python packages and the
+  `tl_calamancy_md` model from Hugging Face. Later runs work offline.
+- **Free disk space**: about 600 MB (300 MB of Python packages, 225 MB for the model).
+- **Port 8000** free on your machine (and port 5173 for `npm run dev:all`).
+- When installing Python on Windows, keep the **py launcher** option ticked (it is on by default).
 
 Check the installs by running:
 
 ```powershell
 git --version
 node --version
-npm --version
-py -3.12 --version      # Windows; on macOS/Linux use: python3.12 --version
+py --version            # Windows; on macOS/Linux use: python3 --version
 ```
 
 ## 2. Get the project
@@ -36,45 +35,60 @@ git clone https://github.com/potato-sketch/Thesis-Tool-Ca-Spell.git
 cd Thesis-Tool-Ca-Spell
 ```
 
-## 3. One-time setup
+## 3. Run it
 
-Run these from the project root:
-
-```powershell
-npm install             # installs the front-end packages
-npm run setup:backend   # creates backend/.venv312 and installs backend/requirements.txt
-```
-
-`npm run setup:backend` needs Python 3.12 and will stop with a message if it cannot find it.
-
-## 4. Run the app
+From the project root:
 
 ```powershell
-npm run dev:all         # starts the API and the front-end together
+npm install
+npm start
 ```
 
-1. Wait for **"Application startup complete"** in the terminal. The first start downloads the
-   `tl_calamancy_md` model, so it can take several minutes. Later starts are much faster.
-2. Open the address Vite prints (normally http://localhost:5173/) in your browser.
-3. Press `Ctrl+C` in the terminal to stop both servers.
+That's all. The **first** `npm start` sets everything up by itself, which takes a few minutes: it
+finds your Python, creates `backend/.venv`, installs `backend/requirements.txt`, downloads the CalamanCy
+model and builds the web app. Later starts skip all of that and are ready in a few seconds.
 
-The page talks to the API on `http://127.0.0.1:8000`. If the API is not running the browser shows
-`ERR_CONNECTION_REFUSED` and the page shows a "can't reach its backend" banner; the page keeps retrying
-until the API answers. To point the page at an API somewhere else, set `VITE_API_URL`.
+1. Wait for **"Application startup complete"** in the terminal.
+2. Open http://127.0.0.1:8000/ in your browser.
+3. Press `Ctrl+C` in the terminal to stop it.
 
-Other commands:
+`npm start` rebuilds the web app automatically whenever the front-end has changed, and reinstalls the
+Python packages whenever `backend/requirements.txt` changes, so after a `git pull` you only run
+`npm install` and `npm start` again.
+
+### While developing the front-end
+
+```powershell
+npm run dev:all         # API on port 8000 + Vite dev server with hot reload
+```
+
+Open the address Vite prints (normally http://localhost:5173/). The page talks to the API on
+`http://127.0.0.1:8000`; if the API is not running the page shows a "can't reach its backend" banner and
+keeps retrying until it answers. To point the page at an API somewhere else, set `VITE_API_URL`.
+
+All commands:
 
 | Command | What it does |
 |---|---|
-| `npm run backend` | starts only the API (port 8000) |
-| `npm run dev` | starts only the front-end |
-| `npm run build` | builds the front-end into `dist/` |
-| `npm run lint` | runs ESLint |
-| `npm run setup:desktop` | one-time setup of the Notepad/Word live checker (Windows) |
-| `npm run desktop` | runs the live checker (the API must be running) |
+| `npm start` | app + API on http://127.0.0.1:8000 (sets up and builds whatever is missing) |
+| `npm run dev:all` | API plus the Vite dev server with hot reload |
+| `npm run backend` | only the API (port 8000) |
+| `npm run dev` | only the Vite dev server |
+| `npm run desktop` | the Notepad/Word live checker (Windows); starts the API too if it is not running |
+| `npm run test:backend` | backend unit tests |
+| `npm run setup` | only the one-time setup (the commands above run it automatically) |
+| `npm run build` / `npm run build:extension` | build the web app / the browser extension |
+| `npm run lint` | ESLint |
 
 Starting the API by hand (`uvicorn main:app`) must be done from inside the `backend` folder, or with
 `--app-dir backend`; from the project root it fails with "Could not import module main".
+
+## 4. Updating from an older version of this project
+
+Older versions needed Python 3.12 exactly and used `backend/.venv`, `backend/.venv314` and
+`desktop/.venv`. Those are no longer used; everything now lives in `backend/.venv`, and you can delete
+the old folders. The `setup:backend` and `setup:desktop` commands are gone because `npm start` and
+`npm run desktop` do the setup themselves.
 
 ## 5. Browser extension and desktop apps (Word, Notepad)
 
@@ -84,22 +98,12 @@ backend running on your own computer**. Nothing works unless the backend is runn
 
 ### Step 0: start the backend (needed for everything below)
 
-1. Finish sections 1-3 above (`npm install` and `npm run setup:backend`) once.
-2. Build the web app, then start the backend, in a terminal in the project root:
-
-   ```powershell
-   npm run build       # needed once, and again after you change the front-end
-   npm run backend
-   ```
-
-3. Wait until the terminal prints `Uvicorn running on http://127.0.0.1:8000`. Loading the language
-   model takes about 30-60 seconds (much longer the very first time). Leave this window open.
-4. Check it: open http://127.0.0.1:8000/api/health in a browser. You should see `{"status":"ok", ...}`.
+1. In a terminal in the project root run `npm start` (see section 3).
+2. Wait until the terminal prints `Uvicorn running on http://127.0.0.1:8000`. Leave this window open.
+3. Check it: open http://127.0.0.1:8000/api/health in a browser. You should see `{"status":"ok", ...}`.
    Opening http://127.0.0.1:8000/ should show the Ca-Spell app.
 
-> If you ran `npm run build` while the backend was already running, **stop it (`Ctrl+C`) and start it again**.
-> The backend only looks for the built app at startup. Without a build, http://127.0.0.1:8000/ shows
-> `{"detail":"Not Found"}`.
+The live checker (Part B) does not need this step: `npm run desktop` starts the backend itself.
 
 ### Part A: browser extension (Chrome, Edge, Brave, Opera, Vivaldi)
 
@@ -139,29 +143,23 @@ type in Notepad -> pause for a moment -> orange underlines appear -> click a wor
 
 How it works: Windows UI Automation (the same technology screen readers use) reads the text and the exact
 position of each word. The underlines are drawn on a see-through window laid over Notepad, so they never
-change your file. It does not need Node or AutoHotkey, only Python 3.12 (already needed by the backend).
-
-**One-time setup** (Windows only), in a terminal in the project folder:
-
-```powershell
-npm run setup:desktop
-```
-
-This creates `desktop/.venv` and installs the one package it needs (`uiautomation`). It takes under a minute.
+change your file. It does not need AutoHotkey, and there is no separate setup: its one extra package
+(`uiautomation`) is installed into `backend/.venv` together with the backend's (Windows only).
 
 **Every time you want to use it**
 
-1. Start the backend (**Step 0**) and wait for `Uvicorn running on http://127.0.0.1:8000`.
-2. Start the live checker, either way:
-   - in a second terminal: `npm run desktop`, or
-   - double-click `desktop\start-live-checker.bat`. It also starts the backend if it is not running.
-3. Wait for the message `Ca-Spell live checker is running for: notepad.exe, winword.exe`. Leave that window open.
-4. Open Notepad, click into the text area, and type some Taglish with a typo, for example
+1. Start the live checker, either way:
+   - in a terminal in the project folder: `npm run desktop`, or
+   - double-click `desktop\start-live-checker.bat`.
+
+   Both start the backend too if it is not already running, and close it again when the checker stops.
+2. Wait for the message `Ca-Spell live checker is running for: notepad.exe, winword.exe`. Leave that window open.
+3. Open Notepad, click into the text area, and type some Taglish with a typo, for example
    `Kumain ako ng pagkain kanina, masarap ang kaen`.
-5. Stop typing for about a second. Misspelled words get an orange underline.
-6. **Click** an underlined word. A popup shows up to five suggestions. Click one to replace the word, or click
+4. Stop typing for about a second. Misspelled words get an orange underline.
+5. **Click** an underlined word. A popup shows up to five suggestions. Click one to replace the word, or click
    **Ignore** to hide that word until you restart the checker. Click anywhere else to close the popup.
-7. To stop it, press `Ctrl+C` in its window or just close the window.
+6. To stop it, press `Ctrl+C` in its window or just close the window.
 
 **Things to know**
 
@@ -172,7 +170,7 @@ This creates `desktop/.venv` and installs the one package it needs (`uiautomatio
   seconds for a page of text) and fetches suggestions for a word only when you click it (under a second), so
   long text no longer has to wait for suggestions on every error. Only the underlines for the part of the
   document on screen are drawn; scroll and they appear. The first 10,000 characters of a document are checked.
-- **After updating the project, restart the backend** (`Ctrl+C`, then `npm run backend`). The checker prints
+- **After updating the project, restart the backend** (`Ctrl+C`, then `npm start`). The checker prints
   "The running backend is out of date" if you forget.
 - Only the text box that has the keyboard focus is checked.
 - Only **Notepad and Word** are checked by default, so Ca-Spell never reads your other programs. To change that:
@@ -267,7 +265,7 @@ After editing, save the file. Then right-click the green **H** tray icon and cho
 2. Right-click `ca-spell-hotkey.ahk`, choose **Show more options -> Create shortcut**, and move the shortcut into the
    startup folder.
 
-The backend does not start by itself; you still need to run `npm run backend` before using the hotkey.
+The backend does not start by itself; run `npm start` before using the hotkey.
 
 **Stopping it:** right-click the green **H** tray icon and choose **Exit**.
 
@@ -286,16 +284,15 @@ The backend does not start by itself; you still need to run `npm run backend` be
 |---|---|
 | App shows a "can't reach its backend" banner | The backend is not running or is still loading. Do Step 0 and wait for `Uvicorn running on ...`. |
 | `ERR_CONNECTION_REFUSED` at 127.0.0.1:8000 | Same: the backend is not running. |
-| `{"detail":"Not Found"}` at http://127.0.0.1:8000/ | The app was not built when the backend started. Run `npm run build`, then restart the backend. |
+| `{"detail":"Not Found"}` at http://127.0.0.1:8000/ | The backend was started with `npm run backend`, which does not build the app. Stop it and use `npm start`. |
 | "Manifest file is missing or unreadable" when loading | You selected the wrong folder. Pick `dist-extension` (it must directly contain `manifest.json`). |
 | Extension loads but the panel is blank | Rebuild with `npm run build:extension`, click *reload* on the extension, reopen the panel. In `chrome://extensions` click *service worker* / *Errors* for details. |
 | Right-click item or `Alt+Shift+C` does nothing | Reload the extension. The shortcut may be taken (see `chrome://extensions/shortcuts`). It does nothing on `chrome://` pages. |
 | Extension panel says it can't reach the backend, but the health URL works | The backend was started before the extension support was added (it only allows `chrome-extension://` pages in the new version). Stop it with `Ctrl+C` and start it again. |
 | Hotkey script shows an error dialog | You need AutoHotkey **v2**. Uninstall v1 or install v2 and reopen the script. |
-| Live checker: "The live checker is not set up yet" | Run `npm run setup:desktop` once. |
 | Live checker: "Waiting for the Ca-Spell backend..." | The backend is not running or still loading. Do Step 0; it continues by itself when the backend is ready. |
 | Live checker: no underlines in Notepad | Click inside the text area first (it only checks the focused text box), type a clear typo such as `kaen`, and stop typing for a second. Check the checker window for errors, and run it with `npm run desktop -- --verbose`. |
-| Live checker: "The running backend is out of date" | The backend was started before the live checker was added. Stop it (`Ctrl+C`) and run `npm run backend` again. |
+| Live checker: "The running backend is out of date" | The backend was started before the live checker was added. Stop it (`Ctrl+C`) and run `npm start` again. |
 | Live checker: underlines are red, not orange | Those are Notepad's own English spell check. Turn it off in Notepad's settings (see Part B). |
 | Live checker: underlines are in the wrong place | Make sure Windows display scaling and Notepad are on the same screen, then retype a character to refresh. If it persists in Word, use the hotkey (Part C). |
 | Hotkey does nothing | Check the green **H** tray icon exists (if not, double-click the script again). Make sure text is selected. Try a different key combination: another program may already use Ctrl+Shift+K. Run the script as administrator if Word/Notepad is. |
@@ -304,12 +301,12 @@ The backend does not start by itself; you still need to run `npm run backend` be
 | Browser opens a "can't be reached" page | The backend is not running. Do Step 0, then press the hotkey again. |
 | Browser opens Ca-Spell but the text is empty or cut off | Only the first 3000 characters are sent (see `MAX_CHARS`), and the app takes at most 500 words. |
 | Edited the script but nothing changed | Right-click the green **H** tray icon and choose **Reload Script**. |
-| Browser opens but Ca-Spell shows the welcome page with no text | Restart the backend after `npm run build` so the newest app is served. |
+| Browser opens but Ca-Spell shows the welcome page with no text | Restart the backend with `npm start` so the newest app is built and served. |
 
 ## Troubleshooting
 
-- **"Python 3.12 was not found"**: install Python 3.12 from the link above, then rerun `npm run setup:backend`.
-- **"The backend is not set up yet"**: run `npm run setup:backend`.
+- **"Python 3.11 - 3.14 was not found"**: install Python from the link above (keep the *py launcher* option ticked on Windows), then run `npm start` again.
+- **Setup failed halfway** (for example the internet dropped): just run `npm start` again; it continues where it stopped.
 - **"Is port 8000 already in use?"**: close the other program using port 8000 (or an old API window) and retry.
 - **Banner says it can't reach the backend**: the API may still be loading the model; wait for
   "Application startup complete".
@@ -319,7 +316,20 @@ The backend does not start by itself; you still need to run `npm run backend` be
 ## Preprocessing module (`backend/preprocessing/`)
 
 CalamanCy tokenization, POS tagging and UD parsing run in
-`backend/preprocessing/pipeline.py`.
+`backend/preprocessing/pipeline.py`, which loads the `tl_calamancy_md` pipeline with
+`calamancy.load()`.
+
+CalamanCy 0.2.3 is listed in `backend/requirements-calamancy.txt` and installed with `pip install --no-deps`
+(the setup does this for you). Its declared dependency `spacy-transformers` would pull in PyTorch and old
+`transformers`/`tokenizers` releases that only the transformer model (`tl_calamancy_trf`) needs and that do
+not install on Python 3.13+. The packages CalamanCy actually imports (spaCy, huggingface_hub, wasabi) are
+in `backend/requirements.txt`. If you install by hand:
+
+```powershell
+cd backend
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m pip install --no-deps -r requirements-calamancy.txt
+```
 
 The English and Tagalog word lists live in `backend/data/wordlists/` (one word
 per line, `#` for comments). On startup the API encodes each list as a minimal
@@ -328,11 +338,11 @@ the cache is rebuilt automatically whenever a word list changes.
 
 - `english.txt` is generated from [Open English WordNet](https://github.com/globalwordnet/english-wordnet)
   2025 (CC BY 4.0). To regenerate it:
-  `.\.venv312\Scripts\python.exe scripts\build_english_wordlist.py` (from `backend`)
+  `.\.venv\Scripts\python.exe scripts\build_english_wordlist.py` (from `backend`)
 - `tagalog.txt` is generated from Wiktionary's Tagalog entries via
   [kaikki.org](https://kaikki.org/dictionary/Tagalog/) (CC BY-SA 4.0), a stand-in
   until the KWF Diksiyonaryo list is available. To regenerate it:
-  `.\.venv312\Scripts\python.exe scripts\build_tagalog_wordlist.py` (from `backend`)
+  `.\.venv\Scripts\python.exe scripts\build_tagalog_wordlist.py` (from `backend`)
 
 ## Error detection module (`backend/error_detection/`)
 
@@ -362,9 +372,9 @@ and the permitted Taglish pairs in `ta_wdca/rules.py` are placeholders.
 
 The Context Score needs the frequency profile of the Correct Taglish Corpus. Put one
 correct Taglish sentence per line in `backend/data/corpus/correct_taglish.txt`, then run
-`.\.venv312\Scripts\python.exe scripts\build_corpus_profile.py` from `backend`, and restart
+`.\.venv\Scripts\python.exe scripts\build_corpus_profile.py` from `backend`, and restart
 the API. Without a profile the Context Score is left out and the other two weights are
 scaled to add up to 1.
 
 Run the backend tests from `backend` with
-`.\.venv312\Scripts\python.exe -m unittest discover -s tests`.
+`.\.venv\Scripts\python.exe -m unittest discover -s tests`.

@@ -15,7 +15,7 @@ would otherwise collide with Tagalog words once lowercased.
 
 Run from the backend folder:
 
-    .venv312\\Scripts\\python.exe scripts\\build_english_wordlist.py
+    .venv\\Scripts\\python.exe scripts\\build_english_wordlist.py
 """
 
 import gzip

@@ -6,7 +6,7 @@ How it works
   * Red squiggles are drawn on a transparent click-through window laid over the editor.
   * Click an underlined word to get a small suggestion popup; picking one types it over the word.
 
-Run it with `npm run desktop` (see the README), or directly: desktop\\.venv\\Scripts\\python.exe live_checker.py
+Run it with `npm run desktop` (see the README); that also starts the backend if it is not running.
 """
 import argparse
 import ctypes
@@ -328,9 +328,9 @@ class LiveChecker:
             if failure is not None:
                 if not self.warned:
                     if isinstance(failure, urllib.error.HTTPError) and failure.code == 404:
-                        log("The running backend is out of date (it has no /api/detect). Stop it with Ctrl+C and start it again: npm run backend")
+                        log("The running backend is out of date (it has no /api/detect). Stop it with Ctrl+C and start it again: npm start")
                     else:
-                        log(f"Cannot reach the Ca-Spell backend at {self.api} ({failure}). Is `npm run backend` running? Retrying...")
+                        log(f"Cannot reach the Ca-Spell backend at {self.api} ({failure}). Is the backend (`npm start`) running? Retrying...")
                     self.warned = True
                 self.sent_text = None
                 self.retry_at = time.time() + 5
@@ -548,7 +548,7 @@ def wait_for_backend(api):
                 return
         except (urllib.error.URLError, OSError):
             if not announced:
-                log(f"Waiting for the Ca-Spell backend at {api} (start it with `npm run backend`)...")
+                log(f"Waiting for the Ca-Spell backend at {api} (start it with `npm start`)...")
                 announced = True
             time.sleep(2)
 
