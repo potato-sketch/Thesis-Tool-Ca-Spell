@@ -3,8 +3,8 @@
 CROSS_LANGUAGE_RULES: a relation between a head and a dependent written in
 different languages (for example the English noun "assignment" as the object of
 the Taglish verb "nag-submit") is valid when its (head POS, relation, dependent
-POS) triple is listed. A stand-in until the validated Taglish corpus and the KWF
-rules are available to supply the supported pairs.
+POS) triple is listed. Used only when no corpus frequency profile is loaded; with one,
+CLDC takes the supported pairs from the Correct Taglish Corpus (cldc.py).
 
 RELATION_PROFILES: the parts of speech each universal dependency relation
 accepts on the dependent and on the head side. Relations not listed are not judged.

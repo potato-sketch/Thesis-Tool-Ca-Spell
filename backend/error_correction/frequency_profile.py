@@ -3,10 +3,13 @@
 Correct Taglish Corpus -> POS tagging -> UD parsing -> Context-Aware Linguistic Annotation
   -> frequency profiles
 
-Each corpus sentence is parsed and annotated (Table 3), then two kinds of patterns are counted:
+Each corpus sentence is parsed and annotated (Table 3), then three kinds of patterns are counted:
 
-    POS annotation patterns   three consecutive annotated tags, e.g. "VERB-PAST PRON ADV-PAST"
-    dependency patterns       "head tag|relation|dependent tag", e.g. "VERB-PAST|nsubj|PRON"
+    POS annotation patterns      three consecutive annotated tags, e.g. "VERB-PAST PRON ADV-PAST"
+    dependency patterns          "head tag|relation|dependent tag", e.g. "VERB-PAST|nsubj|PRON"
+    cross-language patterns      "head POS|relation|dependent POS" of relations whose head and
+                                 dependent are in different languages, e.g. "VERB|obj|NOUN" for
+                                 "Nag-submit ... assignment"; CLDC's supported pairs
 
 Sentence boundaries are padded with <s> and </s>; the root has the head tag <root>.
 """
@@ -16,11 +19,12 @@ from collections import Counter
 from pathlib import Path
 
 from error_detection.annotation import annotate
+from ta_wdca.cldc import cross_language_patterns
 
 CORPUS_DIR = Path(__file__).resolve().parent.parent / "data" / "corpus"
 CORPUS_PATH = CORPUS_DIR / "correct_taglish.txt"  # one correct sentence per line
 PROFILE_PATH = CORPUS_DIR / "frequency_profile.json"
-FORMAT_VERSION = 1
+FORMAT_VERSION = 2  # 2: cross-language patterns added
 
 START, END, ROOT = "<s>", "</s>", "<root>"
 
@@ -61,16 +65,18 @@ def dependency_patterns(doc, tags, index=None):
 
 
 class FrequencyProfile:
-    def __init__(self, sentences=0, pos_patterns=None, dependency_patterns=None):
+    def __init__(self, sentences=0, pos_patterns=None, dependency_patterns=None, cross_language_patterns=None):
         self.sentences = sentences
         self.pos_patterns = Counter(pos_patterns or {})
         self.dependency_patterns = Counter(dependency_patterns or {})
+        self.cross_language_patterns = Counter(cross_language_patterns or {})
 
     def add_sentence(self, doc, lexicon):
         tags = annotated_tags(doc, lexicon)
         self.sentences += 1
         self.pos_patterns.update(pos_pattern(window) for window in pos_windows(tags))
         self.dependency_patterns.update(dependency_patterns(doc, tags))
+        self.cross_language_patterns.update(cross_language_patterns(doc, lexicon))
 
     def save(self, path=PROFILE_PATH):
         path = Path(path)
@@ -80,6 +86,7 @@ class FrequencyProfile:
             "sentences": self.sentences,
             "pos_patterns": dict(self.pos_patterns),
             "dependency_patterns": dict(self.dependency_patterns),
+            "cross_language_patterns": dict(self.cross_language_patterns),
         }
         path.write_text(json.dumps(payload, ensure_ascii=False, indent=1, sort_keys=True), encoding="utf-8")
 
@@ -92,4 +99,9 @@ class FrequencyProfile:
         payload = json.loads(path.read_text(encoding="utf-8"))
         if payload.get("version") != FORMAT_VERSION or not payload.get("sentences"):
             return None
-        return cls(payload["sentences"], payload["pos_patterns"], payload["dependency_patterns"])
+        return cls(
+            payload["sentences"],
+            payload["pos_patterns"],
+            payload["dependency_patterns"],
+            payload["cross_language_patterns"],
+        )

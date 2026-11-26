@@ -1,6 +1,7 @@
 import sys
 import unittest
 from pathlib import Path
+from unittest import mock
 
 from spacy.tokens import Doc
 from spacy.vocab import Vocab
@@ -161,9 +162,14 @@ class ContextTest(unittest.TestCase):
         doc = parse(["Bukas", "ang", "pinto"], ["NOUN", "DET", "NOUN"], [0, 2, 0], ["ROOT", "det", "nsubj"])
         self.assertIsNone(annotate(doc[0], LEXICON))
 
-    def test_calamancy_aspect_for_verbs_without_nag_mag(self):
+    def test_only_table_3_prefixes_annotate_verbs(self):
         doc = parse(["Kumain"], ["VERB"], [0], ["ROOT"], ["Aspect=Perf|Mood=Ind"])
-        self.assertEqual(annotate(doc[0], LEXICON)["annotation"], "VERB-PAST")
+        self.assertIsNone(annotate(doc[0], LEXICON))
+
+    def test_calamancy_aspect_extension_when_switched_on(self):
+        doc = parse(["Kumain"], ["VERB"], [0], ["ROOT"], ["Aspect=Perf|Mood=Ind"])
+        with mock.patch("error_detection.annotation.USE_CALAMANCY_ASPECT", True):
+            self.assertEqual(annotate(doc[0], LEXICON)["annotation"], "VERB-PAST")
 
     def test_table_4_past_verb_with_future_time_is_incompatible(self):
         doc = parse(

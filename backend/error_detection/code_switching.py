@@ -11,6 +11,8 @@ part holds the error so the Error Correction Module knows what to fix:
 from dataclasses import dataclass, field
 
 from error_detection.morphology import (
+    CONTRACTION_HYPHENS,
+    HYPHEN_ONLY_PREFIXES,
     PREFIXES,
     SUFFIXES,
     MIN_ROOT_LENGTH,
@@ -20,6 +22,7 @@ from error_detection.morphology import (
     is_misspelled_prefix,
     linker_bases,
     readings,
+    repeated_word_prefix,
     with_hyphens,
 )
 from preprocessing.lexicon import normalize
@@ -71,9 +74,21 @@ def _check(text, lexicon):
 def hyphen_based_splitting(text, lexicon):
     parts = text.split("-")
 
+    # H4: a contraction is not a repeated word ("iba't-iba" -> "iba't iba").
+    contraction = CONTRACTION_HYPHENS.get(normalize(text))
+    if contraction:
+        expected = text[0] + contraction[1:] if text[:1].isupper() else contraction
+        return WordCheck(
+            False, "hyphen_splitting", "hyphenation", "word", {"kwf_rule": "H4"}, expected=expected
+        )
+
     result = _best_segmentation(text, lexicon, method="hyphen_splitting")
     if result and result.valid:
         return result
+
+    special = _kwf_hyphenated(parts, lexicon)
+    if special:
+        return special
 
     # Compounds and reduplicated words: "bahay-kubo", "isa-isa", "araw-araw".
     # Not when the first part is a prefix or one edit from a prefix: "nag-kain" is
@@ -105,6 +120,33 @@ def hyphen_based_splitting(text, lexicon):
     else:
         error_part = "word"
     return WordCheck(False, "hyphen_splitting", "spelling", error_part, analysis)
+
+
+def _kwf_hyphenated(parts, lexicon):
+    """Hyphenated words the affix readings miss: repeated words (H4), words after de-, di- or
+    kontra- (H5) and a prefix before a proper noun not in the word lists (H2)."""
+    first = normalize(parts[0])
+
+    if len(parts) == 2:
+        prefix = repeated_word_prefix(parts[0], parts[1], lexicon.lookup)
+        if prefix is not None:  # pali-palito, pabalik-balik, suntok-suntukan
+            return WordCheck(True, "compound", analysis={"parts": parts, "prefix": prefix, "kwf_rule": "H4"})
+
+    rest = "-".join(parts[1:])
+    proper_noun = rest[:1].isupper() and rest.replace("-", "").isalpha()
+
+    if first in HYPHEN_ONLY_PREFIXES and rest:  # de-lata, di-mahipo, kontra-Marxismo
+        if proper_noun or lexicon.lookup(rest) or _check(rest, lexicon).valid:
+            return WordCheck(
+                True, "hyphen_splitting", analysis={"prefix": parts[0], "root": rest, "kwf_rule": "H5"}
+            )
+
+    if len(parts) == 2 and first in PREFIXES and proper_noun:  # naka-Gucci, pa-Mandaluyong
+        return WordCheck(
+            True, "hyphen_splitting",
+            analysis={"prefix": parts[0], "root": rest, "root_languages": [], "kwf_rule": "H2"},
+        )
+    return None
 
 
 def affix_boundary_detection(text, lexicon):

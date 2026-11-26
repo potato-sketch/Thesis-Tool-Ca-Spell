@@ -3,12 +3,13 @@ from pathlib import Path
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 from error_correction.corrector import correct_errors
 from error_correction.final_scoring import scoring_weights
 from error_correction.frequency_profile import FrequencyProfile
 from error_detection.detector import detect_errors
+from preprocessing.input_limit import MAX_WORDS, check_word_limit
 from preprocessing.pipeline import lexicon, preprocess, preprocess_many, token_features
 
 
@@ -26,19 +27,29 @@ app.add_middleware(
 )
 
 
+# Inputs are limited to MAX_WORDS (500) words; max_length is only a guard against huge requests.
 class CheckRequest(BaseModel):
     text: str = Field(min_length=1, max_length=10000)
 
+    @field_validator("text")
+    @classmethod
+    def within_word_limit(cls, text):
+        return check_word_limit(text)
 
-class SuggestRequest(BaseModel):
-    text: str = Field(min_length=1, max_length=10000)
+
+class SuggestRequest(CheckRequest):
     start: int = Field(ge=0)
     end: int = Field(gt=0)
 
 
 @app.get("/api/health")
 def health():
-    return {"status": "ok", "lexicon": lexicon.stats(), "corpus_sentences": corpus_profile.sentences if corpus_profile else 0}
+    return {
+        "status": "ok",
+        "lexicon": lexicon.stats(),
+        "corpus_sentences": corpus_profile.sentences if corpus_profile else 0,
+        "max_words": MAX_WORDS,
+    }
 
 
 # Finding suggestions is by far the slowest step (it ranks every candidate in context), so the

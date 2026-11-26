@@ -505,7 +505,6 @@ export default function CorrectionStage({ stepKey, focused, tokens, weights, can
   let content;
 
   if (stepKey === "similar") {
-    const edits = Array.from({ length: weights.max_edit_distance + 1 }, (_, count) => count);
     content = (
       <div>
         <Lead>
@@ -529,10 +528,18 @@ export default function CorrectionStage({ stepKey, focused, tokens, weights, can
           δ(A[i], B[j]) = 0 if A[i] = B[j], otherwise 1
         </FormulaStrip>
         <FormulaStrip delay={400}>
-          <Term>EDS</Term>(c) = 1 − edits ÷ ({weights.max_edit_distance} + 1) <span className="text-slate-500">(an edit adds, removes or replaces one letter)</span>
+          <Term>EDS</Term>(c) = 1 − d(w, c) ÷ max(|w|, |c|){" "}
+          <span className="text-slate-500">
+            (d: edits, each adding, removing or replacing one letter; |w|, |c|: letters in the misspelled word and the candidate)
+          </span>
         </FormulaStrip>
         <p className="walk-rise mb-3 rounded-md bg-slate-100 px-3 py-2 text-xs text-slate-700">
-          {edits.map((count) => `${count} ${count === 1 ? "edit" : "edits"} = EDS ${format(1 - count / (weights.max_edit_distance + 1))}`).join(" · ")}
+          {suggestions
+            .map(
+              (candidate) =>
+                `${candidate.word}: 1 − ${candidate.edit_distance} ÷ ${Math.max(error.text.length, candidate.word.length)} = ${format(candidate.scores.edit_distance)}`,
+            )
+            .join(" · ")}
           <span className="ml-2">
             <span className="rounded bg-emerald-200 px-1">added</span>{" "}
             <span className="rounded bg-amber-200 px-1">replaced</span>{" "}
@@ -714,6 +721,9 @@ export default function CorrectionStage({ stepKey, focused, tokens, weights, can
                   />
                   <p className="mt-1 text-xs text-slate-600">
                     {cldc.valid} of {cldc.total} mixed connections work
+                    {cldc.source === "corpus"
+                      ? " (a connection works when the Correct Taglish Corpus uses it)"
+                      : " (checked against the built-in list of allowed pairs; no corpus is loaded)"}
                   </p>
                 </div>
               </div>

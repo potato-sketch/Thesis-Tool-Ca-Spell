@@ -15,8 +15,9 @@ BAND = MAX_EDIT_DISTANCE  # width of the band |i - j| <---- BAND in edit_distanc
 
 
 def allowed_distance(word):
-    """At most two edits; one for short words, which are within two edits of far too many words."""
-    return 1 if len(word) <= 3 else MAX_EDIT_DISTANCE
+    """At most two edits for every word, the study's threshold. Short words get many candidates
+    within two edits; candidate_generation keeps the closest MAX_CANDIDATES of them."""
+    return MAX_EDIT_DISTANCE
 
 
 class LevenshteinAutomaton:

@@ -47,12 +47,12 @@ def rank_candidates(sentence, start, end, candidates, lexicon, parse_many, profi
     for candidate, doc in zip(candidates, candidate_docs):
         token = _token_at(doc, start)
         context = (
-            dependency_compatibility(original, token, lexicon)
+            dependency_compatibility(original, token, lexicon, profile=profile)
             if original is not None and token is not None
             else None
         )
         corpus = context_score(token, profile, lexicon) if profile and token is not None else None
-        eds = edit_distance_score(candidate.distance)
+        eds = edit_distance_score(candidate.distance, sentence[start:end], candidate.word)
         dcs = context["dcs"] if context else 0.0
         cs = corpus["cs"] if corpus else None
         scores = {"edit_distance": eds, "dependency_compatibility": dcs}

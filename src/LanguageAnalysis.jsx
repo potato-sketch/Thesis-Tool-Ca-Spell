@@ -53,6 +53,12 @@ export default function LanguageAnalysis({
         running, then try again. ({error})
       </p>
     );
+  } else if (status === "too_long") {
+    body = (
+      <p className="text-red-700">
+        The text is over the 500-word limit, so it was not analyzed. Shorten it to see the analysis.
+      </p>
+    );
   } else if (visibleTokens.length === 0) {
     body = <p className="text-slate-600">No words were returned.</p>;
   } else {

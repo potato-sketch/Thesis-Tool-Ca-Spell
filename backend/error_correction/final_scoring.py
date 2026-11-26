@@ -2,7 +2,7 @@
 
     FCS(c) = w1 * EDS(c) + w2 * DCS(c) + w3 * CS(c)
 
-EDS is the Edit Distance Score, DCS the Dependency Compatibility Score from TA-WDCA, and CS the
+EDS is the Edit Distance Score, EDS(c) = 1 - d(w, c) / max(|w|, |c|) for the misspelled word w, DCS the Dependency Compatibility Score from TA-WDCA, and CS the
 Context Score from the Correct Taglish Corpus. Without a corpus profile there is no CS, so the
 remaining weights are scaled to add up to 1 and the score is FCS(c) = w1' * EDS(c) + w2' * DCS(c).
 """
@@ -16,9 +16,11 @@ DCS_WEIGHT = 0.4
 CS_WEIGHT = 0.3
 
 
-def edit_distance_score(distance, max_distance=MAX_EDIT_DISTANCE):
-    """1 for an identical word, falling to 1/(max_distance + 1) at the threshold."""
-    return max(0.0, 1 - distance / (max_distance + 1))
+def edit_distance_score(distance, word, candidate):
+    """EDS(c) = 1 - d(w, c) / max(|w|, |c|): the share of the longer word left unedited, so one
+    edit costs less in a long word than in a short one."""
+    longest = max(len(word), len(candidate))
+    return max(0.0, 1 - distance / longest) if longest else 1.0
 
 
 def effective_weights(has_context_score):

@@ -22,9 +22,10 @@ TEMPORAL_ANNOTATIONS = {
     "bukas": "ADV-FUTURE",
 }
 
-# Extension beyond Table 3: verbs without a nag-/mag- prefix ("kumain", "kakain",
-# "na-stress") use the aspect CalamanCy's morphologizer predicts.
-USE_CALAMANCY_ASPECT = True
+# Extension beyond Table 3, off so the system follows the paper: verbs without a nag-/mag-
+# prefix ("kumain", "kakain", "na-stress") would use the aspect CalamanCy's morphologizer
+# predicts (adding VERB-PRESENT). Turn on only for an experiment that reports it.
+USE_CALAMANCY_ASPECT = False
 
 
 def annotate(token, lexicon):

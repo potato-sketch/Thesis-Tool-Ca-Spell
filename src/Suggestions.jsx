@@ -10,7 +10,7 @@ function formatScore(value) {
   return (value ?? 0).toFixed(2);
 }
 
-export default function Suggestions({ text = "", errors = [], onApply }) {
+export default function Suggestions({ text = "", errors = [], onApply, notice = "" }) {
   const [activeIndex, setActiveIndex] = useState(null);
   const isModalOpen = activeIndex !== null && errors.length > 0;
   const current = isModalOpen
@@ -63,10 +63,14 @@ export default function Suggestions({ text = "", errors = [], onApply }) {
           </h3>
         </div>
 
-        {errors.length === 0 && (
-          <p className="text-sm text-slate-500">
-            No errors found. Corrections will appear here as you type.
-          </p>
+        {notice ? (
+          <p className="text-sm text-red-600">{notice}</p>
+        ) : (
+          errors.length === 0 && (
+            <p className="text-sm text-slate-500">
+              No errors found. Corrections will appear here as you type.
+            </p>
+          )
         )}
 
         <div className="space-y-2">

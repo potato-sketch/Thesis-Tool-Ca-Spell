@@ -83,9 +83,9 @@ class EditDistanceTest(unittest.TestCase):
             for k in (0, 1, 2):
                 self.assertEqual(search(automaton, target, k), brute_force(words, target, k), (target, k))
 
-    def test_short_words_allow_one_edit(self):
-        automaton = WordAutomaton.from_words(["ang", "ng", "sa", "ako"])
-        self.assertEqual(search(automaton, "an"), {"ang": 1})
+    def test_every_word_allows_two_edits(self):
+        automaton = WordAutomaton.from_words(["ang", "ng", "sa", "ako", "bahay"])
+        self.assertEqual(search(automaton, "an"), {"ang": 1, "ng": 2, "sa": 2, "ako": 2})
 
 
 class CandidateGenerationTest(unittest.TestCase):
@@ -106,9 +106,12 @@ class CandidateGenerationTest(unittest.TestCase):
 
 class FinalScoringTest(unittest.TestCase):
     def test_edit_distance_score(self):
-        self.assertEqual(edit_distance_score(0), 1)
-        self.assertGreater(edit_distance_score(1), edit_distance_score(2))
-        self.assertGreater(edit_distance_score(2), 0)
+        self.assertEqual(edit_distance_score(0, "submit", "submit"), 1)
+        # EDS(c) = 1 - d(w, c) / max(|w|, |c|)
+        self.assertAlmostEqual(edit_distance_score(1, "assignmnt", "assignment"), 1 - 1 / 10)
+        self.assertAlmostEqual(edit_distance_score(2, "assignmnt", "assignments"), 1 - 2 / 11)
+        self.assertGreater(edit_distance_score(1, "submt", "submit"), edit_distance_score(2, "submt", "summit"))
+        self.assertGreater(edit_distance_score(1, "assignmnt", "assignment"), edit_distance_score(1, "ako", "ano"))
 
     def test_final_candidate_score_without_a_corpus_uses_scaled_weights(self):
         self.assertAlmostEqual(sum(effective_weights(False)), 1.0)
@@ -170,6 +173,27 @@ class TAWDCATest(unittest.TestCase):
         doc = parse(["ako", "assignment"], ["PRON", "NOUN"], [0, 0], ["ROOT", "punct"])
         result = cross_language_compatibility(doc[1], LEXICON)
         self.assertEqual((result["valid"], result["total"], result["score"]), (0, 1, 0.0))
+
+    def test_corpus_supplies_the_supported_pairs(self):
+        corpus_doc = parse(SENTENCE, POS, HEADS, DEPS)
+        profile = FrequencyProfile()
+        profile.add_sentence(corpus_doc, LEXICON)
+        # Nag-submit (taglish) heads ako, assignment and bukas; ng (tagalog) is a case marker of assignment.
+        self.assertEqual(
+            set(profile.cross_language_patterns),
+            {"VERB|nsubj|PRON", "VERB|obj|NOUN", "VERB|advmod|ADV", "NOUN|case|ADP"},
+        )
+
+        # A relation seen across languages in the corpus is supported...
+        token = parse(SENTENCE, POS, HEADS, DEPS)[3]
+        seen = cross_language_compatibility(token, LEXICON, profile)
+        self.assertEqual(seen["source"], "corpus")
+        self.assertEqual(seen["valid"], seen["total"])
+
+        # ...and one the rules.py stand-in allows but the corpus never shows is not.
+        doc = parse(["ako", "assignment"], ["PRON", "NOUN"], [0, 0], ["ROOT", "nmod"])
+        self.assertEqual(cross_language_compatibility(doc[1], LEXICON)["score"], 1.0)
+        self.assertEqual(cross_language_compatibility(doc[1], LEXICON, profile)["score"], 0.0)
 
     def test_no_cross_language_relation_scores_one(self):
         doc = parse(["ako", "bukas"], ["PRON", "ADV"], [0, 0], ["ROOT", "advmod"])

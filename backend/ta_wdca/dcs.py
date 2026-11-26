@@ -12,13 +12,16 @@ from ta_wdca.dna import dependency_neighborhood
 DNA_WEIGHT = 0.5
 CLDC_WEIGHT = 0.5
 
-def dependency_compatibility(original, candidate, lexicon, dna_weight=DNA_WEIGHT, cldc_weight=CLDC_WEIGHT):
+def dependency_compatibility(
+    original, candidate, lexicon, dna_weight=DNA_WEIGHT, cldc_weight=CLDC_WEIGHT, profile=None
+):
     """Scores the candidate token against the misspelled token it replaces.
 
-    Both tokens come from parsed sentences that differ only in that word.
+    Both tokens come from parsed sentences that differ only in that word. `profile` is the
+    corpus FrequencyProfile CLDC checks cross-language relations against (None: rules.py).
     """
     dna = dependency_neighborhood(original, candidate, lexicon)
-    cldc = cross_language_compatibility(candidate, lexicon)
+    cldc = cross_language_compatibility(candidate, lexicon, profile)
     return {
         "dna": dna,
         "cldc": cldc,

@@ -48,7 +48,8 @@ def main():
     profile.save(PROFILE_PATH)
     print(
         f"{profile.sentences} sentences -> {len(profile.pos_patterns)} POS annotation patterns, "
-        f"{len(profile.dependency_patterns)} dependency patterns -> {PROFILE_PATH}"
+        f"{len(profile.dependency_patterns)} dependency patterns, "
+        f"{len(profile.cross_language_patterns)} cross-language patterns -> {PROFILE_PATH}"
     )
 
 

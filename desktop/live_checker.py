@@ -13,6 +13,7 @@ import ctypes
 import json
 import os
 import queue
+import re
 import sys
 import threading
 import time
@@ -29,7 +30,8 @@ except Exception:
 
 import uiautomation as auto  # noqa: E402
 
-MAX_CHARS = 10000  # the backend rejects anything longer
+MAX_CHARS = 10000  # the most text read from the editor
+MAX_WORDS = 500  # the backend checks up to 500 words at a time, so only the first 500 are sent
 MAX_MARKS = 80  # underline at most this many words per pass
 TICK_MS = 250
 MOUSE_MS = 30
@@ -191,6 +193,12 @@ def context_snippet(body, start, end, reach=300):
     return body[left:right], start - left, end - left
 
 
+def first_words(text, limit=MAX_WORDS):
+    """The start of `text` up to the end of its `limit`-th word; character offsets stay the same."""
+    match = re.match(r"\s*(?:\S+\s+){%d}\S+" % (limit - 1), text)
+    return match.group(0) if match and len(match.group(0)) < len(text.rstrip()) else text
+
+
 class Worker(threading.Thread):
     """Finds the misspelled words off the UI thread; only the newest request is ever answered."""
 
@@ -199,13 +207,17 @@ class Worker(threading.Thread):
         self.api = api
         self.jobs = queue.Queue()
         self.results = queue.Queue()
+        self.warned_limit = False
 
     def run(self):
         while True:
             text = self.jobs.get()
             while not self.jobs.empty():
                 text = self.jobs.get_nowait()
-            body = text.strip()
+            body = first_words(text.strip())
+            if len(body) < len(text.strip()) and not self.warned_limit:
+                log(f"This document is longer than {MAX_WORDS} words; only its first {MAX_WORDS} words are checked.")
+                self.warned_limit = True
             lead = len(text) - len(text.lstrip())
             try:
                 result = post_json(self.api, "/api/detect", {"text": body}, timeout=60)

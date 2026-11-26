@@ -1,0 +1,590 @@
+sentence_id	status	sentence
+S0001	validated	Na-try mo na ba yung bagong pickleball court sa pup.
+S0002	validated	Dapat tinry mo muna yung kung anong mas gusto mo.
+S0003	validated	Chineck ko naman yung sinend mo, ngunit wala parin akong nare-receive.
+S0004	validated	Nag-screenshot na pala ako nito kahapon.
+S0005	validated	Dapat mong i-try yung bagong flavor, kasi sobrang sarap nito.
+S0006	validated	Ine-encapsulate mo ang isang field kung ayaw mo na ma-access ang isang field sa labas ng object gamit ang private keyword.
+S0007	validated	Kung gusto mo na i-polymorph ang isang function mula sa parent class sa loob ng child class, i-override mo lang ito.
+S0008	validated	Either pang-template o paghi-hide ng detalye ang purpose ng pag-a-abstract.
+S0009	validated	Kung gusto mo magamit ang mga properties na na-inherit ng child class mula sa parent class, i-super mo, dot syntax, and then tawagin mo yung pangalan ng mismomg property at kung constructor lang naman, kahit super lang yung gamitin na pantawag.
+S0010	validated	Sa constructor dine-define ang mga initializations ng properties ng object at ito ang mismong function na kumo-correspond in whatever paramater is needed once na mag-instantiate ka ng object somewhere else.
+S0011	validated	Nag-date kami ni Gian sa cubao expo at nag-kiss.
+S0012	validated	Nagpa-cute si Kevin sa camera para ma-post.
+S0013	validated	'Di pa naka-move on si Gian at siya ay nagba-backread sa old conversation nila.
+S0014	validated	Na-lost ni Joan ang kanyang payong and siya ay na-sad.
+S0015	validated	Napaka-cool ni Kevin, sana ma-meet ko siya!
+S0016	validated	Buti nalang mae-excuse kami sa exam bukas.
+S0017	validated	Nakaka-disappoint yung nangyari sa student regent.
+S0018	validated	Magpra-pray nalang talaga ako for tomorrow.
+S0019	validated	Pa-send naman ng link nung reviewer na ginawa ng PUP ASCII.
+S0020	validated	Bakit ba kasi siya nag-i-imagine ng scenarios na ikaka-depress niya lang din.
+S0021	validated	Nag-download ako ng third party storage manager kaya't laking takot ko na baka ma-hack ako.
+S0022	validated	Nag-cram kami nung isang araw kase na-traffic ako sa byahe.
+S0023	validated	Sobrang na-excite ako sa pina-deliver kong parcel.
+S0024	validated	Na-stress ako sa hell week namin kaya gusto ko ma-relax this weekend.
+S0025	validated	Napa-close ako ng aking phone nang makita na may ka-chat ng iba ang aking crush.
+S0026	validated	Pasabi kay sir na-disconnect ako sa meeting
+S0027	validated	Hello natapos mo na ba yung assigned part mo sa project?
+S0029	validated	Nandito kami nakaupo sa may landing dito sa south 5th floor
+S0030	validated	Male-late na ako nandyan na ba prof natin
+S0031	validated	Napaka-cute ng cat ko at talagang naka-relax siya habang natutulog sa tabi ko.
+S0032	validated	Na-update ko na yung Genshin Impact game ko kaya na-download ko na rin ang bagong patch nito.
+S0033	validated	Makaka-wash kaya ako ng damit today kahit medyo nag-o-overload na ako sa dami ng ginagawa?
+S0034	validated	Ang mga bilihin ngayon ay napaka-expensive na kaya nag-e-exact talaga ako sa aking budget araw-araw.
+S0035	validated	Sana mag-join at mag-participate na sa organization namin ang ibang Computer Science student.
+S0036	validated	Nag-review ako ng tatlong lecture notes kagabi dahil akala ko may i-discuss kami ngayon na bago.
+S0037	validated	Kailangan namin mag-design ng user-friendly na system para i-present.
+S0038	validated	Na-save ko na yung presentation at na-upload ko na rin yung updated version.
+S0039	validated	Nag-organize sila ng group meeting at nag-assign na rin ng mga tasks.
+S0040	validated	Na-check ko na yung email and na-forward ko na rin sa announcement groupchat.
+S0041	validated	Nakapag-shower agad ako pagka-out sa school.
+S0042	validated	Nakalimutan kong i-check ang na-edit kong sagot sa midterm kahapon.
+S0043	validated	Maraming nakapagsabi na napaka-hassle raw pumunta sa BGC kasi sobrang haba raw ng pila sa mga bus pero para sa akin ay okay lang kasi na-e-enjoy ko naman mag-commute.
+S0044	validated	Hindi ko naman ma-say sa kaniya na gusto ko siya dahil nakapag-decide na siyang hindi ako pansinin tuwing kami ay nagkikita sa school.
+S0045	validated	Ayaw naman kasi i-share ni bakla yung pinakita sa kaniya na quiz answers kanina, na para bang kailangan ko pa siyang i-chat para lang ma-copy ko yung sagot.
+S0046	validated	Nag-revise akong ng mga reports na in-upload mo kanina.
+S0047	validated	Nag-generate ako ng bagong file based sa nai-send mong info.
+S0048	validated	I-finalize na natin yung modules na na-develop na.
+S0049	validated	I-close mo muna yung server para ma-check ko yung issue.
+S0050	validated	Nag-report ako nung nag-meeting tayo kahapon.
+S0051	validated	Nag-print na ako ng manuscript paki-check nalang later kung tama.
+S0052	validated	Mag-leave na kayo kasi na-add ko na kayo sa bagong gc.
+S0053	validated	It's really hard mag-declutter lalo na pag madaming ire-remove.
+S0054	validated	Katamad mag-type sa laptop ang sakit na ng hands ko.
+S0055	validated	Na-forgot ko yung assignment buti nalang ang tagal nating nag-wait kay sir.
+S0056	validated	Need muna natin i-organize bago natin ma-process ung papers.
+S0057	validated	Ang problem lang is kung possible siya gawin.
+S0058	validated	I-back up mo muna ung mga files na na-download na.
+S0059	validated	Pwede mo bang i-commit ung mga binago mo at mag-pull request.
+S0060	validated	Wag kalimutan mag-like and share ng Facebook page namin.
+S0061	validated	Ang hilig kasi natin mag-assume na na-understand tayo ng mga nakakausap natin.
+S0062	validated	If want mo ipa-check sa kanila gawa mo, go lang and i-ask mo sila.
+S0063	validated	Ayaw mo i-try i-post yung mga stories mo online? Malay mo lang naman baka may interesado sa mga gawa mo.
+S0064	validated	Usually dapat i-share yung mga info na yan, kaso problema lang hindi naman naka-assign yun kahit kanino.
+S0065	validated	Pwede mo bang i-open at videohan yung pina-deliver ko na dumating today? Salamat!
+S0070	validated	Bakettt naman ganito score ko!!! Nag aral naman ako huhu grabe na talaga.
+S0071	validated	Nag-download ako ng lecture materials kanina para ma-review ko ang mga topics bago ang quiz.
+S0072	validated	Nag-print ako ng activity dahil kailangan ko itong i-submit bukas.
+S0073	validated	Nag-check ako ng format ng activity bago i-send sa professor.
+S0074	validated	Nag-message ako sa kagrupo ko para i-confirm kung tuloy ang meeting bukas.
+S0075	validated	Nag-practice ako kanina para ma-deliver ko nang maayos ang lines ko sa presentation.
+S0076	validated	Na-gets mo ginawa sa line 67?
+S0077	validated	Turuan moko mag-download Mathematica
+S0078	validated	Ang daming gagawin, gusto ko na mag-sleep
+S0079	validated	Pa-copy prompt mo sa problem set
+S0080	validated	Mag-survive pa ba ko sa semester na to?
+S0081	validated	I forgot na i-SS wait
+S0086	validated	Nag-install ako ng bagong software at nag-update ng anti virus
+S0087	validated	Na-delete ko yung bago kong post sa IG buti na-recover ko pa
+S0088	validated	Nag-log in ako sa PUPSIS- at nag-access ng bago kong schedule
+S0089	validated	nag-compile muna ako ng pictures ko para ma-upload ko mamaya
+S0090	validated	nag-search ako pano ko aayusin yung tailscale ko pero hindi ko pa din ma-open yung shared files
+S0091	validated	Nag-submit ako ng assignment kanina..
+S0092	validated	Nakapag-print ka na ba ng submission natin?
+S0093	validated	Dapat mag-e-LRT ako mamaya, kaso nawala yung beep card ko.
+S0094	validated	Di na ko magro-RobMan, maggi-gym na lang ako
+S0095	validated	Ba't ka nagbu-Bumble, akala ko may boyfriend ka na?
+S0096	validated	Nag-charge ako ng battery kanina.
+S0097	validated	Hindi ako sumama mag-jogging kasi masakit ang legs ko.
+S0098	validated	Sobrang traffic kanina kaya na-late ako ng sobra.
+S0099	validated	Nag-selfie muna kami bago kainin ang foodtrip.
+S0100	validated	Nagba-budget plan kami para sa parating na roadtrip sa katapusan.
+S0101	validated	Na-export mo na ba yung powerpoint?
+S0102	validated	Pa-save nga ng code sa repository.
+S0103	validated	Pwede pa-verify ng integrity ng data?
+S0104	validated	Pa-check ng integrity ng files
+S0105	validated	Push mo nga yung code para matapos na tayo.
+S0106	validated	Pa-wait ako, mag-open lang ako PC.
+S0107	validated	Male-late ata ako ng pasok, nag-fast food pa kasi kami.
+S0108	validated	Pa-pull naman ako nung na-push ko sa Github.
+S0109	validated	Ano oras ka magpapa-meet para makapag-ready ako.
+S0110	validated	Pa-AirDrop naman nung pinicturean ko kanina.
+S0111	validated	Sige mag-join na ko, mag-wait ka lang diyan.
+S0112	validated	Nag-crash na naman na-built na website ni sir
+S0113	validated	Palagi na lang nagla-lag wag na tayo mag-play.
+S0114	validated	Si sir nag-post na need mag-answer daw soon.
+S0115	validated	Nag-order ako bagong headphones para pang-play ko sa games.
+S0116	validated	Nag-edit ako ng pictures para sa Multimedia and nag-print ng hardcopy na ipapasa kay sir.
+S0117	validated	Nag-cash in ako sa GCash because want ko mag-avail ng starlight membership.
+S0118	validated	Nag-call kami ng friend ko para mag-decide ng gagawin namin next week.
+S0119	validated	Nag-review ako for quiz kahapon but na-confuse sa ibang questions, so hindi ko sure score ko.
+S0120	validated	Nag-research kami para sa topic na need namin i-present next meeting.
+S0121	validated	Na-move ko na to sa cloud, i-download mo nalang dun.
+S0122	validated	Kailangan ba i-rewrite yung buong papel naten oh kailangan lang i-revise?
+S0123	validated	na-solve mo na ba yung bug sa na-code natin?
+S0124	validated	pa-charge nga laptop, malo-lowbat nako.
+S0125	validated	ang cellphone
+S0126	validated	Na-scam ako ng sarili kong alarm kaya nag-power nap ako nang tatlong oras at na-late sa klase
+S0127	validated	Nag-add to cart lang daw siya para mawala ang stress pero na-check out lahat
+S0128	validated	Na-delete niya nang hindi sinasadya ang draft kaya kailangan niyang mag-type ulit mula sa simula
+S0129	validated	Nag-crave ako ng kape kaya nag-drive thru kami bago pumasok kanina
+S0130	validated	Nag-overthink ako kagabi habang nag-scroll sa tiktok
+S0131	validated	Nagko-comment siya sa post ko habang nagsha-share ako ng bagong announcement sa group chat.
+S0132	validated	Kailangan kong magre-review mamaya dahil mag-e-exam na kami next week.
+S0133	validated	Nagche-check si Mark ng attendance habang nagpe-prepare ako ng presentation para bukas.
+S0134	validated	Magse-send ako ng files pagkatapos niyang mag-a-upload ng documents sa Google Drive.
+S0135	validated	Nag-u-update ako ng profile habang nag-e-edit siya ng mga pictures para sa project namin.
+S0136	validated	I-save ko muna ang files bago ko ito i-delete.
+S0137	validated	Na-order ko na yung pagkain kaso na-cancel.
+S0138	validated	Magla-laptop ako habang ang kapatid ko ay magseselpon
+S0139	validated	Nagha-hallucinate ako dahil sa puyat kasi nag-iPad ako buong gabi
+S0140	validated	Gusto ko ma-improve ang sarili ko kaya sinimulan kong ma-balance diet ko.
+S0141	validated	Nag-compile ako ng program kagabi, pero nag-error pa rin ito dahil sa maling syntax.
+S0142	validated	Kailangan nating i-test ang bagong module bago natin i-submit ang project sa ating professor.
+S0143	validated	Na-save ko na ang file sa laptop, pero hindi ko pa naipa-print ang copy para sa grupo.
+S0144	validated	Mag-install muna tayo ng bagong software, tapos mag-update tayo ng driver ng computer.
+S0145	validated	Nag-reply na ang adviser namin sa email, kaya ni-revise ko ang outline ng thesis.
+S0146	validated	na-try mo na ba maglaro ng pickleball?
+S0147	validated	i-up mo nga ung announcement sa gc kanina.
+S0148	validated	pwede pa-picture nung flowers?
+S0149	validated	i-rebuild mo nga yung code, nasira kasi.
+S0150	validated	na-try na ba natin i-partner ung big brands sa start-up company natin?
+S0151	validated	nag-save ako ng video kagabi
+S0152	validated	Over naman sa effort si Luis
+S0153	validated	Na-shock ako sa score ko sa final quiz ko
+S0154	validated	Na-bump ko na message ko sayo
+S0155	validated	Pwede pa-reply-an naman yung chat ni Luis
+S0156	validated	Kailangan ko munang i-check yung exam answers ko bago i-submit.
+S0157	validated	In-edit ko ang codebase at nag-commit ako ng new changes sa repository.
+S0158	validated	Na-stuck ako sa traffic papuntang school kaya muntikan na akong ma-late sa class.
+S0159	validated	Hindi ko na-access yung file kasi nag-expire kaagad yung link.
+S0160	validated	Nakaka-bore maghintay sa late professor kaya nag-browse muna ako sa social media.
+S0161	validated	Nag-clean ako ng kuwarto kaninang umaga, tapos nag-sleep ako.
+S0162	validated	Nag-write ako ng part ko sa thesis namin sa Chapter 4 para i-finish ito.
+S0163	validated	Nag-buy ako ng cleaning spray kaninang umaga para i-polish ang bahay namin.
+S0164	validated	Hindi ko ma-open ang meeting link ng online class ko kanina, kaya nag-play na lang ako ng Genshin Impact.
+S0165	validated	Nag-shower ako dahil sobrang init at lagkit ko na, para ma-fresh ako.
+S0166	validated	Nag-install ako ng bagong game para maka-play ako with my friends.
+S0167	validated	Nag-practice ako mag-code kaninang umaga para sa aming hands-on test mamaya.
+S0168	validated	Na-delete ko lahat ng pictures na ni-take ko sa event namin kahapon.
+S0169	validated	Sobrang hirap noong nag-exam kami kahapon, kaya nag-review ako para sa susunod.
+S0170	validated	Pina-finish ko sa ka-group ko yung task namin sa class kanina.
+S0171	validated	Triks, na-debug mo na ba yung na-provide na code kanina?
+S0172	validated	Nagwo-worry na ako kay Dave dahil parang nakaka-stress yung ginagawa niya.
+S0173	validated	Nag-talk ako kanina sa in-attend-an ko na event kanina
+S0174	validated	In-open ko na yung laptop ko pwede ka na magsimula mag-develop ng system natin.
+S0175	validated	Nag-message at nag-call ako kay Intet kanina para ipaalala na may klase mamaya.
+S0176	validated	pa-update nalang ako ng part mo sa thesis tsaka pa-compile nalang din ng mga changes
+S0177	validated	pa-open nga ng hotspot mo, i-view ko lang tong rant ni sir
+S0178	validated	pa-check tsaka pa-confirm mo na rin kung tama lang ginawa natin
+S0179	validated	iko-configure ko muna 'tong code then tsaka mo i-view kapag okay na
+S0180	validated	pa-sight nga ng ginawa mo, iche-check ko lang kung tama gawa ko
+S0181	validated	In-edit ko ang video at pinost sa social media.
+S0182	validated	Pa-accept naman ang aking letter tapos pa-sign
+S0183	validated	Hindi ko ma-delete itong file, pa-help naman
+S0184	validated	Wala ba kayong isu-submit at ipapa-check na output?
+S0185	validated	Patingin naman paano mag-solve nito, in-add mo ba ang dalawang numbers?
+S0186	validated	nag-grocery muna kami pagkatapos mag-book ng restaurant para makabili ng ingredients na gagamitin namin sa dinner
+S0187	validated	magre-research muna ako tungkol sa project requirements habang nag-a-arrange ka ng schedule para sa meeting natin bukas
+S0188	validated	paki-update ang documentation bago tayo mag-deploy ng application dahil kailangan ding i-test ang bagong features
+S0189	validated	nag-prepare si Mama ng dinner habang nag-a-arrange ako ng mga gamit na dadalhin namin sa family gathering bukas
+S0190	validated	nag-install ako ng bagong software sa laptop para makapag-run ng program, pero kailangan ko munang i-configure ang settings bago ito gamitin
+S0191	validated	Nag-order ako ng food habang nag-aayos siya ng table
+S0192	validated	Nag-practice ako ng presentation bago mag-record ng video
+S0193	validated	Mag-a-attend ako ng meeting pagkatapos mag-finish ng assignment
+S0194	validated	Nag-test kami ng application bago mag-release ng update
+S0195	validated	Nag-back up ako ng database bago mag-update ng system
+S0196	validated	Nag-encode ako ng survey responses bago mag-generate ng results
+S0197	validated	Nag-debug kami ng program bago mag-present ng output.
+S0198	validated	Mag-a-apply ako ng internship pagkatapos mag-update ng resume
+S0199	validated	Na-transfer ko na ang payment bago mag-confirm ng reservation
+S0200	validated	Magre-record ako ng lecture pagkatapos mag-charge ng laptop
+S0201	validated	nag-church ako kanina kasama yung mga ka-work ko.
+S0202	validated	mamaya na tayo mag-lunch pagkatapos mag-evaluate ng tests
+S0203	validated	pwede bang mag-hypothesis testing ka muna bago mag-conclude?
+S0204	validated	please lang, mag-stop ka na nga sa mga pag-a-accuse mo sa akin?
+S0205	validated	alam ko naman na kahit mag-beg at mag-sorry ako sayo, alam ko naman na hindi na tayo magwo-work.
+S0206	validated	Mayroong rally around QC, tara! sama ka along greenbelt.
+S0207	validated	Way back 2005 or ung taon na nagpasimula ung surge ng independednt film festivals, doon rin nagsimula ang pagbabahagi ang seed investments sa film makers.
+S0208	validated	Ang Cinemalaya sa industriyang ito ang nagsisilbing gateway to foreign festivals, whether its for state, corporate media, or global festival circuit.
+S0209	validated	From these 3 sectors, nagkakaiba ang motives nila because of their wants
+S0210	validated	Everyone talks about the funding, but ang problema is kung paano i-handle ang employers these days.
+S0211	validated	Nag-decide kami na mag-jogging sa may Quezon City Memorial Circle.
+S0212	validated	Na-fix ko na 'yung bug bago ko pa i-push sa GitHub.
+S0213	validated	Buti nalang binack up ko yung files bago ko ni-reformat 'yung laptop ko
+S0214	validated	Paki-finalize ang content bago ko i-post sa group chat.
+S0215	validated	Paki-ask kay sir kung may pasok para ma-sure
+S0216	validated	i-charge mo muna yung cellphone kasi na-lowbat yan kanina
+S0217	validated	nagda-download ako ng laro sa epic games, at nag-update din ako ng drivers
+S0218	validated	paki-check nga kung tama yung na-save ko sa gdrive
+S0219	validated	nagse-search ako ng tutorial sa youtube kung paano mag-install ng operating system
+S0220	validated	nag-back up ako ng files ng mga empleyado bago ko inconfigure yung laptop nila
+S0221	validated	Nag-answer ako ngayon ng forms at sana na-save itong mga sinagot ko.
+S0222	validated	Nagso-scroll lang ako kanina nung may nag-appear na missed call sa aking selpon.
+S0223	validated	Nag-binge-watch na lang ako buong bakasyon habang nagfu-food trip.
+S0224	validated	Na-lowbat na yung laptop, hindi na na-save yung ginagawa ko kaya uulitin ko siguro ulit yun.
+S0225	validated	Na-delay yung flight niya, akala niya pagkadating ay na-late na siya.
+S0226	validated	Puro online setup pa rin although puwede naman akong um-attend on-site, pero ano namang gagawin ko roon kung mag-meet lang din naman kami online?
+S0227	validated	Are you tapos na ba sa quiz natin kay Sir, o hindi mo pa na-check ang answers bago natin i-submit?
+S0228	validated	Ay, hindi ko pa pala na-upload yung picture natin last time, saan ko siya ise-share?
+S0229	validated	Grabe, na-delay ako dahil sa traffic sa Makati kaya nag-book nalang ako ng Angkas.
+S0230	validated	I think hindi na natin kailangang mag-overthink since may points na tayong na-earn, kaya i-calculate na lang natin kung ilan pa ang kailangan.
+S0231	validated	Na-cancel ang booking namin dahil hindi na-confirm ang reservation.
+S0232	validated	Paki-label ang containers bago mag-store ng ingredients.
+S0233	validated	Nag-prepare ako ng checklist habang nag-i-inventory si Mama.
+S0234	validated	Mag-a-attend kami ng seminar pagkatapos mag-register online.
+S0235	validated	1. Na-forward ko na ang email bago mag-reply ang professor.
+S0236	validated	paki-verify ang account bago mag-reset ng password
+S0237	validated	magse-set up kami ng workstation bago mag-install ng applications
+S0238	validated	nag-design siya ng poster habang nag-edit ako ng photos
+S0239	validated	nag-pack ako ng clothes bago mag-check out sa hotel
+S0240	validated	na-connect ko ang printer bago mag-print ng certificates
+S0241	validated	Paki-attach ang documents bago mag-forward ng email
+S0242	validated	Nag-observe kami ng network traffic habang nag-run ng simulation.
+S0243	validated	Na-adjust niya ang brightness bago mag-present ng slides.
+S0244	validated	Magpa-process ako ng payment pagkatapos mag-verify ng transaction.
+S0245	validated	Nag-save ako ng screenshots bago mag-clear ng browser history.
+S0246	validated	Nag-query ako ng database pagkatapos mag-import ng records.
+S0247	validated	Magre-refactor kami ng code bago mag-integrate ng API.
+S0248	validated	Paki-test ang endpoint bago mag-connect ng frontend.
+S0250	validated	Magse-set up ako ng virtual machine bago mag-install ng operating system.
+S0251	validated	Nag-work out ako kanina habang nagpe-play yung music.
+S0252	validated	Nag-compose ako ng message sa friend ko kasi na-hurt ko siya.
+S0253	validated	Mag-wash ako ng dishes later kapag na-finish na sila kumain.
+S0254	validated	Nag-leave ako sa gc kasi feeling ko na-left out ako.
+S0255	validated	Nag-clean ako ng feet kasi na-dirty-han ng putik.
+S0256	validated	Nag-download ako ng bagong software para ma-test kung maaayos nito ang nag-crash na application sa computer laboratory.
+S0257	validated	Kailangan kong i-recheck ang database bago mag-submit ng final project dahil baka may na-miss akong importanteng information.
+S0258	validated	Nag-message si Mama sa akin para ipa-remind na huwag kalimutang mag-grocery pagkatapos kong mag-class sa university.
+S0259	validated	Na-reschedule ang meeting namin kaya kailangan kong mag-adjust ng study schedule at mag-prepare ng bagong presentation para bukas.
+S0260	validated	Nag-back up ako ng importanteng files bago mag-format ng laptop dahil ayokong ma-delete ang mga documents na ginawa ko para sa thesis.
+S0261	validated	Na-delete ko ang code na ginawa ko kanina na ipa-pass na mamayang gabi.
+S0262	validated	Nag-join ako sa klase ng late kasi di ko nakita na nag-send na pala ng class link ang prof namin.
+S0263	validated	Pina-message ko sa kaklase ko ang iba namin ka-group na wala pa rin sa school.
+S0264	validated	Nire-revise ko yung code na gamit namin for our thesis dahil ipe-present na namin ang aming app bukas.
+S0265	validated	Nag-update ako ng operating system kagabi para ma-improve ang performance ng laptop at maiwasan ang pag-freeze habang nagko-code.
+S0266	validated	Nag-hibernate na ang lumang desktop computer sa bodega habang ino-overhaul ng technician ang sirang cooling fan nito.
+S0267	validated	Na-encrypt ko na ang buong folder ng mga resibo upang hindi ito basta ma-tamper ng sinumang gagamit ng shared drive.
+S0268	validated	Nag-deconstruct kami ng lumang lumulutang na aparador kahapon dahil na-misplace ng karpintero ang susi ng mga drawer nito.
+S0269	validated	Ika-calibrate muna ng inhinyero ang mga sensor sa tulay bago mag-simulate ang grupo nila ng malakas na lindol sa software.
+S0270	validated	Nag-improvise na lang ng panakip ang mga tindero sa palengke nang biglang nag-malfunction ang kanilang malaking electric awning.
+S0271	validated	In-uninstall ko ang Genshin Impact para ma-install ko ang GTA 6.
+S0272	validated	Nakapag-edit na ako ng mga photos ko pang-story.
+S0273	validated	Makakapag-code na ulit ako kasi nag-refresh na yung usage ko sa Claude.
+S0274	validated	Nagutom ako kaka-workout kaya nag-order ako ng pagkain.
+S0275	validated	Nahuli kong nagse-cellphone yung kaklase ko habang nag-e-exam.
+S0276	validated	tinry mo na ba mag-text sa kaniya para mag-answer na siya ng survey?
+S0277	validated	mag-eat ka na ba para maka-run ka ng ayos mamayang pag-jogging natin.
+S0278	validated	tara, mag-rides tayo pa-Marilaque, tapos don tayo mag-play ng games.
+S0279	validated	mag-laugh ka naman, para ganahan ako mag-joke.
+S0280	validated	pwede ba tayo mag-date? then mag-sleep tayo sa bahay later.
+S0281	validated	Nag-type ako ng message na ise-send sa aming group chat.
+S0282	validated	Nag-o-overreact na siya sa mga mine-message ko.
+S0283	validated	Happy na sila kasi nag-answer ako.
+S0284	validated	Na-misplace ko ang house keys kaya kailangan kong mag-search ulit.
+S0285	validated	Magki-clean muna ako ng bedroom bago mag-fold ng mga damit na bagong laba.
+S0286	validated	Nag-reach out muna kami sa thesis adviser namin bago mag-change ng topic.
+S0287	validated	Nag-review ka na ba or parehas tayong di magre-review?
+S0288	validated	Na-download mo na ba yung pinapa-download ko sayo?
+S0289	validated	Di ako naka-join sa meeting kanina kasi na-late ako ng gising.
+S0290	validated	Nag-crash yung laptop ko, pwede ba ikaw muna mag-notes?
+S0291	validated	May bagong file na ipinapagamit si Sir.
+S0292	validated	Bukas, gagawa ako ng letter para sa pagsasagawa ng defense sa Software Engineering 2.
+S0293	validated	Dapat ngayong araw ay magre-revise na kami ng Chapter 4 ng aming thesis.
+S0294	validated	Based sa meeting kanina, magkakaroon ng bagong format para sa livestream.
+S0295	validated	Akala ko ba kasama mo siya sa trip mo?
+S0296	validated	Sya nag-inherit nung pagche-cheat mula sa tatay nyo
+S0297	validated	Ina-ask ako ng HR if want ko raw mag-join sa secret Santa
+S0298	validated	Nagpa-poll sya sa Discord kung sino raw ine-next
+S0299	validated	Magsabi ka kung sasama ka mag-watch kasi io-offer na ata ticket mo
+S0300	validated	Nakapag-rejoin ka na? Na-disconnect din pala ata ako
+S0301	validated	I-save all mo muna bago ka mag-commit.
+S0302	validated	Kaya siguro nagka-crash yung app natin, maling code na-paste mo.
+S0303	validated	Pwede pa naman siguro ma-modify 'yon, or i-reset na lang natin.
+S0304	validated	BIglang nag-log out sakin, hindi ko na ma-access yung page.
+S0305	validated	Nag-deactivate ako sa facebook, then hirap na ako mag-log in ulit.
+S0306	validated	Nag-eat ka na ba my love?
+S0307	validated	Nagpa-trim at nagpa-shave ako ng bigote
+S0308	validated	Nag-movie marathon kami sa bahay at nag-food trip kami sa morato
+S0309	validated	Ang bubble wrap sa parcel ay makapal
+S0310	validated	Nagpa-adjust at nagpa-change ako ng color ng braces
+S0311	validated	Pa-check ako nito please, para ma-send ko na kay sir.
+S0312	validated	Baka ma-late pala ako, sorry na-traffic ako sa EDSA.
+S0313	validated	Nag-chat siya sa akin tungkol sa project, pa-approve daw.
+S0314	validated	Na-sense niya yung masamang mangyayari, buti na lang nag-check siya ng lane.
+S0315	validated	Nag-story siya kanina pero ayaw mag-respond sa gc.
+S0316	validated	Na-try mo na ba mag-rank game sa wildrift.
+S0317	validated	Na-low-battery yung aking cellphone, hindi ko na-charge kagabi.
+S0318	validated	Nakaka-stress naman itong pag-review sa midterms exam.
+S0319	validated	Hindi kagad ako makaka-join, bagong-install pa lang yung akin.
+S0320	validated	Pass muna ako sa laro guys, nag-request yung kagrupo ko ng tulong para mag-edit ng manuscript.
+S0321	validated	Nag-please ako sa kanya at nag-follow up, pero wala pa ring assurance kung may klase.
+S0322	validated	If kailangan niyo magpa-consult, i-message niyo na lang si Sir sa messenger.
+S0323	validated	Nagla-lag kasi ang internet ko today. Paki-wait na lang ma-post yung activity.
+S0324	validated	Nag-ask ako kay sir kung pwedeng online na lang kaso hindi siya nag-reply.
+S0325	validated	Ni-remind ko yung mga classmates ko na i-submit na nila yung activity before lunch.
+S0326	validated	Wala namang mas sasarap kapag na-kiss ka, but di ko pa na-e-experience iyon.
+S0327	validated	Pa-process naman nito, mamaya ko sha iwo-work
+S0328	validated	Dito kami nag-date at nag-propose sha sa akin
+S0329	validated	Paano mo sha na-rate, may na-visit ka bang link?
+S0330	validated	Ako ay magre-respond sa kanyang tawag once na ma-overcome ko ang fear ko
+S0331	validated	Pa-charge naman ng laptop ko tapos pa-connect sa wifi ninyo
+S0332	validated	I-illustrate mo ang nasa isip mo, wag mong i-contain sa utak
+S0333	validated	Na-reimburse na kaya nila ang pera, di ko siya nalo-look pa sa aking account
+S0334	validated	Stapler-in mo nga iyang paper at i-submit mo later
+S0335	validated	Paki-close naman ng aircon kapag umaga na, ang hirap mag-save para sa elec bill
+S0336	validated	Drawingan mo nga ako ng ibon tas ako na magko-color
+S0337	validated	Ipo-procrastinate ko na lang itong assignment bukas, may ivi-visit pa ako ngayon eh
+S0338	validated	Magbi-binge-watch tayo later ng movie if na-finish mo na yang gawain mo
+S0339	validated	Mag-focus ka na nga, wag ka nang magti-think ng ibang masama
+S0340	validated	Ang hirap namang i-browse itong website, puno ng super daming ads, ang hirap i-close
+S0341	validated	Wag mo akong i-gaslight, alam ko ang na-view kong myday
+S0343	validated	Napa-reverse walk ako nang ma-sight ko sha
+S0344	validated	I-shoot mo ang bola, malapit na tayo mag-champion
+S0345	validated	Paki-try itong bagong restaurant, nagse-serve sila ng masarap na tempura
+S0346	validated	Navi-visualize mo ba kung ano itong mga napag-meeting-an
+S0347	validated	Spray-han mo iyang damo nang mag-dry at malanta agad
+S0348	validated	Magjo-join ako ng pageantry once i-move ang schedule nito
+S0349	validated	Magpa-power nap ako after kong mag-review ng exam
+S0350	validated	Paki-debug ng code, hindi siya nagwo-work since kaninang umaga
+S0351	validated	Kung may na-meet ka online na disrespectful, i-block at i-report mo nalang sila.
+S0352	validated	Na-lowbat yung phone ko kanina, so ngayon china-charge ko siya.
+S0353	validated	Na-try mo na bang mag-type dun sa kiosk?
+S0354	validated	Agenda ko today is mag-video at mag-edit ng content para sa channel ko.
+S0355	validated	Na-consider mo na bang mag-file ng report sa mga ginagawa niya?
+S0356	validated	Mag-order na lang tayo ng food, wala na akong energy mag-cook kasi buong araw akong nag-train ng model.
+S0357	validated	Nakakainis, hindi ko pa na-save yung file nung bigla na lang nag-shut down yung laptop ko.
+S0358	validated	Shoutout din sa creatives team kasi ang ganda ng mga pubmats na ginawa niyo, lagi silang napapansin at nagte-trend pa sa page natin.
+S0359	validated	Gusto ko lang mag-thank you sa buong core team kasi kahit sobrang busy, nag-step up pa rin kayo para sa club.
+S0360	validated	Proud ako na nakatrabaho ko kayo, kaya sana ma-inspire pa ang susunod na batch na i-continue yung nasimulan natin.
+S0361	validated	Pa-Valorant sa pc mo, magla-lock in ako ng fade
+S0362	validated	ipa-convert mo iyang pdf sa docs tapos i-print mo ma rin
+S0363	validated	Wag mo munang i-push sa github, ide-debug ko muna
+S0364	validated	I-wallpaper mo girlfriend mo at mukang na-triggered siya
+S0365	validated	Nag-reply agad ako sa kanya pero mabagay sha mag-respond
+S0371	validated	Nakaka-confuse naman yung lesson hirap akong ma-recall.
+S0372	validated	Nag-text na ba si ate kung saan siya nagpa-print.
+S0373	validated	Puyat siya dahil nag-Facebook saka nag-TikTok nanaman siya kagabi.
+S0374	validated	Nag-Burger King kami sa mall kanina tapos nag-Grab pauwi.
+S0375	validated	Na-hack nanaman saw account niya di kasi siya nag-secure ng maayos nito.
+S0376	validated	Nag-park ako sa tabi at nag-dine in sa loob
+S0377	validated	I-grab mo na ang opportunity bago pa siya mag-slip away
+S0378	validated	Pa-xerox nitong papel, ika-cash ko maya bayad
+S0379	validated	Nag-fake face to face na naman siya at pinost pa sa social media
+S0380	validated	Nag-review ako kagabi at nag-result naman sa mataas na score ang exam ko
+S0381	validated	Nag-try ako mag-samgyupsal, masarap naman pala
+S0382	validated	Nakaka-frustrate naman ang laban, sayang at hindi niya na-clutch
+S0383	validated	Nag-add ako ng isang line sa code para ma-debug ito
+S0384	validated	Paki-fill up nitong forms at paki-picture pagkatapos
+S0385	validated	Gusto kong may ka-kiss at ka-hug ngayong pasko
+S0386	validated	Sana mag-online class na lang at mag-present kami nang online
+S0387	validated	Wag ka mag-worry, ise-save tayo ni spiderman
+S0388	validated	Paki-validate kung tama mga kini-claim niya
+S0389	validated	Magpe-present kami ng project kay Ma'am tapos mag-a-ask sha ng question pagkatapos
+S0390	validated	I-try mo tong bagong app, mapapa-wow ka
+S0391	validated	Ire-report ko ang accident, paki-wait na lang ng rescue
+S0392	validated	Nag-take na ako ng gamot magta-try na akong tumulog
+S0393	validated	Pa-keep ng papers hanggat di pa nache-check-an
+S0394	validated	Nag-extra rice ako sa Mang Inasal at nag-order pa ng halo-halo
+S0395	validated	Siya ang nag-voice at ang um-acting sa character na ito
+S0396	validated	Na-normalize mo ba ang database at nakaka-overwhelm pa sa sa dami ng columns or attributes
+S0397	validated	Naki-online lang ako, pa-send naman sa akin ang gcash
+S0398	validated	Na-late ako kanina sa pagpasok kasi nag-check pa ng laman ng bag
+S0399	validated	Na-traffic ako sa Mendiola, may mga nagra-rally ngayon doon
+S0400	validated	Nag-time in ako nang mas maaga kahapon at magta-time out na ako nang tama sa oras
+S0401	validated	Kailangan kong mag-code ulit dahil may nag-crash na function.
+S0402	validated	Nagse-secure kami ng database before mag-deploy ng application
+S0403	validated	Magte-test ako ng API habang nag-i-integrate ka ng frontend
+S0404	validated	Kailangan naming i-debug ang errors before mag-release ng software
+S0405	validated	Na-restore ko ang database pagkatapos mag-reset ng server
+S0406	validated	Nag-a-analyze ako ng logs habang nagru-run siya ng simulation
+S0407	validated	Paki-integrate ang modules nang ma-deploy na ang system.
+S0408	validated	Ipinag-compile namin ang source code before mag-test ng output.
+S0409	validated	Nagse-secure ako ng files at nagba-back up siya ng database.
+S0410	validated	Pina-process ko ang requests at magge-generate ng reports.
+S0411	validated	Binuild namin ang interface habang tine-test ng instructor ang application.
+S0412	validated	Sinave ko ang project bago i-submit ang final output.
+S0413	validated	Paki-attach ang repository at i-share mo ang source code.
+S0414	validated	Minodify ko ang algorithm tapos chine-check niya ang runtime.
+S0415	validated	Dinesign namin ang database tapos dinevelop ang backend.
+S0416	validated	Sinort ko ang records at in-export ang database.
+S0417	validated	In-adjust ko ang parameters at sinimulate ang algorithm.
+S0418	validated	Pinag-combine namin ang datasets habang ina-analyze ng system ang results.
+S0419	validated	Pina-render ko ang graphics and chine-check niya ang frame rate.
+S0420	validated	In-integrate namin ang libraries bago i-execute ang application.
+S0421	validated	Tinransfer ko ang files before i-encrypt ang database.
+S0422	validated	Pinag-compare namin ang outputs habang ina-evaluate ang algorithm.
+S0423	validated	Sinynchronize niya ang servers bago i-back up ang records.
+S0424	validated	Pina-validate ko ang inputs habang chine-check niya ang responses.
+S0425	validated	In-update namin ang dependencies at ni-rebuild ang application.
+S0426	validated	Pinag-merge ko ang branches and pinush niya ang changes.
+S0427	validated	Tinanggal niya ang duplicate entries bago i-filter ang dataset.
+S0428	validated	Pina-optimize namin ang queries at mina-monitor ang execution time.
+S0429	validated	In-isolate ko ang faulty module bago i-debug ang program.
+S0430	validated	Pinag-test nila ang network habang ina-assess ang connection speed.
+S0431	validated	Pina-connect ko ang sensors to know if nagwo-work na ba siya
+S0432	validated	Pina-process namin ang requests before i-generate ang reports.
+S0433	validated	Tinest niya ang compatibility bago i-install ang drivers.
+S0434	validated	Pina-run namin ang simulation tas mino-monitor ang performance.
+S0435	validated	Binrowse ko ang directories bago i-download ang required packages.
+S0436	validated	In-encode namin ang characters at tinransmit ang data.
+S0437	validated	Pina-link namin ang databases at in-integrate ang records.
+S0438	validated	Ni-register ko ang domain habang ina-assign niya ang IP address.
+S0439	validated	Pina-decrypt ng developer ang files before i-authenticate ang users.
+S0440	validated	Binypass namin ang cache at ni-reroute ang network packets.
+S0441	validated	Tinext ko si Mama habang nagpa-pack siya ng groceries.
+S0442	validated	Pina-reserve namin ang table bago mag-check in sa hotel.
+S0443	validated	Nagpa-deliver ako ng lunch habang nag-a-arrange siya ng dining table.
+S0444	validated	Ni-cancel namin ang trip bago mag-reschedule ng vacation.
+S0445	validated	Pina-frame ni Ate ang pictures habang nagde-decorate ako ng living room.
+S0446	validated	Nagpa-laundry ako while nag-o-organize ng closet.
+S0447	validated	Pina-wrap ko ang regalo before akong mag-attend ng birthday niya
+S0448	validated	Nagpa-gas kami at nag-drive papunta sa beach
+S0449	validated	Pina-clean ni Mama ang carpet kasi magho-host kami ng family gathering
+S0450	validated	Nag-fit-check kami at nag-meet sa mall
+S0451	validated	Tinry ko ang bagong cafe at mag-review ng menu
+S0452	validated	Nag-reserve kami ng seats para makapag-plan ng gala nang maayos
+S0453	validated	Pina-deliver ko ang food para makapag-prepare ng drinks afterwards
+S0454	validated	Nag-skin-care ka ba and mag-apply ng makeup?
+S0455	validated	Nag-work out ako before mag-stretch ng muscle
+S0456	validated	Nag-meal-prep kami before mag-grocery for the week
+S0457	validated	Nag-house-clean kami habang nagde-declutter ng old stuffs
+S0458	validated	Nag-budget ako ng allowance at nag-plan ng weekend activities.
+S0459	validated	Pina-customize niya ang phone case taspos mag-order ng accessories
+S0460	validated	Pina-resize ko ang dress para mag-fit sha sa akin
+S0461	validated	Hindi nila ma-improve itong kalsada, sobrang nakaka-distract sa paningin
+S0462	validated	Nag-morning walk kami ng aking aso sa may park nang na-predict kong uulan
+S0463	validated	Nag-stir-fry siya ng tofu tas sineason niya ng oyster sauce
+S0464	validated	Na-call out ka na, hindi ka pa rin nagpa-pay attention
+S0465	validated	Magre-ready ako ng gamit sakaling mag-go kami sa beach
+S0466	validated	Ang toxic naman ng ka-block ko kasi binackstab niya ako sa ibang tao
+S0467	validated	Naka-red akong damit para i-celebrate ang Christmans Party namin
+S0468	validated	In-scroll ko yung website tapos nakita ko ang button na di naka-connect sa isang page
+S0469	validated	Nag-dive ako sa dagat nang naka-goggles lang ang suot
+S0470	validated	Pag na-clutch mo ang round na yan, magja-Jollibee tayo mamaya
+S0471	validated	Nag-order na lang sila ng pagkain online dahil tinatamad na silang mag-drive papunta sa mall.
+S0472	validated	Nakapag-submit ka na ba ng assignment natin na i-e-evaluate mamayang hapon?
+S0473	validated	I-restart mo na lang ang laptop mo kapag nag-freeze ulit ang application habang ginagamit mo.
+S0474	validated	Mag-e-exercise muna ako sa park bago ako mag-check ng mga unread emails sa inbox ko.
+S0475	validated	Nag-message na ang professor natin para i-remind ang lahat tungkol sa deadline ng project.
+S0476	validated	Mag-gro-grocery muna kami sa supermarket bago kami mag-cook ng dinner para sa pamilya.
+S0477	validated	Nag-install na ako ng bagong software update kanina para ma-fix ang mga bugs sa system.
+S0478	validated	I-back up mo muna lahat ng importanteng files mo tapos i-format mo ang external hard drive.
+S0479	validated	Nakapag-register na ba kayo sa seminar na i-o-organize ng department natin sa susunod na linggo?
+S0480	validated	Nag-cancel na sila ng meeting dahil hindi pa na-finalize ang report para sa presentation.
+S0481	validated	mag-a-apply na ako ng internship sa isang tech company kapag na-approve na ng adviser ang resume ko
+S0482	validated	i-share mo na lang ang link ng document para ma-edit na rin ng ibang group members ang kanilang parts.
+S0483	validated	nakapag-withdraw na ako ng cash kanina bago pa mag-offline ang machine sa bangko.
+S0484	validated	nag-log out na siya sa account niya pagkatapos niyang mag-print ng mga kailangang forms.
+S0485	validated	magko-commute na lang ako papuntang office bukas dahil naka-schedule ang car ko para sa maintenance.
+S0486	validated	Nag-research na ako tungkol sa bagong algorithm na i-i-implement natin sa thesis.
+S0488	validated	I-save mo muna ang ginagawa mong script at i-close mo ang text editor.
+S0489	validated	Nakapag-charge na ba kayo ng power bank bago tayo mag-travel papunta sa probinsya?
+S0490	validated	Nag-set up na sila ng bagong network router para hindi na mag-lag ang internet connection sa bahay.
+S0491	validated	Gumraduate na ang kapatid ko sa computer science kaya nagba-browse na siya ng trabaho ngayon.
+S0492	validated	Tine-test pa namin ang bagong feature ng website bago ito tuluyang i-launch sa publiko.
+S0493	validated	Chineck ko na ang lahat ng cables sa likod ng computer pero hindi pa rin nag-o-open ang monitor.
+S0494	validated	Dinownload na niya ang bagong movie na ibi-binge-watch namin mamayang gabi sa sala.
+S0495	validated	Ni-cancel na nila ang flight namin pa-Cebu dahil sa masamang panahon doon.
+S0496	validated	Tinype ko na ang password nang tama pero nag-error pa rin ang login page ng portal.
+S0497	validated	In-update na nila ang security patch ng system para maiwasan ang pag-hack sa server.
+S0498	validated	Chinat ko na ang kaklase natin para itanong kung na-upload na ba niya ang group project.
+S0499	validated	Finormat niya ang flash drive kanina kaya na-delete lahat ng naka-save na dokumento doon.
+S0500	validated	Dineliver na ang bagong mechanical keyboard na in-order ko online noong nakaraang linggo.
+S0501	validated	Bawal mag-walk-in sa event na pupuntahan namin kaya nag-online booking na lang ako kagabi
+S0502	validated	Pagkatapos kong mag-check ng aking ginawang activity, nag-download ako ng copy nito at nag-upload sa aming Gclassroom
+S0503	validated	Nag-explain ang aming guro tungkol sa lesson namin, nag-demonstrate ng examples sa klase, at nag-assign ng activity pagkatapos ng discussion
+S0504	validated	Nag-design ako ng aming gagamiting presentation, nag-upload ng mga pictures, nag-adjust ng mga texts at nag-download ng copy nito para hindi mawala
+S0505	validated	Habang nagwa-watch ako ng movie, nag-order ako sa FoodPanda ng pagkain para ma-enjoy ko ang movie
+S0506	validated	Palaging nagcra-crash kapag nagda-download ako dito.
+S0507	validated	Kamusta na yung pina-prompt ko sa'yo after tayo mag-meeting?
+S0508	validated	Kailangan ba talaga natin mag-cite ng libro sa pag-develop ng application?
+S0509	validated	Hindi ko alam kung mas-okay bang i-select na lang niya yung item.
+S0510	validated	Pwedeng pa-remove na lang ng record ko para maka-submit uli ako mamaya.
+S0511	validated	Paki-check nga yung file kasi nag-e-error yung formula
+S0512	validated	Nag-submit na ko pagkatapos ko mag-edit
+S0513	validated	Nagre-review na sir so dapat naka-upload na supporting docs
+S0514	validated	Mag-prepare ka na sa presentation later para ma-organize mo thoughts mo
+S0515	validated	Pa-follow up nga si ma'am mamaya para ma-communicate na yung oras ng meeting sa client.
+S0516	validated	Nag-text ako sa'yo kanina pero hindi mo na-receive kasi naka-off ang phone mo.
+S0517	validated	Mag-shopping tayo mamaya, pero i-check muna natin kung may sale.
+S0518	validated	Na-late siya sa meeting kasi na-traffic siya sa EDSA.
+S0519	validated	Pa-charge naman ng phone ko, malapit na kasi itong ma-lowbat.
+S0520	validated	Nag-order kami ng pizza tapos pina-deliver namin sa office.
+S0521	validated	I-save mo muna ang file bago mo i-close ang laptop.
+S0522	validated	Nag-work out ako kahapon kaya na-sore ang buong katawan ko.
+S0523	validated	Lalo ka lang ma-stress kung i-overthink mo pa ang problema.
+S0524	validated	Nag-download siya ng bagong app at in-install niya agad sa tablet.
+S0525	validated	Ni-like niya ang post ko pero hindi siya nag-comment.
+S0526	validated	Mag-review ka nang maayos para hindi ka ma-fail sa exam.
+S0527	validated	Nag-ghost siya pagkatapos naming mag-date nang tatlong beses.
+S0528	validated	Pa-print naman ng resume ko, kailangan ko itong i-submit bukas.
+S0529	validated	Na-hack ang account niya kaya nag-reset siya ng password.
+S0530	validated	Mag-commute na lang tayo kasi mahal mag-taxi ngayon.
+S0531	validated	Naka-schedule na ang interview ko, kaya nag-prepare ako buong gabi.
+S0532	validated	Nag-volunteer siya sa clean-up drive at nag-collect ng mga plastic sa ilog.
+S0533	validated	I-forward mo sa akin ang email para ma-proofread ko bago ang deadline.
+S0534	validated	Nag-crash ang laptop ko kaya hindi na-back up ang presentation ko.
+S0535	validated	Nag-overtime ako kagabi kaya na-miss ko ang huling biyahe ng jeep.
+S0536	validated	Grabe si Ate, nagpa-rebond na nga, nagpa-manicure pa sa iisang salon, sana all may pera.
+S0537	validated	Tara mag-jogging tayo tuwing umaga para ma-improve naman stamina natin, hingal agad tayo e.
+S0538	validated	Ay nako, na-cancel yung flight namin kaya nag-rebook kami for tomorrow, hassle talaga.
+S0539	validated	Beh, i-delete mo na yung mga lumang pics mo, na-full na storage mo kaya ang bagal ng phone mo.
+S0540	validated	Nag-sorry naman siya pero di ko pa siya na-forgive ng buo, charot, medyo lang.
+S0541	validated	Pa-share naman ng notes mo pre, di ako naka-attend kahapon e.
+S0542	validated	Nag-enroll ako sa online class tapos laging nagla-lag yung wifi namin, nakakainis talaga.
+S0543	validated	Kinikilig ako, nag-propose siya sa jowa niya habang nag-hiking sila sa bundok, sana all talaga.
+S0544	validated	Teka mag-picture muna tayo bago umalis, wala pa ko ma-upload sa IG e.
+S0545	validated	Na-impressed daw yung boss niya kaya ayun, na-promote agad, lodi talaga.
+S0546	validated	I-explain mo nga nang maayos, baka ma-confused lang sila lalo.
+S0547	validated	Hala nag-sale yung mall, na-tempt tuloy akong mag-splurge, ubos na naman sweldo ko.
+S0548	validated	Mag-video call na lang tayo, ang lakas ng ulan, tinatamad na rin akong mag-meet sa labas.
+S0549	validated	Buong araw akong nag-research tapos nag-summarize pa ko ng data, lutang na talaga ko.
+S0550	validated	Pa-confirm naman kung tuloy party, para ma-finalize ko na guest list.
+S0551	validated	Jusko, na-scam si tita online, ayun ni-report na namin sa pulis.
+S0552	validated	Edi i-unfollow mo na siya, lagi ka na lang naba-bad trip sa mga post niya e.
+S0553	validated	Nag-sleep over kami kina Carla tapos nag-binge-watch kami ng K-drama hanggang umaga.
+S0554	validated	Mag-budget ka kasi, para di ka ma-short bago sweldo, ikaw din.
+S0555	validated	Natawa ako kasi nag-reply agad siya, na-gets niya pala yung joke ko.
+S0556	validated	mag-lunch ako sa karinderya
+S0557	validated	wait lang natatae ako
+S0558	validated	nice game pare
+S0559	validated	pa-send picture thank you
+S0560	validated	update mo ako
+S0561	validated	I-try mo yung bagong recipe na 'to, promise mag-eenjoy yung family mo.
+S0562	validated	Nagka-crush ako sa kanya nung high school pero never ako nag-confess, torpe e.
+S0563	validated	Pa-selfie naman kami ni Lola, ipa-frame ko yung picture para sa sala.
+S0564	validated	Naka-leave ako bukas kaya na-move yung presentation ko sa Monday, hay salamat.
+S0565	validated	Nag-detour kami kasi na-flooded na yung kalsada malapit sa palengke.
+S0566	validated	Dapat mag-recycle na tayo ng mga bote, tsaka i-segregate niyo nga basura dito sa bahay.
+S0567	validated	Sila pala nag-donate ng relief goods tsaka nag-organize ng feeding program, ang bait nila.
+S0568	validated	Na-shocked ako, nag-resign na pala siya, wala man lang paalam.
+S0569	validated	I-remind mo ko mamaya ha, baka ma-forgot ko na naman appointment ko sa dentist.
+S0570	validated	Ayan ka na naman, nag-assume ka agad, di mo man lang ni-clarify sa akin.
+S0571	validated	Ako nag-babysit sa pamangkin ko kanina habang nag-grocery si Ate.
+S0572	validated	Pa-reserve naman po ng table for six, mag-celebrate po kami ng birthday ni Mama.
+S0573	validated	Grabe, na-stuck kami sa elevator ng halos isang oras bago kami na-rescue.
+S0574	validated	Kung gusto mo talaga ma-master yung gitara, mag-practice ka araw-araw, hindi yung pag trip mo lang.
+S0575	validated	Nag-update yung app kagabi tapos ngayon nagli-glitch na yung ibang features, ano ba yan.
+S0576	validated	I-scan mo lang yung QR code para ma-access mo yung menu.
+S0577	validated	Tatlong company inapplyan ko pero isa lang nag-call back, sad.
+S0578	validated	Na-inspired ako sa speech niya kaya nag-sign up agad ako sa leadership seminar.
+S0579	validated	Mag-carpool na lang tayo, tipid pa, tsaka di na tayo mag-park ng magkahiwalay.
+S0580	validated	Nag-cram ako kagabi kaya ayun, na-blank ako sa quiz kanina.
+S0581	validated	Kuya, pa-refill po ng iced tea, tsaka pa-take out na rin po nung natirang ulam.
+S0582	validated	I-tag mo ko sa pic ha, para ma-repost ko sa story ko.
+S0583	validated	Nag-feeling close agad siya e kaka-introduce pa lang namin sa isa't isa.
+S0584	validated	Uy naka-mute ka yata, paki-test mo nga ulit mic mo, di ka namin naririnig.
+S0585	validated	Nag-tantrums yung bata kasi ni-confiscate ng nanay niya yung tablet.
+S0586	validated	may na-see ako
+S0587	validated	Gusto sana kitang puntahan, pero sobrang busy ko sa work kaya hindi ako nakapunta
+S0588	validated	Hindi ako galit sa'yo, I just need some time alone because I have a lot on my mind.
+S0589	validated	You should take a rest muna dahil you've been working hard all day, and you deserve some time for yourself.
+S0590	validated	I wanted to join the meeting, but I couldn't attend kasi may importanteng kailangan akong tapusin.
+S0591	validated	Mag-sunscreen ka bago lumabas ha, para di ka ma-sunburned.
+S0592	validated	Siya nag-host nung webinar tapos nag-invite pa siya ng mga expert sa climate change, ang galing.
+S0593	validated	Shet na-wrong send ako sa GC, buti na-unsend ko agad.
+S0594	validated	I-plug mo muna yung extension bago mo i-on yung electric fan.
+S0595	validated	Nag-bake si Lola ng ensaymada tapos pina-raffle pa namin yung isang box nung reunion.
+S0596	validated	Naka-focused ako sa thesis ko kaya nag-deactivate muna ako ng FB.
+S0597	validated	Nag-trending yung video niya kaya ayun, na-interview pa siya sa TV, sikat na si ate mo.
+S0598	validated	Pa-photocopy naman nito, kailangan ko 'tong ma-notarize bukas.
+S0599	validated	Nag-swimming kami sa resort tapos nag-videoke hanggang hatinggabi, sinita pa kami ng guard.
+S0600	validated	Paki-adjust naman yung aircon, nagfi-freeze na kami dito.
+S0601	validated	Na-hooked ako sa bagong series kaya nag-marathon ako buong weekend, wala na kong tulog.
+S0602	validated	Nag-decide na kami, mag-migrate na kami sa Canada next year, sana matuloy.
+S0603	validated	Nag-camping kami sa Rizal kaso na-drained agad yung powerbank namin.
+S0604	validated	I-highlight mo yung mga importanteng points para mas madali mo ma-memorize.
+S0605	validated	Sa wakas nag-graduate na rin siya, kaya nag-blow out siya sa buong barkada.
+S0606	validated	hala na-seen zone na naman ako ni crush sa discord kanina ko pa ni-refresh yung DMs namin

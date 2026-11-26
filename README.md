@@ -169,7 +169,8 @@ change your file. It does not need AutoHotkey, and there is no separate setup: i
 - **Big pastes are fine.** The checker first asks the backend only *which words are misspelled* (about 1-2
   seconds for a page of text) and fetches suggestions for a word only when you click it (under a second), so
   long text no longer has to wait for suggestions on every error. Only the underlines for the part of the
-  document on screen are drawn; scroll and they appear. The first 10,000 characters of a document are checked.
+  document on screen are drawn; scroll and they appear. Only the first 500 words of a document are checked
+  (the system's input limit); the checker prints a message when a document is longer.
 - **After updating the project, restart the backend** (`Ctrl+C`, then `npm start`). The checker prints
   "The running backend is out of date" if you forget.
 - Only the text box that has the keyboard focus is checked.
@@ -255,7 +256,7 @@ Open `ca-spell-hotkey.ahk` in Notepad. The settings are at the top of the file:
 |---|---|---|
 | `HOTKEY_KEYS` | `^+k` (Ctrl+Shift+K) | The key combination. `^` = Ctrl, `+` = Shift, `!` = Alt, `#` = Windows key. For example `^+y` is Ctrl+Shift+Y. Avoid Alt and Windows-key combinations: Notepad and Word react to the Alt release by showing menu shortcut letters (F, E, V...) and the copy fails. |
 | `APP_URL` | `http://127.0.0.1:8000/` | Where Ca-Spell is served. Change it if you use another port, or `http://localhost:5173/` with `npm run dev`. |
-| `MAX_CHARS` | `3000` | The longest selection that is sent. The app itself accepts at most 500 words. |
+| `MAX_CHARS` | `3000` | The longest selection that is sent. The app checks at most 500 words; longer text is shown but not checked. |
 
 After editing, save the file. Then right-click the green **H** tray icon and choose **Reload Script**.
 

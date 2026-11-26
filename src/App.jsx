@@ -69,6 +69,11 @@ function App() {
       setAnalysis({ tokens: [], errors: [], status: "idle", error: "" });
       return;
     }
+    // The system accepts up to MAX_WORDS words (the backend rejects longer text too).
+    if (input.split(/\s+/).length > MAX_WORDS) {
+      setAnalysis({ tokens: [], errors: [], status: "too_long", error: "" });
+      return;
+    }
 
     const controller = new AbortController();
     let retryTimer;
@@ -549,6 +554,11 @@ function App() {
                     text={text}
                     errors={errorWords}
                     onApply={handleApply}
+                    notice={
+                      wordCount > MAX_WORDS
+                        ? `Not checked: the text has ${wordCount} words and Ca-Spell checks up to ${MAX_WORDS}.`
+                        : ""
+                    }
                   />
                 </div>
               </div>
@@ -562,6 +572,12 @@ function App() {
             >
               Words: <span className="font-semibold">{wordCount}/{MAX_WORDS}</span>
             </div>
+            {wordCount > MAX_WORDS && (
+              <p role="alert" className="text-sm text-red-600">
+                Ca-Spell checks up to {MAX_WORDS} words at a time. Remove {wordCount - MAX_WORDS} word
+                {wordCount - MAX_WORDS === 1 ? "" : "s"} (shown in gray) to check this text.
+              </p>
+            )}
           </div>
         </section>
 

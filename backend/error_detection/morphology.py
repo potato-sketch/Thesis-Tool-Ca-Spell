@@ -2,17 +2,28 @@
 
 Affix inventory and orthographic conventions used by code-switching and
 compound word checking. The hyphenation rules follow the KWF Manwal sa
-Masinop na Pagsulat:
+Masinop na Pagsulat (section numbers in brackets):
 
   H1  Prefix ending in a consonant + segment starting with a vowel takes a
-      hyphen:                              mag-aral, pag-ibig, mag-aaral
-  H2  Affix + English root (spelling kept) takes a hyphen before the root:
-                                           nag-submit, magsu-submit, i-save
-      Affix + proper noun likewise:        taga-Maynila
+      hyphen [11.3]:                       mag-aral, pag-ibig, mag-aaral
+  H2  Affix + foreign word in its original spelling takes a hyphen before the
+      root, even after a vowel-final prefix [11.3, 12.40]:
+                                           nag-submit, i-save, pa-cute, maki-computer
+      Affix + proper noun likewise [11.3, 12.40]: taga-Maynila, pa-Mandaluyong,
+      naka-Gucci (an unknown capitalized root is taken as a proper noun)
+      A repeated syllable stays with the prefix: only the first consonant and
+      vowel of a cluster repeat [2.3]:     magbe-blessing, ipako-close, ise-share
   H3  Any other hyphen between an affix and a Tagalog root is unnecessary:
-                                           nag-kain -> nagkain
+                                           nag-kain -> nagkain, pakyut, makikompiyuter
       A hyphen before a suffix is accepted for English roots only:
                                            commrnt-an, commrntan
+  H4  Repeated words take a hyphen; a word of three or more syllables repeats
+      only its first two, and a prefix joins the first half [11.1]:
+                                           araw-araw, pali-palito, pabalik-balik,
+                                           suntok-suntukan (o becomes u in the second half)
+      A contraction is not a repeated word [11.1]: iba't-iba -> iba't iba
+  H5  de- ("made or used by"), di- (idiomatic "not") and kontra- always take a
+      hyphen [11.9, 11.10, 12.40]:         de-lata, di-mahipo, kontra-Marxismo
 """
 
 from dataclasses import dataclass
@@ -29,7 +40,16 @@ PREFIXES = (
     "makipag", "nakipag", "pakikipag", "makikipag", "nakikipag",
     "magpa", "nagpa", "pagpa", "magpaka", "nagpaka", "pagka", "pinaka",
     "mapa", "napa", "mapag", "napag", "ipina", "ipinag",
+    # KWF 11.3 (maki-computer) and other prefixes common in Taglish (paki-check, napaka-cool,
+    # nakaka-stress, magka-crush, pina-deliver).
+    "maki", "naki", "paki", "makiki", "nakiki", "pakiki",
+    "napaka", "nakaka", "makaka", "magka", "nagka", "pina",
 )
+# Prefixes that always take a hyphen and are only recognized with one (H5), so a word such as
+# "dilaw" is never misread as di- + law.
+HYPHEN_ONLY_PREFIXES = ("de", "di", "kontra")
+# Contractions written with a hyphen as if they were repeated words (H4).
+CONTRACTION_HYPHENS = {"iba't-iba": "iba't iba", "samo't-sari": "samo't sari"}
 INFIXES = ("um", "in")
 SUFFIXES = ("an", "han", "in", "hin")
 # Prefixes an infix can follow: um/in go inside the root ("k-um-ain") or after i- ("i-k-in-uha").
@@ -59,6 +79,27 @@ def reduplications(root):
     if onset > 1:
         candidates.add(root[0] + root[onset])
     return candidates
+
+
+# English spellings of a word's first consonant sound, written the Filipino way (KWF 2.3).
+_SOUNDS = (("sch", "sk"), ("sh", "s"), ("ch", "ts"), ("ph", "f"), ("kn", "n"), ("wr", "r"), ("qu", "k"))
+
+
+def sounded_reduplications(root):
+    """Repeated syllables of an English root written as they sound, as the KWF Manwal does
+    (2.3: magbe-blessing, ipako-close, ise-share): the first consonant sound respelled
+    (c -> k or s, sh -> s, ph -> f, ...) and whichever vowel is heard."""
+    onset = onset_length(root)
+    if onset == 0 or onset >= len(root):
+        return set()
+    consonant = next((sound for spelling, sound in _SOUNDS if root.startswith(spelling)), None)
+    if consonant is None:
+        first = root[0]
+        if first == "c":
+            consonant = "s" if root[1:2] in ("e", "i", "y") else "k"
+        else:
+            consonant = {"q": "k", "x": "s"}.get(first, first)
+    return {consonant + vowel for vowel in VOWELS}
 
 
 @dataclass(frozen=True)
@@ -121,11 +162,15 @@ def _without_infix(body, prefix):
 
 
 def _without_reduplication(body):
-    yield "", body
+    """(syllable, rest, english_only): english_only marks a syllable written as it sounds,
+    valid only before an English root."""
+    yield "", body, False
     for length in range(1, 5):
         syllable, rest = body[:length], body[length:]
         if syllable in reduplications(rest):
-            yield syllable, rest
+            yield syllable, rest, False
+        elif syllable in sounded_reduplications(rest):
+            yield syllable, rest, True
 
 
 def segmentations(word, lookup):
@@ -137,7 +182,7 @@ def segmentations(word, lookup):
         if not word.startswith(prefix):
             continue
         for infix, body in _without_infix(word[len(prefix) :], prefix):
-            for reduplication, rest in _without_reduplication(body):
+            for reduplication, rest, english_only in _without_reduplication(body):
                 for suffix in ("",) + SUFFIXES:
                     if suffix and not rest.endswith(suffix):
                         continue
@@ -147,6 +192,8 @@ def segmentations(word, lookup):
                     if not (prefix or infix or reduplication or suffix):
                         continue  # the bare word is the dictionary lookup's job
                     languages = lookup(root)
+                    if english_only and "english" not in languages:
+                        continue
                     if languages:
                         yield Segmentation(
                             word, prefix, infix, reduplication, root, suffix, tuple(languages)
@@ -166,6 +213,52 @@ def linker_bases(text):
             bases.append(text[:-2])  # vowel-final word + ng: isa -> isang
         bases.append(text[:-1])  # n-final word + g: amin -> aming
     return bases
+
+
+def _vowel_count(text):
+    return sum(char in VOWELS for char in text)
+
+
+def _o_as_u(text):
+    return text.replace("o", "u")
+
+
+def _known_with_suffix(word, lookup):
+    """True when `word` or its root under a suffix is a known word: "suntukan" -> "suntok" + an."""
+    if lookup(word):
+        return True
+    for suffix in SUFFIXES:
+        root = word[: -len(suffix)]
+        if not word.endswith(suffix) or len(root) < MIN_ROOT_LENGTH:
+            continue
+        if lookup(root):
+            return True
+        # The root's last o becomes u before a suffix: suntok -> suntukan.
+        last_u = root.rfind("u")
+        if last_u >= 0 and lookup(root[:last_u] + "o" + root[last_u + 1 :]):
+            return True
+    return False
+
+
+def repeated_word_prefix(first, second, lookup):
+    """H4: the prefix ("" when none) when "first-second" is a repeated word, else None.
+
+    The first half repeats the whole second word or, for words of three or more syllables, its
+    first two syllables; a prefix joins the first half; o in the first half may be u in the second:
+    araw-araw, pali-palito, bali-baligtad, pabalik-balik, nagkawasak-wasak, suntok-suntukan.
+    """
+    first, second = normalize(first), normalize(second)
+    if not _known_with_suffix(second, lookup):
+        return None
+    for prefix in ("",) + PREFIXES:
+        if not first.startswith(prefix):
+            continue
+        part = first[len(prefix) :]
+        if len(part) < 2 or _o_as_u(part) != _o_as_u(second[: len(part)]):
+            continue
+        if part == second or _vowel_count(part) >= 2:
+            return prefix
+    return None
 
 
 def hyphen_positions(text):

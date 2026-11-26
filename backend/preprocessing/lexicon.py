@@ -1,7 +1,8 @@
 """PREPROCESSING MODULE: Linguistic Resources Preparation.
 
-Loads the English and Tagalog word lists and keeps their automaton
-representation for lookups.
+Loads the English and Tagalog word lists, plus the optional list of validated
+Taglish compound words (scripts/import_taglish_compounds.py), and keeps their
+automaton representation for lookups.
 """
 
 import logging
@@ -16,7 +17,8 @@ logger = logging.getLogger(__name__)
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 WORDLIST_DIR = DATA_DIR / "wordlists"
 AUTOMATON_DIR = DATA_DIR / "automata"
-LANGUAGES = ("english", "tagalog")
+LANGUAGES = ("english", "tagalog", "taglish")
+OPTIONAL = {"taglish"}  # validated compounds such as "nag-download"; absent until imported
 
 # Stress/pronunciation marks used by dictionaries (e.g. KWF's "kaín") but not in
 # everyday writing. The tilde is kept because "ñ" is its own letter in Filipino.
@@ -54,7 +56,10 @@ def _load_automaton(language):
     cached = AUTOMATON_DIR / f"{language}.dfa"
 
     if not wordlist.exists():
-        logger.warning("No %s word list at %s; every lookup will miss.", language, wordlist)
+        if language in OPTIONAL:
+            logger.info("No %s word list at %s; skipping it.", language, wordlist)
+        else:
+            logger.warning("No %s word list at %s; every lookup will miss.", language, wordlist)
         return WordAutomaton.from_words([])
 
     # Rebuild only when the word list changed since the automaton was encoded.
@@ -72,7 +77,7 @@ class Lexicon:
         self.automata = {language: _load_automaton(language) for language in LANGUAGES}
 
     def lookup(self, token):
-        """Languages whose word list contains the token, e.g. ["tagalog"]."""
+        """Word lists that contain the token, e.g. ["tagalog"], or ["taglish"] for a listed compound."""
         word = normalize(token)
         return [language for language, automaton in self.automata.items() if word in automaton]
 

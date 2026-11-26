@@ -53,7 +53,7 @@ const relationships = {
   dep: ["Unspecified link", "the analyzer could not decide how this word connects"],
 };
 
-const languageNames = { english: "English", tagalog: "Tagalog" };
+const languageNames = { english: "English", tagalog: "Tagalog", taglish: "Taglish compound list" };
 
 export const reasonLabels = {
   spelling: "Misspelled word",

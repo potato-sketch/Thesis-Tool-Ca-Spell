@@ -1,0 +1,594 @@
+# Correct Taglish Corpus: 589 sentences (589 validated, 0 provisional), one per line.
+# Generated 2026-11-26 by scripts/import_taglish_corpus.py from the validation sheet
+# ("60% - Correct Taglish Corpus" partition). Provisional sentences are the originals with
+# standardized compound words, not yet checked by the validators. Do not edit by hand: fix the
+# sheet and import again.
+Na-try mo na ba yung bagong pickleball court sa pup.
+Dapat tinry mo muna yung kung anong mas gusto mo.
+Chineck ko naman yung sinend mo, ngunit wala parin akong nare-receive.
+Nag-screenshot na pala ako nito kahapon.
+Dapat mong i-try yung bagong flavor, kasi sobrang sarap nito.
+Ine-encapsulate mo ang isang field kung ayaw mo na ma-access ang isang field sa labas ng object gamit ang private keyword.
+Kung gusto mo na i-polymorph ang isang function mula sa parent class sa loob ng child class, i-override mo lang ito.
+Either pang-template o paghi-hide ng detalye ang purpose ng pag-a-abstract.
+Kung gusto mo magamit ang mga properties na na-inherit ng child class mula sa parent class, i-super mo, dot syntax, and then tawagin mo yung pangalan ng mismomg property at kung constructor lang naman, kahit super lang yung gamitin na pantawag.
+Sa constructor dine-define ang mga initializations ng properties ng object at ito ang mismong function na kumo-correspond in whatever paramater is needed once na mag-instantiate ka ng object somewhere else.
+Nag-date kami ni Gian sa cubao expo at nag-kiss.
+Nagpa-cute si Kevin sa camera para ma-post.
+'Di pa naka-move on si Gian at siya ay nagba-backread sa old conversation nila.
+Na-lost ni Joan ang kanyang payong and siya ay na-sad.
+Napaka-cool ni Kevin, sana ma-meet ko siya!
+Buti nalang mae-excuse kami sa exam bukas.
+Nakaka-disappoint yung nangyari sa student regent.
+Magpra-pray nalang talaga ako for tomorrow.
+Pa-send naman ng link nung reviewer na ginawa ng PUP ASCII.
+Bakit ba kasi siya nag-i-imagine ng scenarios na ikaka-depress niya lang din.
+Nag-download ako ng third party storage manager kaya't laking takot ko na baka ma-hack ako.
+Nag-cram kami nung isang araw kase na-traffic ako sa byahe.
+Sobrang na-excite ako sa pina-deliver kong parcel.
+Na-stress ako sa hell week namin kaya gusto ko ma-relax this weekend.
+Napa-close ako ng aking phone nang makita na may ka-chat ng iba ang aking crush.
+Pasabi kay sir na-disconnect ako sa meeting
+Hello natapos mo na ba yung assigned part mo sa project?
+Nandito kami nakaupo sa may landing dito sa south 5th floor
+Male-late na ako nandyan na ba prof natin
+Napaka-cute ng cat ko at talagang naka-relax siya habang natutulog sa tabi ko.
+Na-update ko na yung Genshin Impact game ko kaya na-download ko na rin ang bagong patch nito.
+Makaka-wash kaya ako ng damit today kahit medyo nag-o-overload na ako sa dami ng ginagawa?
+Ang mga bilihin ngayon ay napaka-expensive na kaya nag-e-exact talaga ako sa aking budget araw-araw.
+Sana mag-join at mag-participate na sa organization namin ang ibang Computer Science student.
+Nag-review ako ng tatlong lecture notes kagabi dahil akala ko may i-discuss kami ngayon na bago.
+Kailangan namin mag-design ng user-friendly na system para i-present.
+Na-save ko na yung presentation at na-upload ko na rin yung updated version.
+Nag-organize sila ng group meeting at nag-assign na rin ng mga tasks.
+Na-check ko na yung email and na-forward ko na rin sa announcement groupchat.
+Nakapag-shower agad ako pagka-out sa school.
+Nakalimutan kong i-check ang na-edit kong sagot sa midterm kahapon.
+Maraming nakapagsabi na napaka-hassle raw pumunta sa BGC kasi sobrang haba raw ng pila sa mga bus pero para sa akin ay okay lang kasi na-e-enjoy ko naman mag-commute.
+Hindi ko naman ma-say sa kaniya na gusto ko siya dahil nakapag-decide na siyang hindi ako pansinin tuwing kami ay nagkikita sa school.
+Ayaw naman kasi i-share ni bakla yung pinakita sa kaniya na quiz answers kanina, na para bang kailangan ko pa siyang i-chat para lang ma-copy ko yung sagot.
+Nag-revise akong ng mga reports na in-upload mo kanina.
+Nag-generate ako ng bagong file based sa nai-send mong info.
+I-finalize na natin yung modules na na-develop na.
+I-close mo muna yung server para ma-check ko yung issue.
+Nag-report ako nung nag-meeting tayo kahapon.
+Nag-print na ako ng manuscript paki-check nalang later kung tama.
+Mag-leave na kayo kasi na-add ko na kayo sa bagong gc.
+It's really hard mag-declutter lalo na pag madaming ire-remove.
+Katamad mag-type sa laptop ang sakit na ng hands ko.
+Na-forgot ko yung assignment buti nalang ang tagal nating nag-wait kay sir.
+Need muna natin i-organize bago natin ma-process ung papers.
+Ang problem lang is kung possible siya gawin.
+I-back up mo muna ung mga files na na-download na.
+Pwede mo bang i-commit ung mga binago mo at mag-pull request.
+Wag kalimutan mag-like and share ng Facebook page namin.
+Ang hilig kasi natin mag-assume na na-understand tayo ng mga nakakausap natin.
+If want mo ipa-check sa kanila gawa mo, go lang and i-ask mo sila.
+Ayaw mo i-try i-post yung mga stories mo online? Malay mo lang naman baka may interesado sa mga gawa mo.
+Usually dapat i-share yung mga info na yan, kaso problema lang hindi naman naka-assign yun kahit kanino.
+Pwede mo bang i-open at videohan yung pina-deliver ko na dumating today? Salamat!
+Bakettt naman ganito score ko!!! Nag aral naman ako huhu grabe na talaga.
+Nag-download ako ng lecture materials kanina para ma-review ko ang mga topics bago ang quiz.
+Nag-print ako ng activity dahil kailangan ko itong i-submit bukas.
+Nag-check ako ng format ng activity bago i-send sa professor.
+Nag-message ako sa kagrupo ko para i-confirm kung tuloy ang meeting bukas.
+Nag-practice ako kanina para ma-deliver ko nang maayos ang lines ko sa presentation.
+Na-gets mo ginawa sa line 67?
+Turuan moko mag-download Mathematica
+Ang daming gagawin, gusto ko na mag-sleep
+Pa-copy prompt mo sa problem set
+Mag-survive pa ba ko sa semester na to?
+I forgot na i-SS wait
+Nag-install ako ng bagong software at nag-update ng anti virus
+Na-delete ko yung bago kong post sa IG buti na-recover ko pa
+Nag-log in ako sa PUPSIS- at nag-access ng bago kong schedule
+nag-compile muna ako ng pictures ko para ma-upload ko mamaya
+nag-search ako pano ko aayusin yung tailscale ko pero hindi ko pa din ma-open yung shared files
+Nag-submit ako ng assignment kanina..
+Nakapag-print ka na ba ng submission natin?
+Dapat mag-e-LRT ako mamaya, kaso nawala yung beep card ko.
+Di na ko magro-RobMan, maggi-gym na lang ako
+Ba't ka nagbu-Bumble, akala ko may boyfriend ka na?
+Nag-charge ako ng battery kanina.
+Hindi ako sumama mag-jogging kasi masakit ang legs ko.
+Sobrang traffic kanina kaya na-late ako ng sobra.
+Nag-selfie muna kami bago kainin ang foodtrip.
+Nagba-budget plan kami para sa parating na roadtrip sa katapusan.
+Na-export mo na ba yung powerpoint?
+Pa-save nga ng code sa repository.
+Pwede pa-verify ng integrity ng data?
+Pa-check ng integrity ng files
+Push mo nga yung code para matapos na tayo.
+Pa-wait ako, mag-open lang ako PC.
+Male-late ata ako ng pasok, nag-fast food pa kasi kami.
+Pa-pull naman ako nung na-push ko sa Github.
+Ano oras ka magpapa-meet para makapag-ready ako.
+Pa-AirDrop naman nung pinicturean ko kanina.
+Sige mag-join na ko, mag-wait ka lang diyan.
+Nag-crash na naman na-built na website ni sir
+Palagi na lang nagla-lag wag na tayo mag-play.
+Si sir nag-post na need mag-answer daw soon.
+Nag-order ako bagong headphones para pang-play ko sa games.
+Nag-edit ako ng pictures para sa Multimedia and nag-print ng hardcopy na ipapasa kay sir.
+Nag-cash in ako sa GCash because want ko mag-avail ng starlight membership.
+Nag-call kami ng friend ko para mag-decide ng gagawin namin next week.
+Nag-review ako for quiz kahapon but na-confuse sa ibang questions, so hindi ko sure score ko.
+Nag-research kami para sa topic na need namin i-present next meeting.
+Na-move ko na to sa cloud, i-download mo nalang dun.
+Kailangan ba i-rewrite yung buong papel naten oh kailangan lang i-revise?
+na-solve mo na ba yung bug sa na-code natin?
+pa-charge nga laptop, malo-lowbat nako.
+ang cellphone
+Na-scam ako ng sarili kong alarm kaya nag-power nap ako nang tatlong oras at na-late sa klase
+Nag-add to cart lang daw siya para mawala ang stress pero na-check out lahat
+Na-delete niya nang hindi sinasadya ang draft kaya kailangan niyang mag-type ulit mula sa simula
+Nag-crave ako ng kape kaya nag-drive thru kami bago pumasok kanina
+Nag-overthink ako kagabi habang nag-scroll sa tiktok
+Nagko-comment siya sa post ko habang nagsha-share ako ng bagong announcement sa group chat.
+Kailangan kong magre-review mamaya dahil mag-e-exam na kami next week.
+Nagche-check si Mark ng attendance habang nagpe-prepare ako ng presentation para bukas.
+Magse-send ako ng files pagkatapos niyang mag-a-upload ng documents sa Google Drive.
+Nag-u-update ako ng profile habang nag-e-edit siya ng mga pictures para sa project namin.
+I-save ko muna ang files bago ko ito i-delete.
+Na-order ko na yung pagkain kaso na-cancel.
+Magla-laptop ako habang ang kapatid ko ay magseselpon
+Nagha-hallucinate ako dahil sa puyat kasi nag-iPad ako buong gabi
+Gusto ko ma-improve ang sarili ko kaya sinimulan kong ma-balance diet ko.
+Nag-compile ako ng program kagabi, pero nag-error pa rin ito dahil sa maling syntax.
+Kailangan nating i-test ang bagong module bago natin i-submit ang project sa ating professor.
+Na-save ko na ang file sa laptop, pero hindi ko pa naipa-print ang copy para sa grupo.
+Mag-install muna tayo ng bagong software, tapos mag-update tayo ng driver ng computer.
+Nag-reply na ang adviser namin sa email, kaya ni-revise ko ang outline ng thesis.
+na-try mo na ba maglaro ng pickleball?
+i-up mo nga ung announcement sa gc kanina.
+pwede pa-picture nung flowers?
+i-rebuild mo nga yung code, nasira kasi.
+na-try na ba natin i-partner ung big brands sa start-up company natin?
+nag-save ako ng video kagabi
+Over naman sa effort si Luis
+Na-shock ako sa score ko sa final quiz ko
+Na-bump ko na message ko sayo
+Pwede pa-reply-an naman yung chat ni Luis
+Kailangan ko munang i-check yung exam answers ko bago i-submit.
+In-edit ko ang codebase at nag-commit ako ng new changes sa repository.
+Na-stuck ako sa traffic papuntang school kaya muntikan na akong ma-late sa class.
+Hindi ko na-access yung file kasi nag-expire kaagad yung link.
+Nakaka-bore maghintay sa late professor kaya nag-browse muna ako sa social media.
+Nag-clean ako ng kuwarto kaninang umaga, tapos nag-sleep ako.
+Nag-write ako ng part ko sa thesis namin sa Chapter 4 para i-finish ito.
+Nag-buy ako ng cleaning spray kaninang umaga para i-polish ang bahay namin.
+Hindi ko ma-open ang meeting link ng online class ko kanina, kaya nag-play na lang ako ng Genshin Impact.
+Nag-shower ako dahil sobrang init at lagkit ko na, para ma-fresh ako.
+Nag-install ako ng bagong game para maka-play ako with my friends.
+Nag-practice ako mag-code kaninang umaga para sa aming hands-on test mamaya.
+Na-delete ko lahat ng pictures na ni-take ko sa event namin kahapon.
+Sobrang hirap noong nag-exam kami kahapon, kaya nag-review ako para sa susunod.
+Pina-finish ko sa ka-group ko yung task namin sa class kanina.
+Triks, na-debug mo na ba yung na-provide na code kanina?
+Nagwo-worry na ako kay Dave dahil parang nakaka-stress yung ginagawa niya.
+Nag-talk ako kanina sa in-attend-an ko na event kanina
+In-open ko na yung laptop ko pwede ka na magsimula mag-develop ng system natin.
+Nag-message at nag-call ako kay Intet kanina para ipaalala na may klase mamaya.
+pa-update nalang ako ng part mo sa thesis tsaka pa-compile nalang din ng mga changes
+pa-open nga ng hotspot mo, i-view ko lang tong rant ni sir
+pa-check tsaka pa-confirm mo na rin kung tama lang ginawa natin
+iko-configure ko muna 'tong code then tsaka mo i-view kapag okay na
+pa-sight nga ng ginawa mo, iche-check ko lang kung tama gawa ko
+In-edit ko ang video at pinost sa social media.
+Pa-accept naman ang aking letter tapos pa-sign
+Hindi ko ma-delete itong file, pa-help naman
+Wala ba kayong isu-submit at ipapa-check na output?
+Patingin naman paano mag-solve nito, in-add mo ba ang dalawang numbers?
+nag-grocery muna kami pagkatapos mag-book ng restaurant para makabili ng ingredients na gagamitin namin sa dinner
+magre-research muna ako tungkol sa project requirements habang nag-a-arrange ka ng schedule para sa meeting natin bukas
+paki-update ang documentation bago tayo mag-deploy ng application dahil kailangan ding i-test ang bagong features
+nag-prepare si Mama ng dinner habang nag-a-arrange ako ng mga gamit na dadalhin namin sa family gathering bukas
+nag-install ako ng bagong software sa laptop para makapag-run ng program, pero kailangan ko munang i-configure ang settings bago ito gamitin
+Nag-order ako ng food habang nag-aayos siya ng table
+Nag-practice ako ng presentation bago mag-record ng video
+Mag-a-attend ako ng meeting pagkatapos mag-finish ng assignment
+Nag-test kami ng application bago mag-release ng update
+Nag-back up ako ng database bago mag-update ng system
+Nag-encode ako ng survey responses bago mag-generate ng results
+Nag-debug kami ng program bago mag-present ng output.
+Mag-a-apply ako ng internship pagkatapos mag-update ng resume
+Na-transfer ko na ang payment bago mag-confirm ng reservation
+Magre-record ako ng lecture pagkatapos mag-charge ng laptop
+nag-church ako kanina kasama yung mga ka-work ko.
+mamaya na tayo mag-lunch pagkatapos mag-evaluate ng tests
+pwede bang mag-hypothesis testing ka muna bago mag-conclude?
+please lang, mag-stop ka na nga sa mga pag-a-accuse mo sa akin?
+alam ko naman na kahit mag-beg at mag-sorry ako sayo, alam ko naman na hindi na tayo magwo-work.
+Mayroong rally around QC, tara! sama ka along greenbelt.
+Way back 2005 or ung taon na nagpasimula ung surge ng independednt film festivals, doon rin nagsimula ang pagbabahagi ang seed investments sa film makers.
+Ang Cinemalaya sa industriyang ito ang nagsisilbing gateway to foreign festivals, whether its for state, corporate media, or global festival circuit.
+From these 3 sectors, nagkakaiba ang motives nila because of their wants
+Everyone talks about the funding, but ang problema is kung paano i-handle ang employers these days.
+Nag-decide kami na mag-jogging sa may Quezon City Memorial Circle.
+Na-fix ko na 'yung bug bago ko pa i-push sa GitHub.
+Buti nalang binack up ko yung files bago ko ni-reformat 'yung laptop ko
+Paki-finalize ang content bago ko i-post sa group chat.
+Paki-ask kay sir kung may pasok para ma-sure
+i-charge mo muna yung cellphone kasi na-lowbat yan kanina
+nagda-download ako ng laro sa epic games, at nag-update din ako ng drivers
+paki-check nga kung tama yung na-save ko sa gdrive
+nagse-search ako ng tutorial sa youtube kung paano mag-install ng operating system
+nag-back up ako ng files ng mga empleyado bago ko inconfigure yung laptop nila
+Nag-answer ako ngayon ng forms at sana na-save itong mga sinagot ko.
+Nagso-scroll lang ako kanina nung may nag-appear na missed call sa aking selpon.
+Nag-binge-watch na lang ako buong bakasyon habang nagfu-food trip.
+Na-lowbat na yung laptop, hindi na na-save yung ginagawa ko kaya uulitin ko siguro ulit yun.
+Na-delay yung flight niya, akala niya pagkadating ay na-late na siya.
+Puro online setup pa rin although puwede naman akong um-attend on-site, pero ano namang gagawin ko roon kung mag-meet lang din naman kami online?
+Are you tapos na ba sa quiz natin kay Sir, o hindi mo pa na-check ang answers bago natin i-submit?
+Ay, hindi ko pa pala na-upload yung picture natin last time, saan ko siya ise-share?
+Grabe, na-delay ako dahil sa traffic sa Makati kaya nag-book nalang ako ng Angkas.
+I think hindi na natin kailangang mag-overthink since may points na tayong na-earn, kaya i-calculate na lang natin kung ilan pa ang kailangan.
+Na-cancel ang booking namin dahil hindi na-confirm ang reservation.
+Paki-label ang containers bago mag-store ng ingredients.
+Nag-prepare ako ng checklist habang nag-i-inventory si Mama.
+Mag-a-attend kami ng seminar pagkatapos mag-register online.
+1. Na-forward ko na ang email bago mag-reply ang professor.
+paki-verify ang account bago mag-reset ng password
+magse-set up kami ng workstation bago mag-install ng applications
+nag-design siya ng poster habang nag-edit ako ng photos
+nag-pack ako ng clothes bago mag-check out sa hotel
+na-connect ko ang printer bago mag-print ng certificates
+Paki-attach ang documents bago mag-forward ng email
+Nag-observe kami ng network traffic habang nag-run ng simulation.
+Na-adjust niya ang brightness bago mag-present ng slides.
+Magpa-process ako ng payment pagkatapos mag-verify ng transaction.
+Nag-save ako ng screenshots bago mag-clear ng browser history.
+Nag-query ako ng database pagkatapos mag-import ng records.
+Magre-refactor kami ng code bago mag-integrate ng API.
+Paki-test ang endpoint bago mag-connect ng frontend.
+Magse-set up ako ng virtual machine bago mag-install ng operating system.
+Nag-work out ako kanina habang nagpe-play yung music.
+Nag-compose ako ng message sa friend ko kasi na-hurt ko siya.
+Mag-wash ako ng dishes later kapag na-finish na sila kumain.
+Nag-leave ako sa gc kasi feeling ko na-left out ako.
+Nag-clean ako ng feet kasi na-dirty-han ng putik.
+Nag-download ako ng bagong software para ma-test kung maaayos nito ang nag-crash na application sa computer laboratory.
+Kailangan kong i-recheck ang database bago mag-submit ng final project dahil baka may na-miss akong importanteng information.
+Nag-message si Mama sa akin para ipa-remind na huwag kalimutang mag-grocery pagkatapos kong mag-class sa university.
+Na-reschedule ang meeting namin kaya kailangan kong mag-adjust ng study schedule at mag-prepare ng bagong presentation para bukas.
+Nag-back up ako ng importanteng files bago mag-format ng laptop dahil ayokong ma-delete ang mga documents na ginawa ko para sa thesis.
+Na-delete ko ang code na ginawa ko kanina na ipa-pass na mamayang gabi.
+Nag-join ako sa klase ng late kasi di ko nakita na nag-send na pala ng class link ang prof namin.
+Pina-message ko sa kaklase ko ang iba namin ka-group na wala pa rin sa school.
+Nire-revise ko yung code na gamit namin for our thesis dahil ipe-present na namin ang aming app bukas.
+Nag-update ako ng operating system kagabi para ma-improve ang performance ng laptop at maiwasan ang pag-freeze habang nagko-code.
+Nag-hibernate na ang lumang desktop computer sa bodega habang ino-overhaul ng technician ang sirang cooling fan nito.
+Na-encrypt ko na ang buong folder ng mga resibo upang hindi ito basta ma-tamper ng sinumang gagamit ng shared drive.
+Nag-deconstruct kami ng lumang lumulutang na aparador kahapon dahil na-misplace ng karpintero ang susi ng mga drawer nito.
+Ika-calibrate muna ng inhinyero ang mga sensor sa tulay bago mag-simulate ang grupo nila ng malakas na lindol sa software.
+Nag-improvise na lang ng panakip ang mga tindero sa palengke nang biglang nag-malfunction ang kanilang malaking electric awning.
+In-uninstall ko ang Genshin Impact para ma-install ko ang GTA 6.
+Nakapag-edit na ako ng mga photos ko pang-story.
+Makakapag-code na ulit ako kasi nag-refresh na yung usage ko sa Claude.
+Nagutom ako kaka-workout kaya nag-order ako ng pagkain.
+Nahuli kong nagse-cellphone yung kaklase ko habang nag-e-exam.
+tinry mo na ba mag-text sa kaniya para mag-answer na siya ng survey?
+mag-eat ka na ba para maka-run ka ng ayos mamayang pag-jogging natin.
+tara, mag-rides tayo pa-Marilaque, tapos don tayo mag-play ng games.
+mag-laugh ka naman, para ganahan ako mag-joke.
+pwede ba tayo mag-date? then mag-sleep tayo sa bahay later.
+Nag-type ako ng message na ise-send sa aming group chat.
+Nag-o-overreact na siya sa mga mine-message ko.
+Happy na sila kasi nag-answer ako.
+Na-misplace ko ang house keys kaya kailangan kong mag-search ulit.
+Magki-clean muna ako ng bedroom bago mag-fold ng mga damit na bagong laba.
+Nag-reach out muna kami sa thesis adviser namin bago mag-change ng topic.
+Nag-review ka na ba or parehas tayong di magre-review?
+Na-download mo na ba yung pinapa-download ko sayo?
+Di ako naka-join sa meeting kanina kasi na-late ako ng gising.
+Nag-crash yung laptop ko, pwede ba ikaw muna mag-notes?
+May bagong file na ipinapagamit si Sir.
+Bukas, gagawa ako ng letter para sa pagsasagawa ng defense sa Software Engineering 2.
+Dapat ngayong araw ay magre-revise na kami ng Chapter 4 ng aming thesis.
+Based sa meeting kanina, magkakaroon ng bagong format para sa livestream.
+Akala ko ba kasama mo siya sa trip mo?
+Sya nag-inherit nung pagche-cheat mula sa tatay nyo
+Ina-ask ako ng HR if want ko raw mag-join sa secret Santa
+Nagpa-poll sya sa Discord kung sino raw ine-next
+Magsabi ka kung sasama ka mag-watch kasi io-offer na ata ticket mo
+Nakapag-rejoin ka na? Na-disconnect din pala ata ako
+I-save all mo muna bago ka mag-commit.
+Kaya siguro nagka-crash yung app natin, maling code na-paste mo.
+Pwede pa naman siguro ma-modify 'yon, or i-reset na lang natin.
+BIglang nag-log out sakin, hindi ko na ma-access yung page.
+Nag-deactivate ako sa facebook, then hirap na ako mag-log in ulit.
+Nag-eat ka na ba my love?
+Nagpa-trim at nagpa-shave ako ng bigote
+Nag-movie marathon kami sa bahay at nag-food trip kami sa morato
+Ang bubble wrap sa parcel ay makapal
+Nagpa-adjust at nagpa-change ako ng color ng braces
+Pa-check ako nito please, para ma-send ko na kay sir.
+Baka ma-late pala ako, sorry na-traffic ako sa EDSA.
+Nag-chat siya sa akin tungkol sa project, pa-approve daw.
+Na-sense niya yung masamang mangyayari, buti na lang nag-check siya ng lane.
+Nag-story siya kanina pero ayaw mag-respond sa gc.
+Na-try mo na ba mag-rank game sa wildrift.
+Na-low-battery yung aking cellphone, hindi ko na-charge kagabi.
+Nakaka-stress naman itong pag-review sa midterms exam.
+Hindi kagad ako makaka-join, bagong-install pa lang yung akin.
+Pass muna ako sa laro guys, nag-request yung kagrupo ko ng tulong para mag-edit ng manuscript.
+Nag-please ako sa kanya at nag-follow up, pero wala pa ring assurance kung may klase.
+If kailangan niyo magpa-consult, i-message niyo na lang si Sir sa messenger.
+Nagla-lag kasi ang internet ko today. Paki-wait na lang ma-post yung activity.
+Nag-ask ako kay sir kung pwedeng online na lang kaso hindi siya nag-reply.
+Ni-remind ko yung mga classmates ko na i-submit na nila yung activity before lunch.
+Wala namang mas sasarap kapag na-kiss ka, but di ko pa na-e-experience iyon.
+Pa-process naman nito, mamaya ko sha iwo-work
+Dito kami nag-date at nag-propose sha sa akin
+Paano mo sha na-rate, may na-visit ka bang link?
+Ako ay magre-respond sa kanyang tawag once na ma-overcome ko ang fear ko
+Pa-charge naman ng laptop ko tapos pa-connect sa wifi ninyo
+I-illustrate mo ang nasa isip mo, wag mong i-contain sa utak
+Na-reimburse na kaya nila ang pera, di ko siya nalo-look pa sa aking account
+Stapler-in mo nga iyang paper at i-submit mo later
+Paki-close naman ng aircon kapag umaga na, ang hirap mag-save para sa elec bill
+Drawingan mo nga ako ng ibon tas ako na magko-color
+Ipo-procrastinate ko na lang itong assignment bukas, may ivi-visit pa ako ngayon eh
+Magbi-binge-watch tayo later ng movie if na-finish mo na yang gawain mo
+Mag-focus ka na nga, wag ka nang magti-think ng ibang masama
+Ang hirap namang i-browse itong website, puno ng super daming ads, ang hirap i-close
+Wag mo akong i-gaslight, alam ko ang na-view kong myday
+Napa-reverse walk ako nang ma-sight ko sha
+I-shoot mo ang bola, malapit na tayo mag-champion
+Paki-try itong bagong restaurant, nagse-serve sila ng masarap na tempura
+Navi-visualize mo ba kung ano itong mga napag-meeting-an
+Spray-han mo iyang damo nang mag-dry at malanta agad
+Magjo-join ako ng pageantry once i-move ang schedule nito
+Magpa-power nap ako after kong mag-review ng exam
+Paki-debug ng code, hindi siya nagwo-work since kaninang umaga
+Kung may na-meet ka online na disrespectful, i-block at i-report mo nalang sila.
+Na-lowbat yung phone ko kanina, so ngayon china-charge ko siya.
+Na-try mo na bang mag-type dun sa kiosk?
+Agenda ko today is mag-video at mag-edit ng content para sa channel ko.
+Na-consider mo na bang mag-file ng report sa mga ginagawa niya?
+Mag-order na lang tayo ng food, wala na akong energy mag-cook kasi buong araw akong nag-train ng model.
+Nakakainis, hindi ko pa na-save yung file nung bigla na lang nag-shut down yung laptop ko.
+Shoutout din sa creatives team kasi ang ganda ng mga pubmats na ginawa niyo, lagi silang napapansin at nagte-trend pa sa page natin.
+Gusto ko lang mag-thank you sa buong core team kasi kahit sobrang busy, nag-step up pa rin kayo para sa club.
+Proud ako na nakatrabaho ko kayo, kaya sana ma-inspire pa ang susunod na batch na i-continue yung nasimulan natin.
+Pa-Valorant sa pc mo, magla-lock in ako ng fade
+ipa-convert mo iyang pdf sa docs tapos i-print mo ma rin
+Wag mo munang i-push sa github, ide-debug ko muna
+I-wallpaper mo girlfriend mo at mukang na-triggered siya
+Nag-reply agad ako sa kanya pero mabagay sha mag-respond
+Nakaka-confuse naman yung lesson hirap akong ma-recall.
+Nag-text na ba si ate kung saan siya nagpa-print.
+Puyat siya dahil nag-Facebook saka nag-TikTok nanaman siya kagabi.
+Nag-Burger King kami sa mall kanina tapos nag-Grab pauwi.
+Na-hack nanaman saw account niya di kasi siya nag-secure ng maayos nito.
+Nag-park ako sa tabi at nag-dine in sa loob
+I-grab mo na ang opportunity bago pa siya mag-slip away
+Pa-xerox nitong papel, ika-cash ko maya bayad
+Nag-fake face to face na naman siya at pinost pa sa social media
+Nag-review ako kagabi at nag-result naman sa mataas na score ang exam ko
+Nag-try ako mag-samgyupsal, masarap naman pala
+Nakaka-frustrate naman ang laban, sayang at hindi niya na-clutch
+Nag-add ako ng isang line sa code para ma-debug ito
+Paki-fill up nitong forms at paki-picture pagkatapos
+Gusto kong may ka-kiss at ka-hug ngayong pasko
+Sana mag-online class na lang at mag-present kami nang online
+Wag ka mag-worry, ise-save tayo ni spiderman
+Paki-validate kung tama mga kini-claim niya
+Magpe-present kami ng project kay Ma'am tapos mag-a-ask sha ng question pagkatapos
+I-try mo tong bagong app, mapapa-wow ka
+Ire-report ko ang accident, paki-wait na lang ng rescue
+Nag-take na ako ng gamot magta-try na akong tumulog
+Pa-keep ng papers hanggat di pa nache-check-an
+Nag-extra rice ako sa Mang Inasal at nag-order pa ng halo-halo
+Siya ang nag-voice at ang um-acting sa character na ito
+Na-normalize mo ba ang database at nakaka-overwhelm pa sa sa dami ng columns or attributes
+Naki-online lang ako, pa-send naman sa akin ang gcash
+Na-late ako kanina sa pagpasok kasi nag-check pa ng laman ng bag
+Na-traffic ako sa Mendiola, may mga nagra-rally ngayon doon
+Nag-time in ako nang mas maaga kahapon at magta-time out na ako nang tama sa oras
+Kailangan kong mag-code ulit dahil may nag-crash na function.
+Nagse-secure kami ng database before mag-deploy ng application
+Magte-test ako ng API habang nag-i-integrate ka ng frontend
+Kailangan naming i-debug ang errors before mag-release ng software
+Na-restore ko ang database pagkatapos mag-reset ng server
+Nag-a-analyze ako ng logs habang nagru-run siya ng simulation
+Paki-integrate ang modules nang ma-deploy na ang system.
+Ipinag-compile namin ang source code before mag-test ng output.
+Nagse-secure ako ng files at nagba-back up siya ng database.
+Pina-process ko ang requests at magge-generate ng reports.
+Binuild namin ang interface habang tine-test ng instructor ang application.
+Sinave ko ang project bago i-submit ang final output.
+Paki-attach ang repository at i-share mo ang source code.
+Minodify ko ang algorithm tapos chine-check niya ang runtime.
+Dinesign namin ang database tapos dinevelop ang backend.
+Sinort ko ang records at in-export ang database.
+In-adjust ko ang parameters at sinimulate ang algorithm.
+Pinag-combine namin ang datasets habang ina-analyze ng system ang results.
+Pina-render ko ang graphics and chine-check niya ang frame rate.
+In-integrate namin ang libraries bago i-execute ang application.
+Tinransfer ko ang files before i-encrypt ang database.
+Pinag-compare namin ang outputs habang ina-evaluate ang algorithm.
+Sinynchronize niya ang servers bago i-back up ang records.
+Pina-validate ko ang inputs habang chine-check niya ang responses.
+In-update namin ang dependencies at ni-rebuild ang application.
+Pinag-merge ko ang branches and pinush niya ang changes.
+Tinanggal niya ang duplicate entries bago i-filter ang dataset.
+Pina-optimize namin ang queries at mina-monitor ang execution time.
+In-isolate ko ang faulty module bago i-debug ang program.
+Pinag-test nila ang network habang ina-assess ang connection speed.
+Pina-connect ko ang sensors to know if nagwo-work na ba siya
+Pina-process namin ang requests before i-generate ang reports.
+Tinest niya ang compatibility bago i-install ang drivers.
+Pina-run namin ang simulation tas mino-monitor ang performance.
+Binrowse ko ang directories bago i-download ang required packages.
+In-encode namin ang characters at tinransmit ang data.
+Pina-link namin ang databases at in-integrate ang records.
+Ni-register ko ang domain habang ina-assign niya ang IP address.
+Pina-decrypt ng developer ang files before i-authenticate ang users.
+Binypass namin ang cache at ni-reroute ang network packets.
+Tinext ko si Mama habang nagpa-pack siya ng groceries.
+Pina-reserve namin ang table bago mag-check in sa hotel.
+Nagpa-deliver ako ng lunch habang nag-a-arrange siya ng dining table.
+Ni-cancel namin ang trip bago mag-reschedule ng vacation.
+Pina-frame ni Ate ang pictures habang nagde-decorate ako ng living room.
+Nagpa-laundry ako while nag-o-organize ng closet.
+Pina-wrap ko ang regalo before akong mag-attend ng birthday niya
+Nagpa-gas kami at nag-drive papunta sa beach
+Pina-clean ni Mama ang carpet kasi magho-host kami ng family gathering
+Nag-fit-check kami at nag-meet sa mall
+Tinry ko ang bagong cafe at mag-review ng menu
+Nag-reserve kami ng seats para makapag-plan ng gala nang maayos
+Pina-deliver ko ang food para makapag-prepare ng drinks afterwards
+Nag-skin-care ka ba and mag-apply ng makeup?
+Nag-work out ako before mag-stretch ng muscle
+Nag-meal-prep kami before mag-grocery for the week
+Nag-house-clean kami habang nagde-declutter ng old stuffs
+Nag-budget ako ng allowance at nag-plan ng weekend activities.
+Pina-customize niya ang phone case taspos mag-order ng accessories
+Pina-resize ko ang dress para mag-fit sha sa akin
+Hindi nila ma-improve itong kalsada, sobrang nakaka-distract sa paningin
+Nag-morning walk kami ng aking aso sa may park nang na-predict kong uulan
+Nag-stir-fry siya ng tofu tas sineason niya ng oyster sauce
+Na-call out ka na, hindi ka pa rin nagpa-pay attention
+Magre-ready ako ng gamit sakaling mag-go kami sa beach
+Ang toxic naman ng ka-block ko kasi binackstab niya ako sa ibang tao
+Naka-red akong damit para i-celebrate ang Christmans Party namin
+In-scroll ko yung website tapos nakita ko ang button na di naka-connect sa isang page
+Nag-dive ako sa dagat nang naka-goggles lang ang suot
+Pag na-clutch mo ang round na yan, magja-Jollibee tayo mamaya
+Nag-order na lang sila ng pagkain online dahil tinatamad na silang mag-drive papunta sa mall.
+Nakapag-submit ka na ba ng assignment natin na i-e-evaluate mamayang hapon?
+I-restart mo na lang ang laptop mo kapag nag-freeze ulit ang application habang ginagamit mo.
+Mag-e-exercise muna ako sa park bago ako mag-check ng mga unread emails sa inbox ko.
+Nag-message na ang professor natin para i-remind ang lahat tungkol sa deadline ng project.
+Mag-gro-grocery muna kami sa supermarket bago kami mag-cook ng dinner para sa pamilya.
+Nag-install na ako ng bagong software update kanina para ma-fix ang mga bugs sa system.
+I-back up mo muna lahat ng importanteng files mo tapos i-format mo ang external hard drive.
+Nakapag-register na ba kayo sa seminar na i-o-organize ng department natin sa susunod na linggo?
+Nag-cancel na sila ng meeting dahil hindi pa na-finalize ang report para sa presentation.
+mag-a-apply na ako ng internship sa isang tech company kapag na-approve na ng adviser ang resume ko
+i-share mo na lang ang link ng document para ma-edit na rin ng ibang group members ang kanilang parts.
+nakapag-withdraw na ako ng cash kanina bago pa mag-offline ang machine sa bangko.
+nag-log out na siya sa account niya pagkatapos niyang mag-print ng mga kailangang forms.
+magko-commute na lang ako papuntang office bukas dahil naka-schedule ang car ko para sa maintenance.
+Nag-research na ako tungkol sa bagong algorithm na i-i-implement natin sa thesis.
+I-save mo muna ang ginagawa mong script at i-close mo ang text editor.
+Nakapag-charge na ba kayo ng power bank bago tayo mag-travel papunta sa probinsya?
+Nag-set up na sila ng bagong network router para hindi na mag-lag ang internet connection sa bahay.
+Gumraduate na ang kapatid ko sa computer science kaya nagba-browse na siya ng trabaho ngayon.
+Tine-test pa namin ang bagong feature ng website bago ito tuluyang i-launch sa publiko.
+Chineck ko na ang lahat ng cables sa likod ng computer pero hindi pa rin nag-o-open ang monitor.
+Dinownload na niya ang bagong movie na ibi-binge-watch namin mamayang gabi sa sala.
+Ni-cancel na nila ang flight namin pa-Cebu dahil sa masamang panahon doon.
+Tinype ko na ang password nang tama pero nag-error pa rin ang login page ng portal.
+In-update na nila ang security patch ng system para maiwasan ang pag-hack sa server.
+Chinat ko na ang kaklase natin para itanong kung na-upload na ba niya ang group project.
+Finormat niya ang flash drive kanina kaya na-delete lahat ng naka-save na dokumento doon.
+Dineliver na ang bagong mechanical keyboard na in-order ko online noong nakaraang linggo.
+Bawal mag-walk-in sa event na pupuntahan namin kaya nag-online booking na lang ako kagabi
+Pagkatapos kong mag-check ng aking ginawang activity, nag-download ako ng copy nito at nag-upload sa aming Gclassroom
+Nag-explain ang aming guro tungkol sa lesson namin, nag-demonstrate ng examples sa klase, at nag-assign ng activity pagkatapos ng discussion
+Nag-design ako ng aming gagamiting presentation, nag-upload ng mga pictures, nag-adjust ng mga texts at nag-download ng copy nito para hindi mawala
+Habang nagwa-watch ako ng movie, nag-order ako sa FoodPanda ng pagkain para ma-enjoy ko ang movie
+Palaging nagcra-crash kapag nagda-download ako dito.
+Kamusta na yung pina-prompt ko sa'yo after tayo mag-meeting?
+Kailangan ba talaga natin mag-cite ng libro sa pag-develop ng application?
+Hindi ko alam kung mas-okay bang i-select na lang niya yung item.
+Pwedeng pa-remove na lang ng record ko para maka-submit uli ako mamaya.
+Paki-check nga yung file kasi nag-e-error yung formula
+Nag-submit na ko pagkatapos ko mag-edit
+Nagre-review na sir so dapat naka-upload na supporting docs
+Mag-prepare ka na sa presentation later para ma-organize mo thoughts mo
+Pa-follow up nga si ma'am mamaya para ma-communicate na yung oras ng meeting sa client.
+Nag-text ako sa'yo kanina pero hindi mo na-receive kasi naka-off ang phone mo.
+Mag-shopping tayo mamaya, pero i-check muna natin kung may sale.
+Na-late siya sa meeting kasi na-traffic siya sa EDSA.
+Pa-charge naman ng phone ko, malapit na kasi itong ma-lowbat.
+Nag-order kami ng pizza tapos pina-deliver namin sa office.
+I-save mo muna ang file bago mo i-close ang laptop.
+Nag-work out ako kahapon kaya na-sore ang buong katawan ko.
+Lalo ka lang ma-stress kung i-overthink mo pa ang problema.
+Nag-download siya ng bagong app at in-install niya agad sa tablet.
+Ni-like niya ang post ko pero hindi siya nag-comment.
+Mag-review ka nang maayos para hindi ka ma-fail sa exam.
+Nag-ghost siya pagkatapos naming mag-date nang tatlong beses.
+Pa-print naman ng resume ko, kailangan ko itong i-submit bukas.
+Na-hack ang account niya kaya nag-reset siya ng password.
+Mag-commute na lang tayo kasi mahal mag-taxi ngayon.
+Naka-schedule na ang interview ko, kaya nag-prepare ako buong gabi.
+Nag-volunteer siya sa clean-up drive at nag-collect ng mga plastic sa ilog.
+I-forward mo sa akin ang email para ma-proofread ko bago ang deadline.
+Nag-crash ang laptop ko kaya hindi na-back up ang presentation ko.
+Nag-overtime ako kagabi kaya na-miss ko ang huling biyahe ng jeep.
+Grabe si Ate, nagpa-rebond na nga, nagpa-manicure pa sa iisang salon, sana all may pera.
+Tara mag-jogging tayo tuwing umaga para ma-improve naman stamina natin, hingal agad tayo e.
+Ay nako, na-cancel yung flight namin kaya nag-rebook kami for tomorrow, hassle talaga.
+Beh, i-delete mo na yung mga lumang pics mo, na-full na storage mo kaya ang bagal ng phone mo.
+Nag-sorry naman siya pero di ko pa siya na-forgive ng buo, charot, medyo lang.
+Pa-share naman ng notes mo pre, di ako naka-attend kahapon e.
+Nag-enroll ako sa online class tapos laging nagla-lag yung wifi namin, nakakainis talaga.
+Kinikilig ako, nag-propose siya sa jowa niya habang nag-hiking sila sa bundok, sana all talaga.
+Teka mag-picture muna tayo bago umalis, wala pa ko ma-upload sa IG e.
+Na-impressed daw yung boss niya kaya ayun, na-promote agad, lodi talaga.
+I-explain mo nga nang maayos, baka ma-confused lang sila lalo.
+Hala nag-sale yung mall, na-tempt tuloy akong mag-splurge, ubos na naman sweldo ko.
+Mag-video call na lang tayo, ang lakas ng ulan, tinatamad na rin akong mag-meet sa labas.
+Buong araw akong nag-research tapos nag-summarize pa ko ng data, lutang na talaga ko.
+Pa-confirm naman kung tuloy party, para ma-finalize ko na guest list.
+Jusko, na-scam si tita online, ayun ni-report na namin sa pulis.
+Edi i-unfollow mo na siya, lagi ka na lang naba-bad trip sa mga post niya e.
+Nag-sleep over kami kina Carla tapos nag-binge-watch kami ng K-drama hanggang umaga.
+Mag-budget ka kasi, para di ka ma-short bago sweldo, ikaw din.
+Natawa ako kasi nag-reply agad siya, na-gets niya pala yung joke ko.
+mag-lunch ako sa karinderya
+wait lang natatae ako
+nice game pare
+pa-send picture thank you
+update mo ako
+I-try mo yung bagong recipe na 'to, promise mag-eenjoy yung family mo.
+Nagka-crush ako sa kanya nung high school pero never ako nag-confess, torpe e.
+Pa-selfie naman kami ni Lola, ipa-frame ko yung picture para sa sala.
+Naka-leave ako bukas kaya na-move yung presentation ko sa Monday, hay salamat.
+Nag-detour kami kasi na-flooded na yung kalsada malapit sa palengke.
+Dapat mag-recycle na tayo ng mga bote, tsaka i-segregate niyo nga basura dito sa bahay.
+Sila pala nag-donate ng relief goods tsaka nag-organize ng feeding program, ang bait nila.
+Na-shocked ako, nag-resign na pala siya, wala man lang paalam.
+I-remind mo ko mamaya ha, baka ma-forgot ko na naman appointment ko sa dentist.
+Ayan ka na naman, nag-assume ka agad, di mo man lang ni-clarify sa akin.
+Ako nag-babysit sa pamangkin ko kanina habang nag-grocery si Ate.
+Pa-reserve naman po ng table for six, mag-celebrate po kami ng birthday ni Mama.
+Grabe, na-stuck kami sa elevator ng halos isang oras bago kami na-rescue.
+Kung gusto mo talaga ma-master yung gitara, mag-practice ka araw-araw, hindi yung pag trip mo lang.
+Nag-update yung app kagabi tapos ngayon nagli-glitch na yung ibang features, ano ba yan.
+I-scan mo lang yung QR code para ma-access mo yung menu.
+Tatlong company inapplyan ko pero isa lang nag-call back, sad.
+Na-inspired ako sa speech niya kaya nag-sign up agad ako sa leadership seminar.
+Mag-carpool na lang tayo, tipid pa, tsaka di na tayo mag-park ng magkahiwalay.
+Nag-cram ako kagabi kaya ayun, na-blank ako sa quiz kanina.
+Kuya, pa-refill po ng iced tea, tsaka pa-take out na rin po nung natirang ulam.
+I-tag mo ko sa pic ha, para ma-repost ko sa story ko.
+Nag-feeling close agad siya e kaka-introduce pa lang namin sa isa't isa.
+Uy naka-mute ka yata, paki-test mo nga ulit mic mo, di ka namin naririnig.
+Nag-tantrums yung bata kasi ni-confiscate ng nanay niya yung tablet.
+may na-see ako
+Gusto sana kitang puntahan, pero sobrang busy ko sa work kaya hindi ako nakapunta
+Hindi ako galit sa'yo, I just need some time alone because I have a lot on my mind.
+You should take a rest muna dahil you've been working hard all day, and you deserve some time for yourself.
+I wanted to join the meeting, but I couldn't attend kasi may importanteng kailangan akong tapusin.
+Mag-sunscreen ka bago lumabas ha, para di ka ma-sunburned.
+Siya nag-host nung webinar tapos nag-invite pa siya ng mga expert sa climate change, ang galing.
+Shet na-wrong send ako sa GC, buti na-unsend ko agad.
+I-plug mo muna yung extension bago mo i-on yung electric fan.
+Nag-bake si Lola ng ensaymada tapos pina-raffle pa namin yung isang box nung reunion.
+Naka-focused ako sa thesis ko kaya nag-deactivate muna ako ng FB.
+Nag-trending yung video niya kaya ayun, na-interview pa siya sa TV, sikat na si ate mo.
+Pa-photocopy naman nito, kailangan ko 'tong ma-notarize bukas.
+Nag-swimming kami sa resort tapos nag-videoke hanggang hatinggabi, sinita pa kami ng guard.
+Paki-adjust naman yung aircon, nagfi-freeze na kami dito.
+Na-hooked ako sa bagong series kaya nag-marathon ako buong weekend, wala na kong tulog.
+Nag-decide na kami, mag-migrate na kami sa Canada next year, sana matuloy.
+Nag-camping kami sa Rizal kaso na-drained agad yung powerbank namin.
+I-highlight mo yung mga importanteng points para mas madali mo ma-memorize.
+Sa wakas nag-graduate na rin siya, kaya nag-blow out siya sa buong barkada.
+hala na-seen zone na naman ako ni crush sa discord kanina ko pa ni-refresh yung DMs namin
