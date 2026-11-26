@@ -105,7 +105,8 @@ function buildSteps(hasCorrections, applied, corpusLoaded) {
         key: "similar",
         title: "Edit distance and Edit Distance Score (EDS)",
         seconds: 11,
-        description: "Candidate words come from the word lists within 2 edits of what you typed (banded edit distance, |i − j| ≤ 2).",
+        description:
+          "Candidate words come from the word lists within 2 edits of what you typed (Levenshtein distance), and each gets an Edit Distance Score (EDS).",
       },
       {
         key: "place",

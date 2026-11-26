@@ -513,31 +513,39 @@ export default function CorrectionStage({ stepKey, focused, tokens, weights, can
           {summary.candidates_considered ? ` ${summary.candidates_considered} were tested; the best five are shown.` : ""}
         </Lead>
         <FormulaStrip>
-          For 1 ≤ i ≤ m and 1 ≤ j ≤ n within the band (|i − j| ≤ {weights.max_edit_distance}):
+          Levenshtein distance between the misspelled word w and a candidate c:
           <br />
-          <Term>D</Term>(i, j) = min {"{"}
+          <Term>lev</Term>
+          <sub>w,c</sub>(i, j) = max(i, j) <span className="text-slate-500">if min(i, j) = 0</span>
           <br />
-          &nbsp;&nbsp;D(i − 1, j) + 1 <span className="text-slate-500">(deletion)</span>,
+          otherwise <Term>lev</Term>
+          <sub>w,c</sub>(i, j) = min {"{"}
           <br />
-          &nbsp;&nbsp;D(i, j − 1) + 1 <span className="text-slate-500">(insertion)</span>,
+          &nbsp;&nbsp;lev<sub>w,c</sub>(i − 1, j) + 1 <span className="text-slate-500">(deletion)</span>,
           <br />
-          &nbsp;&nbsp;D(i − 1, j − 1) + δ(A[i], B[j]) <span className="text-slate-500">(substitution)</span>
+          &nbsp;&nbsp;lev<sub>w,c</sub>(i, j − 1) + 1 <span className="text-slate-500">(insertion)</span>,
+          <br />
+          &nbsp;&nbsp;lev<sub>w,c</sub>(i − 1, j − 1) + 𝟙(w<sub>i</sub> ≠ c<sub>j</sub>){" "}
+          <span className="text-slate-500">(match or substitution)</span>
           <br />
           {"}"}
           <br />
-          δ(A[i], B[j]) = 0 if A[i] = B[j], otherwise 1
+          𝟙(w<sub>i</sub> ≠ c<sub>j</sub>) = 1 if the i-th letter of w differs from the j-th letter of c, otherwise 0
+          <br />
+          d(w, c) = lev<sub>w,c</sub>(|w|, |c|), and c is a candidate when d(w, c) ≤ {weights.max_edit_distance}
         </FormulaStrip>
         <FormulaStrip delay={400}>
           <Term>EDS</Term>(c) = 1 − d(w, c) ÷ max(|w|, |c|){" "}
           <span className="text-slate-500">
-            (d: edits, each adding, removing or replacing one letter; |w|, |c|: letters in the misspelled word and the candidate)
+            (|w|, |c|: letters in the misspelled word and the candidate; fewer edits give a higher score)
           </span>
         </FormulaStrip>
         <p className="walk-rise mb-3 rounded-md bg-slate-100 px-3 py-2 text-xs text-slate-700">
           {suggestions
             .map(
               (candidate) =>
-                `${candidate.word}: 1 − ${candidate.edit_distance} ÷ ${Math.max(error.text.length, candidate.word.length)} = ${format(candidate.scores.edit_distance)}`,
+                `${candidate.word}: d = lev(${error.text.length}, ${candidate.word.length}) = ${candidate.edit_distance}, ` +
+                `EDS = 1 − ${candidate.edit_distance} ÷ ${Math.max(error.text.length, candidate.word.length)} = ${format(candidate.scores.edit_distance)}`,
             )
             .join(" · ")}
           <span className="ml-2">

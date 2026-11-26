@@ -206,7 +206,7 @@ export default function Suggestions({ text = "", errors = [], onApply, notice = 
                         {item.word}
                       </span>
                       <p className="text-xs text-slate-500">
-                        Spelling similarity{" "}
+                        EDS{" "}
                         {formatScore(item.scores?.edit_distance)} · Sentence fit{" "}
                         {formatScore(item.scores?.dependency_compatibility)}
                       </p>

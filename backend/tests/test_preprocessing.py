@@ -7,7 +7,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from preprocessing.automaton import WordAutomaton  # noqa: E402
-from preprocessing.lexicon import normalize  # noqa: E402
+from preprocessing.lexicon import WORDLIST_DIR, normalize, read_wordlist  # noqa: E402
 
 
 def right_language(automaton, state, memo):
@@ -73,6 +73,28 @@ class NormalizeTest(unittest.TestCase):
 
     def test_unifies_apostrophes(self):
         self.assertEqual(normalize("o’clock"), "o'clock")
+
+
+class WordlistTest(unittest.TestCase):
+    """The shipped word lists (built from UD treebanks) cover function words and leave out typos."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.english = read_wordlist(WORDLIST_DIR / "english.txt")
+        cls.tagalog = read_wordlist(WORDLIST_DIR / "tagalog.txt")
+
+    def test_english_function_words(self):
+        for word in ["the", "a", "an", "and", "of", "to", "for", "with", "because", "what",
+                     "i", "you", "she", "her", "them", "would", "don't", "i'm"]:
+            self.assertIn(word, self.english)
+
+    def test_tagalog_function_words(self):
+        for word in ["ang", "ng", "sa", "ay", "at", "ako", "akong", "isang"]:
+            self.assertIn(word, self.tagalog)
+
+    def test_treebank_typos_left_out(self):
+        for typo in ["targetting", "nagaski", "hirsohima"]:
+            self.assertNotIn(typo, self.english)
 
 
 if __name__ == "__main__":

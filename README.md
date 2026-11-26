@@ -337,12 +337,16 @@ per line, `#` for comments). On startup the API encodes each list as a minimal
 acyclic DFA (`backend/preprocessing/automaton.py`) and caches it in `backend/data/automata/`;
 the cache is rebuilt automatically whenever a word list changes.
 
-- `english.txt` is generated from [Open English WordNet](https://github.com/globalwordnet/english-wordnet)
-  2025 (CC BY 4.0). To regenerate it:
+Both lists are generated from [Universal Dependencies](https://universaldependencies.org/)
+treebanks, pinned to release r2.19: every word form and lemma in the treebank, plus contractions as
+written ("don't", "akong"), leaving out tokens UD marks as typos, punctuation, numbers and acronyms
+(details in `backend/scripts/ud_source.py`).
+
+- `english.txt` is generated from [UD_English-EWT](https://github.com/UniversalDependencies/UD_English-EWT)
+  (CC BY-SA 4.0, about 17,600 words). To regenerate it:
   `.\.venv\Scripts\python.exe scripts\build_english_wordlist.py` (from `backend`)
-- `tagalog.txt` is generated from Wiktionary's Tagalog entries via
-  [kaikki.org](https://kaikki.org/dictionary/Tagalog/) (CC BY-SA 4.0), a stand-in
-  until the KWF Diksiyonaryo list is available. To regenerate it:
+- `tagalog.txt` is generated from [UD_Tagalog-Ugnayan](https://github.com/UniversalDependencies/UD_Tagalog-Ugnayan)
+  (CC BY-NC-SA 4.0, non-commercial use only, about 430 words). To regenerate it:
   `.\.venv\Scripts\python.exe scripts\build_tagalog_wordlist.py` (from `backend`)
 
 ## Error detection module (`backend/error_detection/`)
@@ -362,7 +366,8 @@ the affix inventory and hyphenation rules are in `morphology.py`.
 Each spelling or hyphenation error from the detection module gets up to five
 ranked `suggestions` in the `/api/check` response. A Levenshtein automaton is
 traversed with the word-list automata to find words within two edits
-(one edit for words of three letters or fewer). Each candidate is placed in the
+(Levenshtein distance d). Each candidate gets the Edit Distance Score
+`EDS = 1 - d / max(|w|, |c|)` and is placed in the
 sentence and re-parsed, then scored by `ta_wdca/` (Dependency Neighborhood
 Analysis, Cross-Language Dependency Compatibility, Dependency Compatibility
 Score) and by the Context Score from the Correct Taglish Corpus (POS Annotation
